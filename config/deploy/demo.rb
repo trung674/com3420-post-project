@@ -1,12 +1,12 @@
 ## Application deployment configuration
-set :server,      'DEMO_SERVER'
-set :user,        'DEMO_USER'
+set :server,      'epi-stu-hut-demo1.shef.ac.uk'
+set :user,        'demo.team07'
 set :deploy_to,   -> { "/srv/services/#{fetch(:user)}" }
 set :log_level,   :debug
-
+ 
 ## Server configuration
 server fetch(:server), user: fetch(:user), roles: %w{web app db}
-
+ 
 ## Additional tasks
 namespace :deploy do
   task :seed do

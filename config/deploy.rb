@@ -1,7 +1,7 @@
 ## Application configuration
 set :application,             'lab4'
 set :scm,                     :git
-set :repo_url,                'git@git.software-hut.org.uk:group-name/project-name.git'
+set :repo_url,                'git@git.software-hut.org.uk:hut-team07/project.git'
 set :linked_files,            fetch(:linked_files,  fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs,             fetch(:linked_dirs, []).push('log', 'tmp/pids', 'uploads')
 # set the locations to look for changed assets to determine whether to precompile
@@ -9,7 +9,7 @@ set :assets_dependencies,     %w(app/assets lib/assets vendor/assets)
 
 ## Ruby configuration
 set :rvm_type,                :system
-set :rvm_ruby_version,        '2.1.8'
+set :rvm_ruby_version,        '2.1.7'
 set :rvm_path,                '/usr/local/rvm'
 
 ## Capistrano configuration
