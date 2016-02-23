@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  database: lab4_dev
+  host: localhost
+  min_messages: warning
+  username:
+
+test:
+  adapter: postgresql
+  database: lab4_test
+  host: localhost
+  min_messages: warning
+  username:
