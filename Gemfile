@@ -38,6 +38,9 @@ gem 'delayed_job_active_record'
 gem 'delayed-plugins-airbrake'
 gem 'daemons'
 
+# Uploading
+gem 'carrierwave'
+
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do
   # coffee-script-source >= 1.9 is broken on Windows

@@ -39,3 +39,5 @@ coverage/index.html
 /tmp
 
 /config/database.yml
+
+Gemfile.lock
