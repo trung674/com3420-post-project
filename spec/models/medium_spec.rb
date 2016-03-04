@@ -2,16 +2,17 @@
 #
 # Table name: media
 #
-#  id          :integer          not null, primary key
-#  title       :string           not null
-#  description :text             not null
-#  location    :string
-#  upload      :string
-#  transcript  :string
-#  orig_date   :date
-#  approved    :boolean          default(FALSE), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id             :integer          not null, primary key
+#  upload         :string
+#  transcript     :string
+#  public_ref     :boolean
+#  education_use  :boolean
+#  public_archive :boolean
+#  publication    :boolean
+#  broadcasting   :boolean
+#  editing        :boolean
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 require 'rails_helper'
