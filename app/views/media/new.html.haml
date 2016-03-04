@@ -1,12 +1,7 @@
 %h1 Upload
 
 = simple_form_for(@medium) do |f|
-  = f.input :title
   = f.input :upload, as: :file
   = f.input :upload_cache, as: :hidden
-  = f.input :description
-  = f.input :location
-  = f.input :orig_date
-
 
   = f.button :submit

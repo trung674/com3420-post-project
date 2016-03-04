@@ -16,5 +16,7 @@
 #
 
 class Medium < ActiveRecord::Base
+  has_many :records, dependent: :destroy
+
   mount_uploader :upload, MediumUploader
 end

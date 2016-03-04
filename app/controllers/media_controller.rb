@@ -21,8 +21,18 @@ class MediaController < ApplicationController
     @medium = Medium.new
   end
 
+  def create
+    @medium = Medium.new(medium_params)
+
+    if @medium.save
+      redirect_to media_url, notice: 'Upload successful'
+    else
+      render :new
+    end
+  end
+
   private
-    def post_params
-      params.require(:post).permit(:title, :description, :location, :upload, :upload_cache, :orig_date)
+    def medium_params
+      params.require(:medium).permit(:upload, :upload_cache)
     end
 end
