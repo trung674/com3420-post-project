@@ -1,14 +1,19 @@
-- content_for :title, "Map"
+- content_for :title, 'Map'
 
-%img(src='1088709.jpg')
+/ map div
 
-%h2 Flash Examples
-.well
-  %button#show-flash.btn.btn-default{ type: :button }
-    Show flash message
+#map{:style => 'width: 800px; height: 510px;'}
+
+:javascript
+    $(document).ready( function() {
+      handler = Gmaps.build('Google');
+      handler.buildMap({ internal: {id: 'map'} }, function(){
+        var marker = handler.addMarker({
+        lat: 55,
+        lng: -2
+        });
+        handler.map.centerOn(marker);
+       });
+    });
 
 
-:coffee
-  $ ->
-    $('#show-flash').on 'click', ->
-      $.flashAlert('You Smell!', 'alert-success')

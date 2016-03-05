@@ -8,3 +8,5 @@
 //= require modal
 //= require select2
 //= require select2_init
+//= require underscore
+//= require gmaps_google
