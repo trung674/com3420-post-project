@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get :ie_warning, to: 'errors#ie_warning'
     get :javascript_warning, to: 'errors#javascript_warning'
 
-    root to: "pages#home"
+    root to: 'pages#home'
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
     #TODO add routing stuff here!!
