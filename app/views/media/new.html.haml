@@ -1,7 +1,23 @@
 %h1 Upload
 
-= simple_form_for(@medium) do |f|
-  = f.input :upload, as: :file
-  = f.input :upload_cache, as: :hidden
+%div.panel.panel-default
+  %div.panel-body
+    = simple_form_for(@medium) do |f|
+      = f.input :upload, as: :file, :label => false
+      = f.input :upload_cache, as: :hidden
 
-  = f.button :submit
+      %hr
+      %h4 Village Memories Group may use my contribution for:
+
+      = f.input :public_ref, :label => 'Public reference, eg talks, exhibitions'
+      = f.input :education_use, :label => 'Educational use, eg in schools'
+      = f.input :public_archive, :label => 'Public archive'
+      = f.input :publication, :label => 'Publication'
+      = f.input :broadcasting, :label => 'Broadcasting use on radio/TV or on the web'
+      = f.input :editing, :label => 'Editing for the above purposes'
+
+      %hr
+
+      =  f.input :copyright, :as => :boolean, :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)'
+
+      = f.button :submit, 'Upload'

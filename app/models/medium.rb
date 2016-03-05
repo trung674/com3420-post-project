@@ -17,6 +17,7 @@
 
 class Medium < ActiveRecord::Base
   has_many :records, dependent: :destroy
+  attr_accessor :copyright
 
   mount_uploader :upload, MediumUploader
 end

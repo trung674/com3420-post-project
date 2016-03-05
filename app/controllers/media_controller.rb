@@ -33,6 +33,7 @@ class MediaController < ApplicationController
 
   private
     def medium_params
-      params.require(:medium).permit(:upload, :upload_cache)
+      params.require(:medium).permit(:upload, :upload_cache, :public_ref, :education_use, :public_archive,
+                                     :publication, :broadcasting, :editing, :copyright)
     end
 end
