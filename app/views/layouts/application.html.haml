@@ -46,9 +46,21 @@
               = navbar_link_to :root, title: "Go to the home page", identifier: :home do
                 = fa_icon 'home'
                 Home
-              = navbar_link_to '#', title: "Go to another page", identifier: :another_page do
-                = fa_icon 'question-circle'
-                Another Page
+              = navbar_link_to 'media/new', title: "Go to the upload page", identifier: :X do
+                = fa_icon 'upload'
+                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                Upload
+              = navbar_link_to '#', title: "Go to the X page", identifier: :X do
+                = fa_icon 'university'
+                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                About
+              = navbar_link_to '#', title: "Go to the map page", identifier: :X do
+                = fa_icon 'map-marker'
+                Memories Map
+              = navbar_link_to '#', title: "Go to the X page", identifier: :X do
+                = fa_icon 'envelope'
+                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                Contact
             -# - if user_signed_in?
             -#   %ul.nav.navbar-nav.navbar-right
             -#     %li.dropdown
@@ -70,3 +82,6 @@
         %p
           &copy;#{Date.today.year}
           = link_to 'Memories Group', 'https://www.harryh.eu', target: '_blank', title: 'Go to VMG Homepage'
+        %div.footer_img
+          %img(src='lottery_img.png')
+

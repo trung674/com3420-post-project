@@ -10,3 +10,7 @@
   *= require custom_flash
   *= require environment_notice
 */
+
+div.footer_img img{
+    height:100px;
+}
