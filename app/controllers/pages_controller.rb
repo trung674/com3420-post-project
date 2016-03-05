@@ -8,4 +8,8 @@ class PagesController < ApplicationController
     @current_nav_identifier = :map
   end
   
+  def about
+    @current_nav_identifier = :about
+  end  
+
 end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     root to: 'pages#home'
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
+    get '/about', to: 'pages#about'
     #TODO add routing stuff here!!
 
 
