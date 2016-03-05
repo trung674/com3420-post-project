@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
 
-  match "/403", to: "errors#error_403", via: :all
-  match "/404", to: "errors#error_404", via: :all
-  match "/422", to: "errors#error_422", via: :all
-  match "/500", to: "errors#error_500", via: :all
+    match "/403", to: "errors#error_403", via: :all
+    match "/404", to: "errors#error_404", via: :all
+    match "/422", to: "errors#error_422", via: :all
+    match "/500", to: "errors#error_500", via: :all
 
-  get :ie_warning, to: 'errors#ie_warning'
-  get :javascript_warning, to: 'errors#javascript_warning'
+    get :ie_warning, to: 'errors#ie_warning'
+    get :javascript_warning, to: 'errors#javascript_warning'
 
-  root to: "pages#home"
-  get '/map', to: 'pages#map'
-  #TODO add routing stuff here!!
+    root to: "pages#home"
+    get '/upload', to: 'media#new'
+    get '/map', to: 'pages#map'
+    #TODO add routing stuff here!!
 
 
-  resources :media
+    resources :media
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
