@@ -1,0 +1,14 @@
+- content_for :title, "Map"
+
+%img(src='1088709.jpg')
+
+%h2 Flash Examples
+.well
+  %button#show-flash.btn.btn-default{ type: :button }
+    Show flash message
+
+
+:coffee
+  $ ->
+    $('#show-flash').on 'click', ->
+      $.flashAlert('You Smell!', 'alert-success')

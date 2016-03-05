@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get :javascript_warning, to: 'errors#javascript_warning'
 
   root to: "pages#home"
+  get '/map', to: 'pages#map'
+
 
   resources :media
 
