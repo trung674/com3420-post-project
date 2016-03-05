@@ -9,10 +9,28 @@
       handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
         var marker = handler.addMarker({
-        lat: 55,
-        lng: -2
+          lat: 53.453,
+          lng: -1.213
+        });
+        handler.addMarker({
+          lat: 53.45,
+          lng: -1.22
+        });
+        handler.addMarker({
+          lat: 53.46,
+          lng: -1.23
+        });
+        handler.addMarker({
+          lat: 53.449,
+          lng: -1.213
+        });
+        handler.addMarker({
+          lat: 53.45,
+          lng: -1.22
         });
         handler.map.centerOn(marker);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(14);
        });
     });
 
