@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
     get '/about', to: 'pages#about'
-    #TODO add routing stuff here!!
+    #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 
     resources :media
