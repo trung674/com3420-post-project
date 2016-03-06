@@ -9,8 +9,10 @@ gem 'puma'
 gem 'pg'
 
 gem 'airbrake'
-#harry's gem
+
+#harry's gems
 gem 'gmaps4rails'
+gem 'geocoder'
 
 gem 'haml-rails'
 gem 'sass-rails'
