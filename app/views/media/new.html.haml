@@ -6,6 +6,12 @@
       = f.input :upload, as: :file, :label => false
       = f.input :upload_cache, as: :hidden
 
+      = f.simple_fields_for :records, f.object.records.build do |r|
+        = r.input :title
+        = r.input :location
+        = r.input :description, as: :text
+        = r.input :ref_date, :label => 'Date'
+
       %hr
       %h4 Village Memories Group may use my contribution for:
 
@@ -20,4 +26,4 @@
 
       =  f.input :copyright, :as => :boolean, :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)'
 
-      = f.button :submit, 'Upload'
+      = f.button :submit, 'Upload', class: 'btn btn-primary'
