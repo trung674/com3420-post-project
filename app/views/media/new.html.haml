@@ -24,6 +24,9 @@
 
       %hr
 
-      =  f.input :copyright, :as => :boolean, :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)'
+      = f.input :copyright, :as => :boolean, :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)'
+      = recaptcha_tags
+
+      %br
 
       = f.button :submit, 'Upload', class: 'btn btn-primary'

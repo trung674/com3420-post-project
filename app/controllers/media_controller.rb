@@ -24,8 +24,8 @@ class MediaController < ApplicationController
   def create
     @medium = Medium.new(medium_params)
 
-    if @medium.save
-      redirect_to media_url, notice: 'Upload successful'
+    if verify_recaptcha(model: @medium) && @medium.save
+      redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
       render :new
     end

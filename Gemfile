@@ -42,6 +42,7 @@ gem 'daemons'
 
 # Uploading
 gem 'carrierwave'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do
