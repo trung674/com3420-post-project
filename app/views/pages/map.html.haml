@@ -8,9 +8,9 @@
     $(document).ready( function() {
       handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
-        var marker = handler.addMarker({
-          lat: 53.453,
-          lng: -1.213
+        handler.addMarker({
+          lat: 53.452,
+          lng: -1.212
         });
         handler.addMarker({
           lat: 53.45,
@@ -28,7 +28,7 @@
           lat: 53.45,
           lng: -1.22
         });
-        handler.map.centerOn(marker);
+        handler.map.centerOn({lat: 53.453, lng: -1.213});
         handler.fitMapToBounds();
         handler.getMap().setZoom(14);
        });
