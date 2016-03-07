@@ -43,30 +43,29 @@
                 %h4{:class => "nav-title"} Braithwell, Micklebring and Cliffton Villages
             .col-md-5
               .row
-                .navbar.right
-                  %ul.nav.navbar-nav
-                    = navbar_link_to :root, title: "Go to the home page", identifier: :home do
-                      = fa_icon 'home'
-                      Home
-                    = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
-                      = fa_icon 'upload'
-                      -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                      Upload
-                    = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
-                      = fa_icon 'university'
-                      -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                      About
-                    = navbar_link_to '#', title: "Go to the event page", identifier: :X do
-                      = fa_icon 'child'
-                      -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                      Events
-                    = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
-                      = fa_icon 'map-marker'
-                      Map
-                    = navbar_link_to '#', title: "Go to the contact page", identifier: :X do
-                      = fa_icon 'envelope'
-                      -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                      Contact
+                %ul.nav.navbar-nav.navbar-right.pull-left
+                  = navbar_link_to :root, title: "Go to the home page", identifier: :home do
+                    = fa_icon 'home'
+                    Home
+                  = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
+                    = fa_icon 'upload'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Upload
+                  = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
+                    = fa_icon 'university'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    About
+                  = navbar_link_to '#', title: "Go to the event page", identifier: :X do
+                    = fa_icon 'child'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Events
+                  = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
+                    = fa_icon 'map-marker'
+                    Map
+                  = navbar_link_to '#', title: "Go to the contact page", identifier: :X do
+                    = fa_icon 'envelope'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Contact
               .row
                 .input-group
                   %span{:class => "input-group-addon"}
