@@ -80,10 +80,9 @@
 
       %footer#footer
         %nav.navbar.navbar-default
-          .row
+          .row#footer-row
             .col-md-6
               %div.footer_img
                 = image_tag('lottery_img.png')
-            .col-md-6
-              %h3.pull-right
-                %a{:href => "#"} Moderator Login
+            .col-md-3.pull-right#moderator-login
+              %a.pull-right{:href => "#"} Moderator Login
