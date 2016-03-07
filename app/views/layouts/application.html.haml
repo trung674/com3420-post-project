@@ -33,7 +33,6 @@
           %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
           %p Please enable JavaScript or use a different web browser, or alternatively contact the CiCS Helpdesk for assistance.
 
-<<<<<<< HEAD
     .container
       %nav.navbar.navbar-default
         .container-fluid
@@ -71,73 +70,16 @@
                   %input{:type => "text", :class => "form-control", :placeholder => "Search"}
                   %span.input-group-btn
                     %button{:class => "btn btn-default", :type => "buton"}Search
-=======
-    #wrap
-      %nav#main-nav.navbar.navbar-default.navbar-fixed-top
-        .container
-          .navbar-header
-            %button.navbar-toggle{ data: { target: ".navbar-collapse", toggle: :collapse, type: :button } }
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-            = link_to :root, class: 'navbar-brand hidden-sm' do
-              Village Memories Group
-
-          .collapse.navbar-collapse
-            %ul.nav.navbar-nav
-              = navbar_link_to :root, title: "Go to the home page", identifier: :home do
-                = fa_icon 'home'
-                Home
-              = navbar_link_to new_medium_path, title: "Go to the upload page", identifier: :X do
-                = fa_icon 'upload'
-                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                Upload
-              = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
-                = fa_icon 'university'
-                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                About
-              = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
-                = fa_icon 'map-marker'
-                Memories Map
-              = navbar_link_to '#', title: "Go to the X page", identifier: :X do
-                = fa_icon 'envelope'
-                -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                Contact
-            -# - if user_signed_in?
-            -#   %ul.nav.navbar-nav.navbar-right
-            -#     %li.dropdown
-            -#       = link_to '#', data: { toggle: :dropdown }, class: 'dropdown-toggle' do
-            -#         = fa_icon 'user', text: current_user.email
-            -#         %b.caret
-            -#       %ul.dropdown-menu
-            -#         %li
-            -#           = link_to destroy_user_session_path, method: :delete, title: "Log out of the system" do
-            -#             %i.fa.fa-sign-out
-            -#             Log out
-
-      #main-container.container
->>>>>>> d7f0e39fe87fe2ef6214cabc7a8ecec12680d88c
 
       #main-container
         = yield
 
-<<<<<<< HEAD
       %footer#footer
         %nav.navbar.navbar-default
           .row
             .col-md-6
               %div.footer_img
-                %img(src='lottery_img.png')
+                = image_tag('lottery_img.png')
             .col-md-6
               %h3.pull-right
                 %a{:href => "#"} Moderator Login
-=======
-    %footer#footer
-      .container
-        %p
-          &copy;#{Date.today.year}
-          = link_to 'Memories Group', 'https://www.harryh.eu', target: '_blank', title: 'Go to VMG Homepage'
-        %div.footer_img
-          = image_tag('lottery_img.png')
-
->>>>>>> d7f0e39fe87fe2ef6214cabc7a8ecec12680d88c
