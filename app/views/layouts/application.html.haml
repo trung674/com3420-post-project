@@ -48,7 +48,11 @@
                     = navbar_link_to :root, title: "Go to the home page", identifier: :home do
                       = fa_icon 'home'
                       Home
-                    = navbar_link_to '#', title: "Go to the about page", identifier: :X do
+                    = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
+                      = fa_icon 'upload'
+                      -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                      Upload
+                    = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
                       = fa_icon 'university'
                       -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
                       About
@@ -56,7 +60,7 @@
                       = fa_icon 'child'
                       -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
                       Events
-                    = navbar_link_to '#', title: "Go to the map page", identifier: :X do
+                    = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
                       = fa_icon 'map-marker'
                       Map
                     = navbar_link_to '#', title: "Go to the contact page", identifier: :X do
