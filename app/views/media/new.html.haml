@@ -7,10 +7,10 @@
       = f.input :upload_cache, as: :hidden
 
       = f.simple_fields_for :records, f.object.records.build do |r|
-        = r.input :title
+        = r.input :title, required: true
         = r.input :location
-        = r.input :description, as: :text
-        = r.input :ref_date, :label => 'Date'
+        = r.input :description, as: :text, required: true
+        = r.input :ref_date, :label => 'Date', :include_blank => true
 
       %hr
       %h4 Village Memories Group may use my contribution for:
@@ -24,7 +24,8 @@
 
       %hr
 
-      = f.input :copyright, :as => :boolean, :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)'
+      = f.input :copyright, :as => :boolean,
+          :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)', required: true
       = recaptcha_tags
 
       %br
