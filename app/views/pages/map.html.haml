@@ -2,15 +2,24 @@
 
 / map div
 
-#map{:style => 'width: 800px; height: 510px; margin: 0 auto;'}
+#map{:style => 'width: 800px; height: 510px;'}
+
+#floating-panel
+  %input#address{:type => "textbox", :value => "Clifton, Rotherham"}
+  %input#submit{:type => "button", :value => "Search"}
+
+-#  this is what I need Geocoder.search("Braithwell Church", :params => {:region => "..."})
 
 :javascript
     $(document).ready( function() {
-      handler = Gmaps.build('Google');
+      var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
-        var marker = handler.addMarker({
-          lat: 53.453,
-          lng: -1.213
+       handler.map.centerOn({lat: 53.455, lng: -1.209});
+       handler.fitMapToBounds();
+       handler.getMap().setZoom(14);
+        handler.addMarker({
+          lat: 53.452,
+          lng: -1.212
         });
         handler.addMarker({
           lat: 53.45,
@@ -28,10 +37,8 @@
           lat: 53.45,
           lng: -1.22
         });
-        handler.map.centerOn(marker);
-        handler.fitMapToBounds();
-        handler.getMap().setZoom(14);
-       });
-    });
+      });
+
+     });
 
 

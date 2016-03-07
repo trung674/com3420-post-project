@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby '2.2.4'
+ruby '2.1.7'
 gem 'rails', '4.2.5.1'
 gem 'responders', '~> 2.1'
 gem 'activerecord-session_store'
@@ -9,8 +9,10 @@ gem 'puma'
 gem 'pg'
 
 gem 'airbrake'
-#harry's gem
+
+# mapping/location gems
 gem 'gmaps4rails'
+gem 'geocoder'
 
 gem 'haml-rails'
 gem 'sass-rails'
@@ -42,6 +44,7 @@ gem 'daemons'
 
 # Uploading
 gem 'carrierwave'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do

@@ -19,5 +19,6 @@ class Medium < ActiveRecord::Base
   has_many :records, dependent: :destroy
   attr_accessor :copyright
 
+  accepts_nested_attributes_for :records
   mount_uploader :upload, MediumUploader
 end

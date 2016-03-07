@@ -3,7 +3,6 @@
 # Table name: records
 #
 #  id          :integer          not null, primary key
-#  media_id    :integer
 #  title       :string
 #  description :string
 #  location    :string
@@ -11,10 +10,11 @@
 #  approved    :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  medium_id   :integer
 #
 # Indexes
 #
-#  index_records_on_media_id  (media_id)
+#  index_records_on_medium_id  (medium_id)
 #
 
 class Record < ActiveRecord::Base

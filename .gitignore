@@ -5,7 +5,7 @@ config/settings.yml
 config/setup_load_paths.rb
 log/*.log
 tmp/
-
+config/initializers/errbit.rb
 .DS_Store
 coverage
 coverage/assets
