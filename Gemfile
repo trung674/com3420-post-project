@@ -10,7 +10,7 @@ gem 'pg'
 
 gem 'airbrake'
 
-#harry's gems
+# mapping/location gems
 gem 'gmaps4rails'
 gem 'geocoder'
 
