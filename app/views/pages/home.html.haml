@@ -1,15 +1,3 @@
 - content_for :title, "Home"
 .img-container
   =image_tag('braithwellChurch.jpg')
-
-%h2 Flash Examples
-.well
-  %button#show-flash.btn.btn-default{ type: :button }
-    Show flash message
-
-
-    
-:coffee
-  $ ->
-    $('#show-flash').on 'click', ->
-      $.flashAlert('You Smell!', 'alert-success')
