@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
     get '/about', to: 'pages#about'
+    get '/contact', to: 'pages#contact'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 
