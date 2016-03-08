@@ -1,0 +1,37 @@
+- content_for :title, "Map"
+
+!!!
+%html
+  %body
+    %table{:width => "40%"}
+      %tr
+        %td
+          %h2 Contact Us
+      %tr
+        %td
+          %form{:action => "MAILTO:someone@example.com", :method => "post", :enctype => "text/plain"}
+          Name:
+          %br/
+          %input{:name => "from", :id => "from", :type => "text"}/
+          %br/
+          E-mail:
+          %br/
+          %input{:name => "mail", :type => "text"}/
+          %br/
+          Comment:
+          %br/
+          %textarea{:cols => "50", :rows => "10"}
+          %br/
+          %br/
+          %input{:type => "submit", :value => "Send"}/
+          %input{:type => "reset", :value => "Reset"}/
+    %table{:width => "40%"}
+      %tr
+        %td
+          %h2 Our Address
+      %tr
+        %td
+          %p 123 Street Name
+          %p Sheffield
+          %p South Yorkshire
+          %p POSTCODE
