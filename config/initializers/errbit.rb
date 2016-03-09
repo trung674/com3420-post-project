@@ -12,6 +12,4 @@ Airbrake.configure do |config|
   config.host = 'errbit.software-hut.org.uk'
   config.post = 443
   config.secure = config.post == 443
-
-
 end
