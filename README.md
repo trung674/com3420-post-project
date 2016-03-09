@@ -1,8 +1,8 @@
-# lab4
+# Village Memories Group
 ---
 
 ### Description
-Describe your app here...
+Website for the archiving and management of oral history & files
 
 ### Significant Features/Technology
 The system has the following:
