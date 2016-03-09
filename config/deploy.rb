@@ -1,5 +1,5 @@
 ## Application configuration
-set :application,             'Village Memories Group'
+set :application,             'software-hut'
 set :scm,                     :git
 set :repo_url,                'git@git.software-hut.org.uk:hut-team07/project.git'
 set :linked_files,            fetch(:linked_files,  fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
