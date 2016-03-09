@@ -43,5 +43,3 @@ coverage/index.html
 /config/database.yml
 
 /uploads
-
-Gemfile.lock
