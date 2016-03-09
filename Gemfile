@@ -8,7 +8,7 @@ gem 'sqlite3', group: [:development, :test]
 gem 'puma'
 gem 'pg'
 
-gem 'airbrake'
+gem 'airbrake', '~> 4.3.5'
 
 # mapping/location gems
 gem 'gmaps4rails'

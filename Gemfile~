@@ -66,10 +66,10 @@ group :development do
   gem 'quiet_assets'
 
   gem 'capistrano', '~> 3.4'
-  gem 'capistrano-rails', require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rvm', require: false
-  gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: true
+  gem 'capistrano-bundler', require: true
+  gem 'capistrano-rvm', require: true
+  gem 'capistrano-passenger', require: true
   gem 'epi_deploy', github: 'epigenesys/epi_deploy'
 
   gem 'thin'
