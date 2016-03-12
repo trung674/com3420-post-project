@@ -1,7 +1,19 @@
-%h1 Upload
+%h1 Contribute
 
 %div.panel.panel-default
   %div.panel-body
+    %ul.nav.nav-pills
+      %li.active{:role => 'presentation'}
+        %a{ :href => '#'} Oral Recording
+      %li{:role => 'presentation'}
+        %a{ :href => '#'} Document
+      %li{:role => 'presentation'}
+        %a{ :href => '#'} Image
+      %li{:role => 'presentation'}
+        %a{ :href => '#'} Text
+
+    %hr
+
     = simple_form_for(@medium) do |f|
       = f.input :upload, as: :file, :label => false
       = f.input :upload_cache, as: :hidden
