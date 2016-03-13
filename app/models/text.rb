@@ -1,0 +1,2 @@
+class Text < Medium
+end

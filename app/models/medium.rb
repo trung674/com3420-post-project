@@ -24,19 +24,3 @@ class Medium < ActiveRecord::Base
   accepts_nested_attributes_for :records
   mount_uploader :upload, MediumUploader
 end
-
-class Recording < Medium
-
-end
-
-class Image < Medium
-
-end
-
-class Document < Medium
-
-end
-
-class Text < Medium
-
-end

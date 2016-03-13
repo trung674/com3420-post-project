@@ -18,8 +18,10 @@
 
 class MediaController < ApplicationController
 
+  # By default a new contribution is a recording
   def new
-    @medium = Medium.new
+    @medium = Medium.new()
+    @medium.type = params[:type]
   end
 
   def create

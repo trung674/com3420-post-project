@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
 
     resources :media
+    resources :recordings, :controller => "media", :type => "Recording"
+    resources :documents, :controller => "media", :type => "Document"
+    resources :images, :controller => "media", :type => "Image"
+    resources :texts, :controller => "media", :type => "Text"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
