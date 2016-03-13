@@ -13,6 +13,7 @@
 #  editing        :boolean
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  type           :string
 #
 
 require 'rails_helper'
