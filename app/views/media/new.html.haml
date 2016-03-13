@@ -19,6 +19,8 @@
     %hr
 
     = simple_form_for(@medium) do |f|
+      = f.input :type, as: :hidden, value: @medium.type
+
       - if @medium.type != 'Text'
         = f.input :upload, as: :file, :label => false
         = f.input :upload_cache, as: :hidden
