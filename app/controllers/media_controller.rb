@@ -16,6 +16,8 @@
 #  type           :string
 #
 
+require 'tempfile'
+
 class MediaController < ApplicationController
 
   def new
@@ -33,13 +35,14 @@ class MediaController < ApplicationController
   def create
     @medium = Medium.new(medium_params)
 
-    # If the medium type is text, create a file to store the input, then upload as usual
+    # If the medium type is text, create a temp file to store the input, then upload as usual
     if @medium.type == 'Text'
-      File.open("test.txt", 'w') { |f|
-        f.write(@medium.text)
-        @medium.upload = f
-      }
-      File.delete("text.txt") if File.exist?("text.txt")
+      f = Tempfile.new(['text', '.txt'])
+
+      f.write(@medium.text)
+      @medium.upload = f
+      f.close
+      f.unlink
     end
 
     if verify_recaptcha(model: @medium) && @medium.save
