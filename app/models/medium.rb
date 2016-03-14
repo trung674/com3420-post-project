@@ -18,7 +18,7 @@
 
 class Medium < ActiveRecord::Base
   has_many :records, dependent: :destroy
-  attr_accessor :type
+  attr_accessor :type, :text
   validates :copyright, :acceptance => true
 
   accepts_nested_attributes_for :records

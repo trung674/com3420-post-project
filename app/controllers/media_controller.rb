@@ -18,26 +18,43 @@
 
 class MediaController < ApplicationController
 
-  # By default a new contribution is a recording
   def new
     @medium = Medium.new()
-    @medium.type = params[:type]
+
+    # By default a new contribution is a recording
+    if params[:type].blank?
+      @medium.type = 'Recording'
+    else
+      @medium.type = params[:type]
+    end
+
   end
 
   def create
     @medium = Medium.new(medium_params)
 
+    # If the medium type is text, create a file to store the input, then upload as usual
+    if @medium.type == 'Text'
+      File.open("test.txt", 'w') { |f|
+        f.write(@medium.text)
+        @medium.upload = f
+      }
+      File.delete("text.txt") if File.exist?("text.txt")
+    end
+
     if verify_recaptcha(model: @medium) && @medium.save
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
+      #Save the input into a session so the submitted information is shown again
       render :new
     end
   end
 
+
   private
     def medium_params
       params.require(:medium).permit(:type, :upload, :upload_cache, :public_ref, :education_use, :public_archive,
-                                     :publication, :broadcasting, :editing, :copyright,
+                                     :publication, :broadcasting, :editing, :copyright, :text,
                                      records_attributes: [:title, :location, :description, :ref_date])
     end
 end
