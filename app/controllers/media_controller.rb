@@ -49,6 +49,7 @@ class MediaController < ApplicationController
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
       #Save the input into a session so the submitted information is shown again
+      # This does not work with the sti stuff -- V.frustrating cannot sort!!
       render :new
     end
   end
