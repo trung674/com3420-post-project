@@ -28,6 +28,8 @@
       = f.simple_fields_for :records, f.object.records.build do |r|
         = r.input :title, required: true
         = r.input :location
+        -#put here geocoder.search(function()), this should be based on the current marker
+        -#on the map
         - if @medium.type == 'Text'
           = r.input :description, as: :text, required: true, :label => 'Text'
         - else
@@ -59,16 +61,16 @@
 
 
 :javascript
-    $(document).ready( function() {
-      var handler = Gmaps.build('Google');
+      handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
-       handler.map.centerOn({lat: 53.455, lng: -1.209});
-       handler.fitMapToBounds();
-       handler.getMap().setZoom(13);
-        handler.addMarker({
-          lat: 53.452,
-          lng: -1.212
-        });
+       handler.map.centerOn({lat: 53.452, lng: -1.212});
+       handler.getMap().setZoom(14);
       });
+      //function displayOnMap(position){
+      //  var marker = handler.addMarker({
+      //  lat: position.coords.latitude,
+      //  lng: position.coords.longitude
+      //});
+      //handler.map.centerOn(marker);
 
-     });
+
