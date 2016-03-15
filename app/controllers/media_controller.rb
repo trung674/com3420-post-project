@@ -21,7 +21,7 @@ require 'tempfile'
 class MediaController < ApplicationController
 
   def new
-    @medium = Medium.new()
+    @medium = Medium.new
 
     # By default a new contribution is a recording
     if params[:type].blank?
@@ -33,7 +33,14 @@ class MediaController < ApplicationController
   end
 
   def create
-    @medium = Medium.new(medium_params)
+    # Could be *slightly* hacky, will need thorough testing!
+    if params[:medium].present?
+      @medium = Medium.new(medium_params("Medium"))
+    elsif params[:type].present?
+      @medium = Medium.new(medium_params(params[:type]))
+    else
+      # Will get an error, though not sure if this will fire
+    end
 
     # If the medium type is text, create a temp file to store the input, then upload as usual
     if @medium.type == 'Text'
@@ -48,16 +55,14 @@ class MediaController < ApplicationController
     if verify_recaptcha(model: @medium) && @medium.save
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
-      #Save the input into a session so the submitted information is shown again
-      # This does not work with the sti stuff -- V.frustrating cannot sort!!
       render :new
     end
   end
 
 
   private
-    def medium_params
-      params.require(:medium).permit(:type, :upload, :upload_cache, :public_ref, :education_use, :public_archive,
+    def medium_params(type)
+      params.require(type.underscore.to_sym).permit(:type, :upload, :upload_cache, :public_ref, :education_use, :public_archive,
                                      :publication, :broadcasting, :editing, :copyright, :text,
                                      records_attributes: [:title, :location, :description, :ref_date])
     end
