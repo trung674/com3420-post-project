@@ -9,4 +9,4 @@
 //= require select2
 //= require select2_init
 //= require underscore
-//= require gmaps_google
+//= require gmaps/google

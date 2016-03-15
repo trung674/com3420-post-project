@@ -64,11 +64,14 @@
 
 :javascript
       handler = Gmaps.build('Google');
-      handler.buildMap({ internal: {id: 'map'} }, function(){
-       handler.map.centerOn({lat: 53.452, lng: -1.212});
-       handler.getMap().setZoom(14);
-
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      handler.map.centerOn({lat: 53.452, lng: -1.212});
+      //handler.getMap().setZoom(14);
+      markers = handler.addMarkers(#{raw @hash.to_json});
+      handler.bounds.extendWith(markers);
       });
+
+
 
 //      CANT GET THE BLOOMING THING TO ADD A MARKER ON CLICK :-(
 

@@ -20,6 +20,15 @@ require 'tempfile'
 
 class MediaController < ApplicationController
 
+  def index
+    @medium = Medium.all
+    @hash = Gmaps4rails.build_markers(@medium) do |item, marker|
+      marker.lat item.location
+      marker.lng item.location
+      marker.title item.upload
+    end
+  end
+
   def new
     @medium = Medium.new
     @medium.records.build
