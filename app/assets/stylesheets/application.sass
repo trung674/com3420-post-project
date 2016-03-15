@@ -7,45 +7,29 @@
 @import "custom_flash.sass"
 
 body
-  background-image: image-url("background.png")
-  background-repeat: repeat
-
-.img-container
-  img
-    height: 550px
+  background: image-url("background.png") repeat
 
 a
   text-decoration: none !important
 
-.navbar-nav
+.header-nav
+  border-radius: 0
+  background-color: #b3ecff
+  padding-bottom: 15px
+  margin-bottom: 0
+
   li
     a
       font-size: 20px
       margin-top: 5px
-      padding-top: 20px
-      padding-bottom: 20px
+      padding: 20px
       line-height: 20px
 
-.navbar-default
-  background-color: #b3ecff
+  h2
+    padding-bottom: 5px
 
-nav
-  border-radius: 0 !important
   .navbar-header
     margin-left: 50px
-  .input-group
-    position: relative
-    padding-top : 10px
-
-  h2
-    padding-bottom: 5%
-
-  .input-group
-    margin-bottom: 20px
-    width: 82%
-
-  #navbar-right
-    margin-bottom: 0
 
 footer
   h3
@@ -66,16 +50,11 @@ footer
   border-top: none
   padding: 0
 
-
 #main-container
   background-color: white
-  margin-top: -20px
   border-left : 1px solid rgb(238, 238, 238)
   border-right : 1px solid rgb(238, 238, 238)
-  padding-top : 30px
-  padding-right : 30px
-  padding-left : 30px
-  padding-bottom : 30px
+  padding: 30px
 
 @media (min-width: 1200px)
   .container

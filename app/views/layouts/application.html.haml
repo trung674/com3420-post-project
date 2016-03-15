@@ -35,39 +35,44 @@
           %p Please enable JavaScript or use a different web browser, or alternatively contact the CiCS Helpdesk for assistance.
 
     .container
-      %nav.navbar.navbar-default
+      %nav.navbar.navbar-default.header-nav
         .container-fluid
           .row
-            .col-md-7
-              .navbar-header
-                %h2{:class => "nav-title"} Village Memories Group
-                %h4{:class => "nav-title"} Braithwell, Micklebring and Cliffton Villages
-            .col-md-5
-              .row
-                %ul.nav.navbar-nav.navbar-right.pull-left
-                  = navbar_link_to :root, title: "Go to the home page", identifier: :X do
-                    = fa_icon 'home'
-                    Home
-                  = navbar_link_to new_recording_path, title: "Go to the upload page", identifier: :X do
-                    = fa_icon 'upload'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Upload
-                  = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
-                    = fa_icon 'university'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    About
-                  = navbar_link_to '#', title: "Go to the event page", identifier: :X do
-                    = fa_icon 'child'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Events
-                  = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
-                    = fa_icon 'map-marker'
-                    Map
-                  = navbar_link_to contact_path, title: "Go to the contact page", identifier: :X do
-                    = fa_icon 'envelope'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Contact
-              .row
+            .navbar-header
+              %button.navbar-toggle{'data-toggle' => 'collapse', 'data-target' => '#navLinks'}
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+              %h2{:class => "nav-title"} Village Memories Group
+            %div.col-sm-5.col-md-5.pull-right.collapse.navbar-collapse#navLinks
+              %ul.nav.navbar-nav
+                = navbar_link_to :root, title: "Go to the home page", identifier: :X do
+                  = fa_icon 'home'
+                  Home
+                = navbar_link_to new_recording_path, title: "Go to the upload page", identifier: :X do
+                  = fa_icon 'upload'
+                  -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                  Upload
+                = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
+                  = fa_icon 'university'
+                  -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                  About
+                = navbar_link_to '#', title: "Go to the event page", identifier: :X do
+                  = fa_icon 'child'
+                  -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                  Events
+                = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
+                  = fa_icon 'map-marker'
+                  Map
+                = navbar_link_to contact_path, title: "Go to the contact page", identifier: :X do
+                  = fa_icon 'envelope'
+                  -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                  Contact
+          .row
+            .navbar-header
+              %h4{:class => "nav-title"} Braithwell, Micklebring and Cliffton Villages
+            %div.col-sm-5.col-md-5.pull-right
+              %form
                 .input-group
                   %span{:class => "input-group-addon"}
                     %i{:class => "glyphicon glyphicon-search"}
