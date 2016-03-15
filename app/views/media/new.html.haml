@@ -21,7 +21,7 @@
     = simple_form_for(@medium) do |f|
       = f.input :type, as: :hidden, value: @medium.type
 
-      = f.simple_fields_for :records, f.object.records.build do |r|
+      = f.simple_fields_for :records do |r|
         = r.input :title, required: true
 
         - if @medium.type != 'Text'

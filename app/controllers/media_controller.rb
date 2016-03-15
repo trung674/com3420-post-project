@@ -22,6 +22,7 @@ class MediaController < ApplicationController
 
   def new
     @medium = Medium.new
+    @medium.records.build
 
     # By default a new contribution is a recording
     if params[:type].blank?
@@ -29,7 +30,6 @@ class MediaController < ApplicationController
     else
       @medium.type = params[:type]
     end
-
   end
 
   def create
