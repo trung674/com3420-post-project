@@ -14,6 +14,11 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  type           :string
+#  contributor_id :integer
+#
+# Indexes
+#
+#  index_media_on_contributor_id  (contributor_id)
 #
 
 require 'tempfile'
@@ -23,8 +28,8 @@ class MediaController < ApplicationController
   def index
     @medium = Medium.all
     @hash = Gmaps4rails.build_markers(@medium) do |item, marker|
-      marker.lat item.location
-      marker.lng item.location
+      marker.lat item.record.location
+      marker.lng item.record.location
       marker.title item.upload
     end
   end
@@ -71,8 +76,9 @@ class MediaController < ApplicationController
 
   private
     def medium_params(type)
-      params.require(type.underscore.to_sym).permit(:type, :upload, :upload_cache, :public_ref, :education_use, :public_archive,
-                                     :publication, :broadcasting, :editing, :copyright, :text,
-                                     records_attributes: [:title, :location, :description, :ref_date])
+      params.require(type.underscore.to_sym).permit(:type, :upload, :upload_cache, :public_ref, :education_use,
+                                                    :public_archive, :publication, :broadcasting, :editing, :copyright,
+                                                    :text, records_attributes: [:title, :location, :description, :ref_date],
+                                                    contributor_attributes: [:name, :email, :phone])
     end
 end

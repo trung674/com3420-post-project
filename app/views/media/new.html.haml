@@ -48,6 +48,15 @@
 
       %hr
 
+      %h4 Contact Information
+
+      = f.simple_fields_for :contributor_attributes do |c|
+        = c.input :name, required: false
+        = c.input :email
+        = c.input :phone, required: false
+
+      %hr
+
       %h4 Village Memories Group may use my contribution for:
 
       = f.input :public_ref, :label => 'Public reference, eg talks, exhibitions'

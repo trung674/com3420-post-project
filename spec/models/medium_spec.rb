@@ -14,6 +14,11 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  type           :string
+#  contributor_id :integer
+#
+# Indexes
+#
+#  index_media_on_contributor_id  (contributor_id)
 #
 
 require 'rails_helper'

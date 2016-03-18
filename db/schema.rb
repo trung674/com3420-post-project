@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312161555) do
+ActiveRecord::Schema.define(version: 20160318162454) do
+
+  create_table "contributors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -41,7 +49,10 @@ ActiveRecord::Schema.define(version: 20160312161555) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "type"
+    t.integer  "contributor_id"
   end
+
+  add_index "media", ["contributor_id"], name: "index_media_on_contributor_id"
 
   create_table "records", force: :cascade do |t|
     t.string   "title"
