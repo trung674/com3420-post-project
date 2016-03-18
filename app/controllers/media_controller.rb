@@ -25,15 +25,6 @@ require 'tempfile'
 
 class MediaController < ApplicationController
 
-  def index
-    @media = Record.all
-    @hash = Gmaps4rails.build_markers(@media) do |item, marker|
-      marker.lat Geocoder.coordinates(item.location)[0]
-      marker.lng Geocoder.coordinates(item.location)[1]
-    end
-    # This will not work. It says that
-  end
-
   def new
     @medium = Medium.new
     @medium.records.build
