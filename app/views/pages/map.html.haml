@@ -16,7 +16,7 @@
     -@hash = Gmaps4rails.build_markers(Record.all) do |item, marker|
       - marker.lat Geocoder.coordinates(item.location)[0]
       - marker.lng Geocoder.coordinates(item.location)[1]
-      - marker.title item.id
+      - marker.title item.ref_date
 
     =@hash.to_json
 
