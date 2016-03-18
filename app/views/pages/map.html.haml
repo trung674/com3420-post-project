@@ -5,16 +5,20 @@
   %script{:src => "//maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=®ion="}
   %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"}
   %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
+%div.panel.panel-default
+  %div.panel-body
 
-/ map div
+    #map{:style => 'width: 800px; height: 510px;'}
 
-#map{:style => 'width: 800px; height: 510px;'}
+    -#-Record.all.each do |item|
+    -#  = Geocoder.coordinates(item.location)
 
-#floating-panel
-  %input#address{:type => "textbox", :value => "Clifton, South Yorkshire"}
-  %input#submit{:type => "button", :value => "Search"}
+    -@hash = Gmaps4rails.build_markers(Record.all) do |item, marker|
+      - marker.lat Geocoder.coordinates(item.location)[0]
+      - marker.lng Geocoder.coordinates(item.location)[1]
+      - marker.title item.id
 
--#  this is what I need Geocoder.search("Braithwell Church", :params => {:region => "..."})
+    =@hash.to_json
 
 :javascript
     $(document).ready( function() {
@@ -23,26 +27,27 @@
        handler.map.centerOn({lat: 53.455, lng: -1.209});
        handler.fitMapToBounds();
        handler.getMap().setZoom(13);
-        handler.addMarker({
-          lat: 53.452,
-          lng: -1.212
-        });
-        handler.addMarker({
-          lat: 53.45,
-          lng: -1.22
-        });
-        handler.addMarker({
-          lat: 53.46,
-          lng: -1.23
-        });
-        handler.addMarker({
-          lat: 53.449,
-          lng: -1.213
-        });
-        handler.addMarker({
-          lat: 53.45,
-          lng: -1.22
-        });
+        //handler.addMarker({
+        //  lat: 53.452,
+        //  lng: -1.212
+        //});
+        //handler.addMarker({
+        //  lat: 53.45,
+        //  lng: -1.22
+        //});
+        //handler.addMarker({
+        //  lat: 53.46,
+        //  lng: -1.23
+        //});
+        //handler.addMarker({
+        //  lat: 53.449,
+        //  lng: -1.213
+        //});
+        //handler.addMarker({
+        //  lat: 53.45,
+        //  lng: -1.22
+        //});
+        markers = handler.addMarkers(#{raw @hash.to_json});
       });
 
      });
