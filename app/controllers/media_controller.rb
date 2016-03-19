@@ -35,6 +35,15 @@ class MediaController < ApplicationController
     else
       @medium.type = params[:type]
     end
+
+    if @medium.type == "Recording"
+        @accepted_mimes = '.wav'
+    elsif @medium.type == "Document"
+        @accepted_mimes = '.pdf'
+    elsif @medium.type =="Image"
+        @accepted_mimes = 'image/*'
+    end
+
   end
 
   def create
