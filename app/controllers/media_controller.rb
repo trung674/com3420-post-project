@@ -28,6 +28,7 @@ class MediaController < ApplicationController
   def new
     @medium = Medium.new
     @medium.records.build
+    # How can i do this for users if form submission fails?
 
     # By default a new contribution is a recording
     if params[:type].blank?
@@ -36,11 +37,11 @@ class MediaController < ApplicationController
       @medium.type = params[:type]
     end
 
-    if @medium.type == "Recording"
+    if @medium.type == 'Recording'
         @accepted_mimes = '.wav'
-    elsif @medium.type == "Document"
+    elsif @medium.type == 'Document'
         @accepted_mimes = '.pdf'
-    elsif @medium.type =="Image"
+    elsif @medium.type =='Image'
         @accepted_mimes = 'image/*'
     end
 
@@ -72,7 +73,6 @@ class MediaController < ApplicationController
       render :new
     end
   end
-
 
   private
     def medium_params(type)

@@ -46,6 +46,8 @@ gem 'daemons'
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
+gem 'auto_strip_attributes', '~> 2.0'
+
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do
   # coffee-script-source >= 1.9 is broken on Windows

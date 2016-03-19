@@ -25,7 +25,11 @@ class Medium < ActiveRecord::Base
   belongs_to :contributor
   has_many :records, dependent: :destroy
   attr_accessor :type, :text
+
+  validates :upload, presence: true
   validates :copyright, :acceptance => true
+  validates_associated :records
+  validates_associated :contributor
 
   accepts_nested_attributes_for :records
   accepts_nested_attributes_for :contributor

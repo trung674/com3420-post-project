@@ -7,7 +7,8 @@
   %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"}
   %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
 
-%h1 Contribute
+%h2 Upload #{ @medium.type }
+%br
 
 %div.panel.panel-default
   %div.panel-body
@@ -50,7 +51,7 @@
 
       %hr
 
-      %h4 Contact Information
+      %h3 Contact Information
 
       = f.simple_fields_for :contributor_attributes do |c|
         = c.input :name, required: false

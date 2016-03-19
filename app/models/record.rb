@@ -19,4 +19,15 @@
 
 class Record < ActiveRecord::Base
   belongs_to :medium
+
+  auto_strip_attributes :title, :description, :location, :squish => true
+
+  # Should descriptions be required?
+  validates :title, presence: true
+  validates :description, presence: true, if: :should_require_description?
+
+  def should_require_description?
+    # Thorough testing for this!
+    medium.respond_to?(:text)
+  end
 end
