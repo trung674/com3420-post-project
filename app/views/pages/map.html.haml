@@ -24,32 +24,12 @@
     $(document).ready( function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
-       handler.map.centerOn({lat: 53.455, lng: -1.209});
-       handler.fitMapToBounds();
-       handler.getMap().setZoom(13);
-        //handler.addMarker({
-        //  lat: 53.452,
-        //  lng: -1.212
-        //});
-        //handler.addMarker({
-        //  lat: 53.45,
-        //  lng: -1.22
-        //});
-        //handler.addMarker({
-        //  lat: 53.46,
-        //  lng: -1.23
-        //});
-        //handler.addMarker({
-        //  lat: 53.449,
-        //  lng: -1.213
-        //});
-        //handler.addMarker({
-        //  lat: 53.45,
-        //  lng: -1.22
-        //});
-        markers = handler.addMarkers(#{raw @gMarkers.to_json});
+      handler.map.centerOn({lat: 53.455, lng: -1.209});
+      handler.fitMapToBounds();
+      handler.getMap().setZoom(13);
+      //TODO add in event when one clicks on a marker
+      markers = handler.addMarkers(#{raw @gMarkers.to_json});
       });
-
-     });
+    });
 
 
