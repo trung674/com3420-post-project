@@ -23,7 +23,6 @@
         handler.fitMapToBounds();
         handler.getMap().setZoom(13);
         //TODO add in event when one clicks on a marker
-        //marker = handler.addMarker({lat: 53.46, lng: -1.21});
         markers = handler.addMarkers(#{raw @gMarkers.to_json});
         for (i = 0; i < markers.length; i++) {
           markers[i].getServiceObject().addListener('click', function() {
