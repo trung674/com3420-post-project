@@ -13,12 +13,12 @@
     -#-Record.all.each do |item|
     -#  = Geocoder.coordinates(item.location)
 
-    -@hash = Gmaps4rails.build_markers(Record.all) do |item, marker|
+    -@gMarkers = Gmaps4rails.build_markers(Record.all) do |item, marker|
       - marker.lat Geocoder.coordinates(item.location)[0]
       - marker.lng Geocoder.coordinates(item.location)[1]
       - marker.title item.ref_date
 
-    =@hash.to_json
+    =@gMarkers.to_json
 
 :javascript
     $(document).ready( function() {
@@ -47,7 +47,7 @@
         //  lat: 53.45,
         //  lng: -1.22
         //});
-        markers = handler.addMarkers(#{raw @hash.to_json});
+        markers = handler.addMarkers(#{raw @gMarkers.to_json});
       });
 
      });
