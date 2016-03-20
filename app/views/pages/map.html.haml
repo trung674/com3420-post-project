@@ -10,9 +10,6 @@
 
     #map{:style => 'width: 800px; height: 510px;'}
 
-    -#-Record.all.each do |item|
-    -#  = Geocoder.coordinates(item.location)
-
     -@gMarkers = Gmaps4rails.build_markers(Record.all) do |item, marker|
       - marker.lat Geocoder.coordinates(item.location)[0]
       - marker.lng Geocoder.coordinates(item.location)[1]
