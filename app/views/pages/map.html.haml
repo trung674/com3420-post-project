@@ -15,16 +15,22 @@
       - marker.lng Geocoder.coordinates(item.location)[1]
       - marker.title item.ref_date
 
-
 :javascript
     $(document).ready( function() {
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: {id: 'map'} }, function(){
-      handler.map.centerOn({lat: 53.455, lng: -1.209});
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(13);
-      //TODO add in event when one clicks on a marker
-      markers = handler.addMarkers(#{raw @gMarkers.to_json});
+        handler.map.centerOn({lat: 53.455, lng: -1.209});
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(13);
+        //TODO add in event when one clicks on a marker
+        //todo markers line here
+        //marker = handler.addMarker({lat: 53.46, lng: -1.21});
+        markers = handler.addMarkers(#{raw @gMarkers.to_json});
+        for (i = 0; i < markers.length; i++) {
+          markers[i].getServiceObject().addListener('click', function() {
+          console.log("string")
+          });
+        }
       });
     });
 
