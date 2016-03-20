@@ -23,12 +23,7 @@
 
 FactoryGirl.define do
   factory :medium do
-    title "MyString"
-    description "MyText"
-    location "MyString"
-    file_path "MyString"
-    transcript_path "MyString"
-    ref_date "2016-03-01"
-    approved false
+    contributor
+    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/images/test.jpg')))
   end
 end
