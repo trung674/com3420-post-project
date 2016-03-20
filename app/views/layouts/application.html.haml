@@ -74,9 +74,9 @@
                 .input-group
                   %span{:class => "input-group-addon"}
                     %i{:class => "glyphicon glyphicon-search"}
-                  %input{:type => "text", :class => "form-control", :placeholder => "Search"}
+                  %input{:type => "text", :class => "form-control", :placeholder => "Search", :id=> "searchField"}
                   %span.input-group-btn
-                    %button{:class => "btn btn-default", :type => "button"}Search
+                    %button{:class => "btn btn-default", :type => "button", :id => "searchButton"}Search
 
       #main-container
         = yield
@@ -89,3 +89,13 @@
                 = image_tag('lottery_img.png')
             .col-md-3.pull-right#moderator-login
               %a.pull-right{:href => "#"} Moderator Login
+
+
+:javascript
+    $('#searchButton').click(function(e) {
+      e.preventDefault();
+      var words = $('#searchField').val();
+      var words = words.toLowerCase();
+      console.log(words);
+      //add code to do the search
+     });
