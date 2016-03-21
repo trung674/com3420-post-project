@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_mod!, only: [:modpanel]
-
-  #before_action :configure_permitted_parameters, if: :devise_controller?
   #before_action :authenticate_mod!
 
 
@@ -53,9 +52,9 @@ class ApplicationController < ActionController::Base
       return redirect_to(ie_warning_path) if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ /Trident\/7.0/
     end
 
- #protected
-   #def configure_permitted_parameters
-     #devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
-   #end
+ protected
+   def configure_permitted_parameters
+     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
+   end
 
 end
