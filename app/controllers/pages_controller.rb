@@ -11,5 +11,8 @@ class PagesController < ApplicationController
   def about
     @current_nav_identifier = :about
   end  
-
+  
+  def modpanel
+  end
+  
 end
