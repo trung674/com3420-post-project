@@ -87,9 +87,10 @@
       handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
       handler.map.centerOn({lat: 53.452, lng: -1.212});
       handler.getMap().setZoom(13);
-      handler.getMap().addListener('click', function() {
-        console.log("banter");
-        //TODO get position of click, etc.
+      handler.getMap().addListener('click', function(e) {
+        var latitude = e.latLng.lat();
+        var longitude = e.latLng.lng();
+        console.log( latitude + ', ' + longitude );
       });
 
       });
