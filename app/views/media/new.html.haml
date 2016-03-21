@@ -90,6 +90,7 @@
       handler.getMap().addListener('click', function(e) {
         var latitude = e.latLng.lat();
         var longitude = e.latLng.lng();
+        handler.addMarker({lat: latitude , lng: longitude})
         console.log( latitude + ', ' + longitude );
       });
 
