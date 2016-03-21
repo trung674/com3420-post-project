@@ -87,13 +87,17 @@
       handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         handler.map.centerOn({lat: 53.452, lng: -1.212});
         handler.getMap().setZoom(13);
+        handler.addMarker({lat: 53.452, lng: -1.212});
         handler.getMap().addListener('click', function(e) {
+          //TODO need to clear markers
+          console.log()
           var latitude = e.latLng.lat();
           var longitude = e.latLng.lng();
           handler.addMarker({lat: latitude , lng: longitude})
-          console.log( latitude + ', ' + longitude );
+          //console.log( latitude + ', ' + longitude );
         });
       });
 
       // Parsley form validation
       $('#upload-form').parsley();
+      //this isnt a thing... according to my console?
