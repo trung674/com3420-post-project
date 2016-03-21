@@ -87,7 +87,11 @@
       handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
       handler.map.centerOn({lat: 53.452, lng: -1.212});
       handler.getMap().setZoom(13);
-      //      CANT GET THE BLOOMING THING TO ADD A MARKER ON CLICK :-(
+      handler.getMap().addListener('click', function() {
+        console.log("banter");
+        //TODO get position of click, etc.
+      });
+
       });
 
       // Parsley form validation

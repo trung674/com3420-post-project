@@ -27,7 +27,9 @@ class Medium < ActiveRecord::Base
   attr_accessor :type, :text
 
   validates :upload, presence: true
+  validates :contributor_id, presence: true
   validates :copyright, :acceptance => true
+
   validates_associated :records
   validates_associated :contributor
 
