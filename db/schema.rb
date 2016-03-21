@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318162454) do
+ActiveRecord::Schema.define(version: 20160321165031) do
 
   create_table "contributors", force: :cascade do |t|
     t.string   "name"
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 20160318162454) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "medium_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "records", ["medium_id"], name: "index_records_on_medium_id"
