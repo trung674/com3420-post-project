@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318162454) do
+ActiveRecord::Schema.define(version: 20160320151553) do
 
   create_table "contributors", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 20160318162454) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "editable_contents", force: :cascade do |t|
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "media", force: :cascade do |t|
     t.string   "upload"
