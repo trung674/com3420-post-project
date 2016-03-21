@@ -10,10 +10,11 @@
 
     #map{:style => 'width: 800px; height: 510px;'}
 
+    #info
     -@gMarkers = Gmaps4rails.build_markers(Record.all) do |item, marker|
-      - marker.lat Geocoder.coordinates(item.location)[0]
-      - marker.lng Geocoder.coordinates(item.location)[1]
-      - marker.title item.ref_date
+      - marker.lat item.latitude
+      - marker.lng item.longitude
+      - marker.title item.title
 
 :javascript
     $(document).ready( function() {
@@ -26,7 +27,12 @@
         markers = handler.addMarkers(#{raw @gMarkers.to_json});
         for (i = 0; i < markers.length; i++) {
           markers[i].getServiceObject().addListener('click', function() {
-          console.log("string")
+            //TODO ADD ON CLICK HERE!!!
+            $('#info').empty();
+            var z = document.createElement('div');
+            z.innerHTML = "lucy smells";
+            document.getElementById('info').appendChild(z);
+            console.log("string");
           });
         }
       });
