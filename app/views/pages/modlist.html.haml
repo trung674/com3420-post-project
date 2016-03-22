@@ -2,13 +2,23 @@
 
 %h2 List of all current Moderators + Administrators
 
-%p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+%p Below is a list of all currently assigned moderators and administrators for the website.
 
-%ul
- %li Here
- %li Will
- %li Be
- %li The
- %li Mods
+.row
+  .col-md-6#contact-form
+    %table.table.table-bordered
+      %tr
+        %th Email
+        %th Account Created
+        %th Last Logged in
+        %th Is Active
+      %tr
+        - @mods.each do |mod|
+          %td= mod.email
+          %td= mod.created_at
+          %td= mod.last_sign_in_at
+          %td= mod.isActive
 
-
+.row
+  .col-md-6
+    %a.btn.btn-primary{:href => "/modpanel", :role => "button"} Back
