@@ -14,5 +14,11 @@ class PagesController < ApplicationController
   
   def modpanel
   end
+
+  def modlist
+  #fetch list of mods with ActiveRecord query
+  #store in array
+  
+  end
   
 end
