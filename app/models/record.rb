@@ -28,8 +28,8 @@ class Record < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true, if: :should_require_description?
 
-  reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode
+  # reverse_geocoded_by :latitude, :longitude
+  # after_validation :reverse_geocode
 
   private
 

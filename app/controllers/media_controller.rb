@@ -78,7 +78,8 @@ class MediaController < ApplicationController
     def medium_params(type)
       params.require(type.underscore.to_sym).permit(:type, :upload, :upload_cache, :public_ref, :education_use,
                                                     :public_archive, :publication, :broadcasting, :editing, :copyright,
-                                                    :text, records_attributes: [:title, :location, :description, :ref_date],
+                                                    :text, records_attributes: [:title, :location, :description,
+                                                                                :latitude, :longitude, :ref_date],
                                                     contributor_attributes: [:name, :email, :phone])
     end
 end
