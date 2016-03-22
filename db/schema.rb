@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321220257) do
+ActiveRecord::Schema.define(version: 20160322175932) do
 
   create_table "contributors", force: :cascade do |t|
     t.string   "name"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160321220257) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "isActive"
+    t.boolean  "isAdmin"
   end
 
   add_index "mods", ["email"], name: "index_mods_on_email", unique: true

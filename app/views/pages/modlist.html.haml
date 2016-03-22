@@ -12,12 +12,21 @@
         %th Account Created
         %th Last Logged in
         %th Is Active
+        %th Is an Admin
       %tr
         - @mods.each do |mod|
           %td= mod.email
           %td= mod.created_at
-          %td= mod.last_sign_in_at
-          %td= mod.isActive
+          %td= mod.last_sign_in_at 
+          - if (mod.isActive)==true
+            %td Yes
+          - else
+            %td No
+          - if (mod.isAdmin)==true
+            %td Yes
+          - else
+            %td No
+
 
 .row
   .col-md-6
