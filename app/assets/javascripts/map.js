@@ -1,2 +1,2 @@
 //= require underscore
-//= require gmaps_google
+//= require gmaps
