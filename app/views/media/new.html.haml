@@ -27,56 +27,60 @@
 
     %hr
 
-    = simple_form_for @medium, html: { id: "upload-form" }  do |f|
-      = f.input :type, as: :hidden, value: @medium.type
+    .row
+      - # This is at the top when the layout is small, not so great!
+      #map-container.col-md-5.col-sm-12.pull-right
+        %h3 Click to add marker
+        #map{:style => 'height: 510px;'}
 
-      = f.simple_fields_for :records do |r|
-        = r.input :title, required: true
+      = simple_form_for @medium, html: { id: 'upload-form', class: 'col-md-6 col-sm-12' }  do |f|
+        = f.input :type, as: :hidden, value: @medium.type
 
-        - if @medium.type != 'Text'
-          = f.input :upload, as: :file, :label => 'File', required: true,
-            input_html: {:accept => @accepted_mimes, :'data-parsley-error-message' =>  'Please choose a file'}
-          = f.input :upload_cache, as: :hidden
-        - else
-          = f.input :text, as: :text, required: true, :label => 'Text', :input_html => {:rows => 10}
+        = f.simple_fields_for :records do |r|
+          = r.input :title, required: true
 
-        = r.input :location
+          - if @medium.type != 'Text'
+            = f.input :upload, as: :file, :label => 'File', required: true,
+              input_html: {:accept => @accepted_mimes, :'data-parsley-error-message' =>  'Please choose a file'}
+            = f.input :upload_cache, as: :hidden
+          - else
+            = f.input :text, as: :text, required: true, :label => 'Text', :input_html => {:rows => 10}
 
-        - if @medium.type != 'Text'
-          = r.input :description, as: :text, required: true
-        = r.input :ref_date, :label => 'Date', :include_blank => true, :start_year => 1850, :end_year => Date.today.year
+          = r.input :location
 
-      %hr
+          - if @medium.type != 'Text'
+            = r.input :description, as: :text, required: true, :input_html => {:rows => 5}
+          = r.input :ref_date, :label => 'Date', :include_blank => true, :start_year => 1850, :end_year => Date.today.year
 
-      %h3 Contact Information
+        %hr
 
-      = f.simple_fields_for :contributor_attributes do |c|
-        = c.input :name, required: false
-        = c.input :email, as: :email
-        = c.input :phone, required: false, input_html: { :pattern => '\d*',
-          :'data-parsley-error-message' => 'Please enter a valid phone number' }
+        %h3 Contact Information
 
-      %hr
+        = f.simple_fields_for :contributor_attributes do |c|
+          = c.input :name, required: false
+          = c.input :email, as: :email
+          = c.input :phone, required: false, input_html: { :pattern => '\d*',
+            :'data-parsley-error-message' => 'Please enter a valid phone number' }
 
-      %h4 Village Memories Group may use my contribution for:
+        %hr
 
-      = f.input :public_ref, :label => 'Public reference, eg talks, exhibitions'
-      = f.input :education_use, :label => 'Educational use, eg in schools'
-      = f.input :public_archive, :label => 'Public archive'
-      = f.input :publication, :label => 'Publication'
-      = f.input :broadcasting, :label => 'Broadcasting use on radio/TV or on the web'
-      = f.input :editing, :label => 'Editing for the above purposes'
+        %h4 Village Memories Group may use my contribution for:
 
-      %hr
+        = f.input :public_ref, :label => 'Public reference, eg talks, exhibitions'
+        = f.input :education_use, :label => 'Educational use, eg in schools'
+        = f.input :public_archive, :label => 'Public archive'
+        = f.input :publication, :label => 'Publication'
+        = f.input :broadcasting, :label => 'Broadcasting use on radio/TV or on the web'
+        = f.input :editing, :label => 'Editing for the above purposes'
 
-      = f.input :copyright, :as => :boolean,
-          :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)', required: true
-      = recaptcha_tags
+        %hr
 
-      %br
-      #map{:style => 'width: 70%; height: 510px;'}
-      %br
-      = f.button :submit, 'Upload', class: 'btn btn-primary'
+        = f.input :copyright, :as => :boolean,
+            :label => 'I agree to transfer full copyright of the media to Village Memories (BRMLA)', required: true
+        = recaptcha_tags
+
+        %br
+        = f.button :submit, 'Upload', class: 'btn btn-primary'
 
 :javascript
       //This is the map declaration, with the center and zoom etc.
