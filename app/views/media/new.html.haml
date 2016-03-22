@@ -77,10 +77,11 @@
       = recaptcha_tags
 
       %br
-
+      #map{:style => 'width: 800px; height: 510px;'}
+      %br
       = f.button :submit, 'Upload', class: 'btn btn-primary'
 
-      #map{:style => 'width: 800px; height: 510px;'}
+
 
 :javascript
       handler = Gmaps.build('Google');
