@@ -88,8 +88,8 @@
               %div.footer_img
                 = image_tag('lottery_img.png')
             - if mod_signed_in?
-              .col-md-3.pull-right#moderator-logout
-                = link_to destroy_mod_session_path, method: :delete, title: "Log out" do
+              .col-md-3.pull-right#moderator-login
+                = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
                   %i.fa.fa-sign-out
                   Moderator Logout
             - else

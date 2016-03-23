@@ -16,7 +16,6 @@ class PagesController < ApplicationController
   end
 
   #fetch list of mods with ActiveRecord query
-  #stored as ActiveRecord relation (collection of objects)
   def modlist
     @mods = Mod.all
   end
