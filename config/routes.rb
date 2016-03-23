@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     get '/map', to: 'pages#map'
     get '/about', to: 'pages#about'
     get '/contact', to: 'pages#contact'
-    get '/modpanel', to: 'pages#modpanel'
-    get '/modlist', to: 'pages#modlist'
+    get '/modpanel', to: 'mods#modpanel'
+    get '/modlist', to: 'mods#modlist'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 
