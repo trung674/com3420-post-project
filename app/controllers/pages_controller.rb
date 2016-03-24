@@ -11,6 +11,7 @@ class PagesController < ApplicationController
   
   def about
     @current_nav_identifier = :about
-  end  
+  end
+
   
 end
