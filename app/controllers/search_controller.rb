@@ -3,6 +3,6 @@ class SearchController < ApplicationController
 
   def search
     @search = [params[:search]]
-    @records = Record.where :approved => true
+    @records = Record.where('location LIKE ? OR description LIKE ? OR title LIKE ?', "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%")
   end
 end
