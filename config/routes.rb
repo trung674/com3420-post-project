@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/contact', to: 'pages#contact'
     get '/modpanel', to: 'mods#modpanel'
     get '/modlist', to: 'mods#modlist'
+    get '/createmod', to: 'mods#new'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
     resources :documents, :controller => :media, :type => "Document"
     resources :images, :controller => :media, :type => "Image"
     resources :texts, :controller => :media, :type => "Text"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
