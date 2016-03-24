@@ -19,7 +19,7 @@ class SearchController < ApplicationController
 
     # This is the array of hashes that we send to the view based on the search.
     @results_hashes = []
-    
+
     # for loops create the array of the useful infomation. More efficient than passing objects.
     for x in 0..(records.length-1)
       @results_hashes.append({:title => records[x].title, :url => medium_final[x].upload,
