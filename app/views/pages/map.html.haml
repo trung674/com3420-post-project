@@ -10,10 +10,11 @@
     #map{:style => 'width: 70%; height: 510px;'}
 
     #info
-    -@gMarkers = Gmaps4rails.build_markers(Record.all) do |item, marker|
-      - marker.lat item.latitude
-      - marker.lng item.longitude
-      - marker.title item.title
+
+
+    -#TODO make the mapping work again.
+
+
 
 :javascript
     $(document).ready( function() {

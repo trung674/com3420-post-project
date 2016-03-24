@@ -64,11 +64,17 @@
             .navbar-header
               %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Villages
             %div.col-sm-5.col-md-5.pull-right
-              = form_tag(search_path, method: "get", :class => "input-group-addon") do
-                .input-group
-                  %span{:class => "input-group-addon"}
-                    = text_field_tag(:search, params[:search], :class => "form-control")
-                    = submit_tag("Search", :class => "btn btn-default")
+              = form_tag(search_path, method: "get") do
+                = text_field_tag(:search, params[:search], :class => "form-control")
+                = radio_button_tag(:type, "Document")
+                = label_tag(:age_child, "Document")
+                = radio_button_tag(:type, "Recording")
+                = label_tag(:age_adult, "Recording")
+                = radio_button_tag(:type, "Image")
+                = label_tag(:age_child, "Image")
+                = radio_button_tag(:type, "Text")
+                = label_tag(:age_adult, "Text")
+                = submit_tag("Search", :class => "btn btn-default")
       -#              TODO stop this being fucked up.... sorry to whoever did it.
 
       #main-container
