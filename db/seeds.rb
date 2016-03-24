@@ -8,4 +8,5 @@
 
 Mod.where(email:
  'asacook1@sheffield.ac.uk').first_or_create(password:
- 'password123', password_confirmation: 'password123')
+ 'password123', password_confirmation: 'password123', isActive: true, isAdmin: true)
+

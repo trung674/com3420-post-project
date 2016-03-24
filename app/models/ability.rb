@@ -1,14 +1,13 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(mod)
-
-    #current_mod ||= Mod.new
+  def initialize(current_mod)
+    current_mod ||= Mod.new
     
-    #if current_mod.isActive?
-      #can :manage, :all
-    #end
-
+    if current_mod.isActive?
+      can :modpanel, :all
+      can :modlist, :all
+    end
 
     # Define abilities for the passed in user here. For example:
     #

@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     instance_variable_set(:"@#{resource_name}", val)
   end
 
+  #Overide CanCanCan defaults, instantiates abilities for "mods" rather than "users"
+  def current_ability
+   @current_ability ||= Ability.new(current_mod)
+  end
+
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
     render template: 'errors/error_404', status: 404
