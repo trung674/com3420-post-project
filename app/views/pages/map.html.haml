@@ -11,9 +11,12 @@
 
     #info
 
-
-    -#TODO make the mapping work again.
-
+    -@lat_lng = []
+    -Record.all.each do |thing|
+      -#need to check that its not nil, they might not have clicked on the map.
+      -#this could be in controller but then it would be loaded on every static page.
+      -if thing.latitude
+        -@lat_lng.append({lat: thing.latitude , lng: thing.longitude})
 
 
 :javascript
@@ -26,7 +29,8 @@
       });
 
       //This adds listeners to each marker
-      markers = map.addMarkers(#{raw @gMarkers.to_json});
+
+      var markers = map.addMarkers(#{raw @lat_lng.to_json});
       for (i = 0; i < markers.length; i++) {
         //This adds listeners to each marker so that they perform
         //an action on clicking them.
@@ -36,7 +40,6 @@
           var z = document.createElement('div');
           z.innerHTML = "harry smells";
           document.getElementById('info').appendChild(z);
-          console.log("string");
         });
       }
     });
