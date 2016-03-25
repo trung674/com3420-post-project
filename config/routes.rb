@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     root to: 'pages#home'
     get '/upload', to: 'media#new'
     get '/map', to: 'geomap#map'
-    get '/search', to: 'search#search'
+    post '/search', to: 'search#search'
     get '/about', to: 'pages#about'
     get '/contact', to: 'pages#contact'
     put '/about', to: 'pages#mercury_update'

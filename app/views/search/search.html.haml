@@ -1,7 +1,9 @@
 - content_for :title, 'Search Results'
 
-
-%h2 Showing results for: "#{raw @search[0]}"
+-if !@search[0].empty?
+  %h2 Showing #{raw @type[0]} results for: "#{raw @search[0]}".
+-else
+  %h2 Showing all results that are #{raw @type[0]}s.
 
 %div.panel.panel-default
   %div.panel-body

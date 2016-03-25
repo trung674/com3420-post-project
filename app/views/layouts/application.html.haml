@@ -64,7 +64,7 @@
             .navbar-header
               %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Villages
             %div.col-sm-5.col-md-5.pull-right
-              = form_tag(search_path, method: "get") do
+              = form_tag(search_path, method: "post") do
                 = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
                 = radio_button_tag(:type, "Recording", :checked => true)
                 = label_tag(:age_adult, "Recording")
