@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get '/map', to: 'geomap#map'
     get '/search', to: 'pages#home'
     post '/search', to: 'search#search'
-    get '/about', to: 'pages#about'
+    get '/about', to: 'about#about'
     get '/contact', to: 'pages#contact'
     put '/about', to: 'pages#mercury_update'
     get '/modpanel', to: 'mods#modpanel'
