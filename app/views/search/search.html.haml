@@ -5,6 +5,24 @@
 
 %div.panel.panel-default
   %div.panel-body
-    -#=@type.to_json
-    =@results_hashes.to_json
+    -results = @results_hashes
+    %table.table.table-bordered
+      %tr
+        %th Title
+        %th Date
+        %th Location
+        %th Type
+      -results.each do |item|
+        %tr
+          %td
+            -#TODO this will be where the url will go, implement like below.
+            -#%a{:href => item[:url]}
+            =item[:title]
+          %td
+            =item[:date]
+          %td
+            =item[:location]
+          %td
+            =@type[0]
+
 
