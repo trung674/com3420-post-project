@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     root to: 'pages#home'
     get '/upload', to: 'media#new'
-    get '/map', to: 'pages#map'
+    get '/map', to: 'interactive#map'
     get '/search', to: 'search#search'
     get '/about', to: 'pages#about'
     get '/contact', to: 'pages#contact'

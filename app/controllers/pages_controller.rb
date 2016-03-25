@@ -4,10 +4,6 @@ class PagesController < ApplicationController
     @current_nav_identifier = :home
   end
 
-  def map
-    @current_nav_identifier = :map
-  end
-
   def about
     @current_nav_identifier = :about
     @about_content = EditableContent.find_by name: 'about'
