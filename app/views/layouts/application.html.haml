@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Village Memories Group - #{content_for(:title)}
+    %title Village Memories - #{content_for(:title)}
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
     %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
     = stylesheet_link_tag    "application", media: :all
@@ -41,7 +41,7 @@
                 %span.icon-bar
                 %span.icon-bar
                 %span.icon-bar
-              %h2{:class => "nav-title"} Village Memories Group
+              %h2{:class => "nav-title"} Village Memories
             %div.col-sm-5.col-md-5.pull-right.collapse.navbar-collapse#navLinks
               %ul.nav.navbar-nav
                 = navbar_link_to :root, title: "Go to the home page", identifier: :X do
@@ -62,7 +62,7 @@
                   Contact
           .row
             .navbar-header
-              %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Villages
+              %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Local History and Archiving Project
             %div.col-sm-5.col-md-5.pull-right
               = form_tag(search_path, method: "post") do
                 = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
@@ -86,6 +86,8 @@
             .col-md-6
               %div.footer_img
                 = image_tag('lottery_img.png')
+
+              %p &copy Braithwell and Micklebring Recreation and Leisure Association Ltd. 2016
             - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
               .col-md-3.pull-right#moderator-login
                 = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
