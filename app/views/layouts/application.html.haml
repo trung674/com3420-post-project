@@ -87,7 +87,7 @@
               %div.footer_img
                 = image_tag('lottery_img.png')
 
-              %p &copy Braithwell and Micklebring Recreation and Leisure Association Ltd. 2016
+              %p &copy Braithwell and Micklebring Recreation and Leisure Association Ltd. #{Date.today.year}
             - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
               .col-md-3.pull-right#moderator-login
                 = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
