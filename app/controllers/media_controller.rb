@@ -76,6 +76,10 @@ class MediaController < ApplicationController
 
   def show
     @medium = Medium.find(params[:id])
+    @approved_records = @medium.records.where(approved: true).order('created_at DESC')
+
+    # TODO: change current record depending on selected
+    @current_record = @approved_records.first
   end
 
   private
