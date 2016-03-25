@@ -3,4 +3,5 @@
 %div.mercury-region#about_content{ data: { mercury: 'full' } }
  =raw @about_content.content
 
+-#Make this so its only when the user is logged in.
 = link_to "Edit Page", "/editor" + request.path, id: "edit_link", data: {save_url: mercury_update_page_path(@about_content)}
