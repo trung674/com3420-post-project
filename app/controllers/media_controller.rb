@@ -28,7 +28,7 @@ class MediaController < ApplicationController
   def new
     @medium = Medium.new
     @medium.records.build
-    # How can i do this for users if form submission fails?
+    @medium.build_contributor
 
     # By default a new contribution is a recording
     if params[:type].blank?
@@ -72,6 +72,10 @@ class MediaController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @medium = Medium.find(params[:id])
   end
 
   private

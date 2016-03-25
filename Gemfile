@@ -47,7 +47,7 @@ gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 # Editor
-gem 'mercury-rails', github: 'jejacks0n/mercury'
+gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
 gem 'auto_strip_attributes', '~> 2.0'
 
