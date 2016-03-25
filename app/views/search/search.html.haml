@@ -1,0 +1,10 @@
+- content_for :title, 'Search Results'
+
+
+%h2 Showing results for: "#{raw @search[0]}"
+
+%div.panel.panel-default
+  %div.panel-body
+    -#=@type.to_json
+    =@results_hashes.to_json
+

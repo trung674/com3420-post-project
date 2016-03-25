@@ -11,6 +11,8 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  medium_id   :integer
+#  latitude    :float
+#  longitude   :float
 #
 # Indexes
 #
@@ -26,8 +28,13 @@ class Record < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true, if: :should_require_description?
 
-  def should_require_description?
-    # Thorough testing for this!
-    medium.respond_to?(:text)
-  end
+  # reverse_geocoded_by :latitude, :longitude
+  # after_validation :reverse_geocode
+
+  private
+
+    def should_require_description?
+      # Thorough testing for this!
+      medium.respond_to?(:text)
+    end
 end

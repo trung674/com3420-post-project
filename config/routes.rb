@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+  devise_for :mods
   mount Mercury::Engine => '/'
     match "/403", to: "errors#error_403", via: :all
     match "/404", to: "errors#error_404", via: :all
@@ -12,9 +14,13 @@ Rails.application.routes.draw do
     root to: 'pages#home'
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
+    get '/search', to: 'search#search'
     get '/about', to: 'pages#about'
     get '/contact', to: 'pages#contact'
     put '/about', to: 'pages#mercury_update'
+    get '/modpanel', to: 'mods#modpanel'
+    get '/modlist', to: 'mods#modlist'
+    get '/createmod', to: 'mods#new'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 

@@ -1,0 +1,32 @@
+- content_for :title, "Edit Moderators"
+
+%h2 List of all current Moderators
+
+%br
+
+.row
+  .col-md-6#contact-form
+    %table.table.table-bordered
+      %tr
+        %th Email
+        %th Account Created
+        %th Last Logged in
+        %th Is Active
+        %th Is an Admin
+      - @mods.each do |mod|
+        %tr
+          %td= mod.email
+          %td= mod.created_at
+          %td= mod.last_sign_in_at 
+          - if (mod.isActive)==true
+            %td Yes
+          - else
+            %td No
+          - if (mod.isAdmin)==true
+            %td Yes
+          - else
+            %td No
+
+.row
+  .col-md-6
+    %a.btn.btn-primary{:href => "/modpanel", :role => "button"} Back

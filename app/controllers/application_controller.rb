@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+  
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_mod!, only: [:modpanel, :modlist]
+
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -17,6 +22,11 @@ class ApplicationController < ActionController::Base
 
   def current_resource=(val)
     instance_variable_set(:"@#{resource_name}", val)
+  end
+
+  #Overide CanCanCan defaults, instantiates abilities for "mods" rather than "users"
+  def current_ability
+   @current_ability ||= Ability.new(current_mod)
   end
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
@@ -45,4 +55,10 @@ class ApplicationController < ActionController::Base
     def ie_warning
       return redirect_to(ie_warning_path) if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ /Trident\/7.0/
     end
+
+ protected
+   def configure_permitted_parameters
+     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
+   end
+
 end
