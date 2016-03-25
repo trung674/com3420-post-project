@@ -1,4 +1,4 @@
-class InteractiveController < ApplicationController
+class GeomapController < ApplicationController
 
   def map
     @current_nav_identifier = :map
