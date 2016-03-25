@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/map', to: 'pages#map'
     get '/about', to: 'pages#about'
     get '/contact', to: 'pages#contact'
+    put '/about', to: 'pages#mercury_update'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
 
@@ -22,7 +23,9 @@ Rails.application.routes.draw do
     resources :documents, :controller => :media, :type => "Document"
     resources :images, :controller => :media, :type => "Image"
     resources :texts, :controller => :media, :type => "Text"
-
+    resources :pages do
+      member { post :mercury_update }
+    end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

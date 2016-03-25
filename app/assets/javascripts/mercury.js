@@ -450,3 +450,14 @@ window.Mercury = {
   debug: false
 
 };
+
+jQuery(function() {
+  Mercury.on('ready', function() {
+    var link = $('#mercury_iframe').contents().find('#edit_link');
+    Mercury.saveURL = link.data('save-url');
+    link.hide();
+  });
+  Mercury.on('saved', function() {
+    window.location = window.location.href.replace(/\/editor\//i, '/');
+  });
+});
