@@ -1,5 +1,4 @@
 class MediumUploader < CarrierWave::Uploader::Base
-
   # Choose what kind of storage to use for this uploader:
   storage :file
   after :store, :delete_tmp_dir
