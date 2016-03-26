@@ -46,6 +46,10 @@ gem 'daemons'
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
+# Online cloud converting tool, not sure whether we'll use this or a local converter
+# gem 'cloudconvert'
+gem 'streamio-ffmpeg'
+
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
