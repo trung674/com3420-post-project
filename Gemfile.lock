@@ -333,6 +333,8 @@ GEM
     sshkit (1.9.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    streamio-ffmpeg (2.0.0)
+      multi_json (~> 1.8)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -425,6 +427,7 @@ DEPENDENCIES
   simplecov
   spring
   sqlite3
+  streamio-ffmpeg
   thin
   tzinfo-data (~> 1.2015.1)
   uglifier
