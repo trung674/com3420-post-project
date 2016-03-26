@@ -44,11 +44,10 @@ gem 'daemons'
 
 # Uploading
 gem 'carrierwave'
+gem 'carrierwave_backgrounder'
+gem 'carrierwave-ffmpeg'
 gem 'recaptcha', require: 'recaptcha/rails'
-
-# Online cloud converting tool, not sure whether we'll use this or a local converter
-# gem 'cloudconvert'
-gem 'streamio-ffmpeg'
+# gem 'streamio-ffmpeg'
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'

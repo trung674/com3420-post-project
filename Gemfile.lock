@@ -115,6 +115,11 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    carrierwave-ffmpeg (1.0.0)
+      carrierwave
+      streamio-ffmpeg
+    carrierwave_backgrounder (0.4.2)
+      carrierwave (~> 0.5)
     chronic (0.10.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -386,6 +391,8 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   carrierwave
+  carrierwave-ffmpeg
+  carrierwave_backgrounder
   cliver!
   coffee-rails
   coffee-script-source (~> 1.8.0)
@@ -427,7 +434,6 @@ DEPENDENCIES
   simplecov
   spring
   sqlite3
-  streamio-ffmpeg
   thin
   tzinfo-data (~> 1.2015.1)
   uglifier
