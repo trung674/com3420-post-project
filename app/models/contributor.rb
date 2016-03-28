@@ -10,6 +10,8 @@
 #  updated_at :datetime         not null
 #
 
+require 'auto_strip_attributes'
+
 class Contributor < ActiveRecord::Base
   has_many :media
 
