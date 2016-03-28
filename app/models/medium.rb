@@ -21,6 +21,8 @@
 #  index_media_on_contributor_id  (contributor_id)
 #
 
+require 'carrierwave'
+
 class Medium < ActiveRecord::Base
   belongs_to :contributor
   has_many :records, dependent: :destroy

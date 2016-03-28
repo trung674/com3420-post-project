@@ -53,8 +53,6 @@ class MediaController < ApplicationController
       @medium = Medium.new(medium_params("Medium"))
     elsif params[:type].present?
       @medium = Medium.new(medium_params(params[:type]))
-    else
-      # Will get an error, though not sure if this will fire
     end
 
     # If the medium type is text, create a temp file to store the input, then upload as usual

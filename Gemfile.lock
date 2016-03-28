@@ -150,6 +150,8 @@ GEM
       net-ldap (>= 0.6.0, <= 0.11)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.20160310)
+      unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -190,6 +192,15 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    http (1.0.4)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     i18n (0.7.0)
     jquery-rails (4.1.1)
       rails-dom-testing (>= 1, < 3)
@@ -348,6 +359,11 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
+    unf_ext (0.0.7.2-x64-mingw32)
+    unf_ext (0.0.7.2-x86-mingw32)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -405,6 +421,7 @@ DEPENDENCIES
   geocoder
   gmaps4rails
   haml-rails
+  http
   jquery-rails
   launchy
   letter_opener

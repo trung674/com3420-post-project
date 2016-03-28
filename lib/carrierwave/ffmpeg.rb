@@ -7,7 +7,7 @@ module CarrierWave
     end
 
     def convert_audio
-      # Queue the conversion
+      # Queue the transcription
       Delayed::Job.enqueue TranscriberJob.new(current_path, self.model)
     end
   end
