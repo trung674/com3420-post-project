@@ -3,7 +3,7 @@ class ConverterJob < ActiveJob::Base
 
   def perform(file_path, model)
     dir = File.dirname(file_path)
-    new_file = File.join(dir,'dog.wav')
+    new_file = File.join(dir, File.basename(file_path, File.extname(file_path))) + '_convert.wav'
 
     # Convert the audio file to wav with 16k bitrate, 1 channel, and 16 bits precision
     # Requires ffmpeg is installed and added to path
