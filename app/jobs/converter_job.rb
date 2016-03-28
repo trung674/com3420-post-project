@@ -1,16 +1,13 @@
 class ConverterJob < ActiveJob::Base
   queue_as :default
 
-  def perform(tmpfile, encoded_file, model, opts = {})
-    file = ::FFMPEG::Movie.new(tmpfile)
+  def perform(file_path, model)
+    dir = File.dirname(file_path)
+    new_file = File.join(dir,'dog.wav')
 
-    if file.valid? # true (would be false if ffmpeg fails to read the movie)
-      file.transcode(encoded_file, opts) { |progress| puts "#{(progress * 100).round(2)} %" }
-    else
-      model.model.error!
-    end
-
-    File.delete(tmpfile)
+    # Convert the audio file to wav with 16k bitrate, 1 channel, and 16 bits precision
+    # Requires ffmpeg is installed and added to path
+    system "ffmpeg -i \"#{file_path}\" -b:a 16k -ac 1 -sample_fmt s16 \"#{new_file}\""
   end
 
 end

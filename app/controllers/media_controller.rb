@@ -28,7 +28,7 @@ class MediaController < ApplicationController
   def new
     @medium = Medium.new
     @medium.records.build
-    @medium.build_contributor
+    @medium.build_contributor(params[:contributor_attributes])
 
     # By default a new contribution is a recording
     if params[:type].blank?

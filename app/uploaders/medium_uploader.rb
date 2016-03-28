@@ -12,9 +12,6 @@ class MediumUploader < CarrierWave::Uploader::Base
   def delete_empty_dirs
     path = ::File.expand_path(store_dir, root)
     Dir.delete(path)
-
-    path = ::File.expand_path(base_store_dir, root)
-    Dir.delete(path)
   rescue
     true
   end
