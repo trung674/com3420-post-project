@@ -1,7 +1,6 @@
-class ConverterJob < ActiveJob::Base
-  queue_as :default
+class TranscriberJob < Struct.new(:file_path, :model)
 
-  def perform(file_path, model)
+  def perform
     dir = File.dirname(file_path)
     new_file = File.join(dir, File.basename(file_path, File.extname(file_path))) + '_convert.wav'
 
