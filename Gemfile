@@ -44,10 +44,7 @@ gem 'daemons'
 
 # Uploading
 gem 'carrierwave'
-gem 'carrierwave_backgrounder'
-gem 'carrierwave-ffmpeg'
 gem 'recaptcha', require: 'recaptcha/rails'
-# gem 'streamio-ffmpeg'
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
