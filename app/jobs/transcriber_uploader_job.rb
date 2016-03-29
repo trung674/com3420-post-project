@@ -1,20 +1,22 @@
 require 'http'
 
-class TranscriberJob < Struct.new(:file_path, :model)
+class TranscriberUploaderJob < ActiveJob::Base
 
-  def perform
+  def self.perform(file_path, model)
     dir = File.dirname(file_path)
     new_file = File.join(dir, File.basename(file_path, File.extname(file_path))) + '_convert.wav'
 
-    # Convert the audio file to wav with 16k sample rate, 1 channel, and 16 bits precision
-    # Requires ffmpeg is installed added to path
+    # Convert the audio file to wav with 16k sample rate, 1 channel and 16 bits precision using ffmpeg via command line
     if system "ffmpeg -i \"#{file_path}\" -b:a 16k -ar 16000 -ac 1 -sample_fmt s16 \"#{new_file}\""
+
+      # Login to the webASR service, orig.cookies holds the session id
       orig = HTTP.post('http://mini-vm21.dcs.shef.ac.uk/controller', :params => {:event => 'APICheckLogin', :client => ASR_ID})
 
       if orig.status != 200
         raise 'Error connecting to webASR'
       end
 
+      # Send the xml data file to webASR
       r = HTTP.cookies(orig.cookies).headers(:accept => 'text/xml').
           post('http://mini-vm21.dcs.shef.ac.uk/controller', :params => {:event => 'APIReceiveFileDataXML'}, :body => xml(new_file))
 
@@ -22,6 +24,7 @@ class TranscriberJob < Struct.new(:file_path, :model)
         raise 'Error sending xml file'
       end
 
+      # send the audio file to webASR
       r = HTTP.cookies(orig.cookies).headers(:accept => 'application/octet-stream').
           post('http://mini-vm21.dcs.shef.ac.uk/controller', :params => {:event => 'APIReceiveFile'}, :body => File.read(new_file))
 
@@ -30,9 +33,16 @@ class TranscriberJob < Struct.new(:file_path, :model)
       end
 
       upload_id = r.headers['UploadID']
+
+      # Schedule the downloader job to run 2 hours from now, uses the given upload id from webASR
+      TranscriberDownloaderJob.delay(run_at: 2.hours.from_now).perform(upload_id, model)
     else
       raise 'Error converting audio file'
     end
+  end
+
+  def reschedule_at(current_time, attempts)
+    current_time + 30.minutes
   end
 
   private
