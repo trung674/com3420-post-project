@@ -1,9 +1,9 @@
 require 'http'
 require 'tempfile'
 
-class TranscriberDownloaderJob < ActiveJob::Base
+class TranscriberDownloaderJob < Struct.new(:upload_id, :model)
 
-  def self.perform(upload_id, model)
+  def perform
     # Login to the webASR service, orig.cookies holds the session id
     orig = HTTP.post('http://mini-vm21.dcs.shef.ac.uk/controller', :params => {:event => 'APICheckLogin', :client => ASR_ID})
 

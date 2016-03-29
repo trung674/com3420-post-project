@@ -1,8 +1,8 @@
 require 'http'
 
-class TranscriberUploaderJob < ActiveJob::Base
+class TranscriberUploaderJob < Struct.new(:file_path, :model)
 
-  def self.perform(file_path, model)
+  def perform
     dir = File.dirname(file_path)
     new_file = File.join(dir, File.basename(file_path, File.extname(file_path))) + '_convert.wav'
 
@@ -35,7 +35,7 @@ class TranscriberUploaderJob < ActiveJob::Base
       upload_id = r.headers['UploadID']
 
       # Schedule the downloader job to run 2 hours from now, uses the given upload id from webASR
-      TranscriberDownloaderJob.delay(run_at: 2.hours.from_now).perform(upload_id, model)
+      Delayed::Job.enqueue(TranscriberDownloaderJob.new(upload_id, model), :run_at => 2.hours.from_now)
     else
       raise 'Error converting audio file'
     end
