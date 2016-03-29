@@ -8,6 +8,13 @@ class PagesController < ApplicationController
     @current_nav_identifier = :contact
   end
 
+  def about
+    # TODO make this only editable when logged in!!
+    @current_nav_identifier = :about
+    @about_content = EditableContent.find_by name: 'about'
+
+  end
+
   def mercury_update
     content = EditableContent.find_by name: 'about'
     content.content = params[:content][:about_content][:value]
