@@ -32,7 +32,9 @@ class TranscriberDownloaderJob < Struct.new(:upload_id, :model)
       r = HTTP.cookies(orig.cookies).post('http://mini-vm21.dcs.shef.ac.uk/controller',
                                           :params => {:event => 'APIGetDocument', :type => 'transcript',
                                                       :format => 'xml', :uploadID => upload_id})
+
       # Upload the transcript file using carrier wave
+      # TODO: need to handle xml file so its contents are viewable on the show page
       f = Tempfile.new(['transcript', '.xml'])
       f.write(r.to_s)
       model.transcript = f
