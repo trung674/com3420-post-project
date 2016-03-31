@@ -3,7 +3,7 @@
 -if !@search[0].empty?
   %h2 Showing #{raw @type[0]} results for: "#{raw @search[0]}".
 -else
-  %h2 Showing all results that are #{raw @type[0]}s.
+  %h2 Showing all results that are #{raw @type}s.
 
 %div.panel.panel-default
   %div.panel-body
@@ -25,6 +25,6 @@
           %td
             =item[:location]
           %td
-            =@type[0]
+            =item[:type]
 
 

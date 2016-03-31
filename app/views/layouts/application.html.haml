@@ -66,13 +66,13 @@
             %div.col-sm-5.col-md-5.pull-right
               = form_tag(search_path, method: "post") do
                 = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
-                = radio_button_tag(:type, "Recording", :checked => true)
+                = check_box_tag("items[]", "Recording", false)
                 = label_tag(:age_adult, "Recording")
-                = radio_button_tag(:type, "Document")
+                = check_box_tag("items[]", "Document",  false)
                 = label_tag(:age_child, "Document")
-                = radio_button_tag(:type, "Image")
+                = check_box_tag("items[]", "Image",  false)
                 = label_tag(:age_child, "Image")
-                = radio_button_tag(:type, "Text")
+                = check_box_tag("items[]", "Text",  false)
                 = label_tag(:age_adult, "Text")
                 = submit_tag("Search", :class => "btn btn-default")
       -#              TODO stop this being fucked up.... sorry to whoever did it.

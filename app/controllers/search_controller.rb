@@ -4,10 +4,18 @@ class SearchController < ApplicationController
   def search
     # TODO search logic will go here
     @search = [params[:search]]
-    @type = [params[:type]]
+    @type = params[:items]
     # More efficient to search by type first
-    medium_results = (Medium.where :type => @type)
-    ids = medium_results.ids
+
+    ids = []
+    for y in 0..@type.length-1
+      medium_results = (Medium.where :type => @type[y]).ids
+      medium_results.each do |add|
+        ids.push(add)
+      end
+    end
+
+
     records = Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?) AND medium_id IN (?)',
                             "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%", ids)
     medium_ids = []
@@ -23,7 +31,7 @@ class SearchController < ApplicationController
     # for loops create the array of the useful infomation. More efficient than passing objects.
     for x in 0..(records.length-1)
       @results_hashes.append({:title => records[x].title, :url => medium_final[x].upload,
-                              :date => records[x].ref_date, :location => records[x].location})
+                              :date => records[x].ref_date, :location => records[x].location, :type => medium_final[x].type})
     end
 
   end
