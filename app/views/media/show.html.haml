@@ -1,1 +1,13 @@
-%h3 #{@current_record.title}
+%div.panel.panel-default
+  %div.panel-body.record
+    .row
+      .col-md-4.col-sm-6
+        %h2 #{@current_record.title}
+      .col-md-3.col-sm-6.date.pull-right
+        #{@current_record.ref_date.to_formatted_s(:long) if @current_record.ref_date?}
+    .row
+      .col-md-6.col-sm-12
+        #{@current_record.description}
+    .row
+      - if @medium.class.name == 'Document'
+        %object{:data => @medium.upload.url}
