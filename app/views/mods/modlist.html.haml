@@ -16,8 +16,8 @@
       - @mods.each do |mod|
         %tr
           %td= mod.email
-          %td= mod.created_at
-          %td= mod.last_sign_in_at 
+          %td= mod.created_at.to_s[0, mod.created_at.to_s.index('+')]
+          %td= mod.last_sign_in_at.to_s[0, mod.created_at.to_s.index('+')]
           - if (mod.isActive)==true
             %td Yes
           - else
