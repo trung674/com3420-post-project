@@ -3,6 +3,6 @@ class RecordingUploader < MediumUploader
 
   def process_audio(new_file)
     # Queue the transcription
-    Delayed::Job.enqueue TranscriberUploaderJob.new(new_file, self.model)
+    Delayed::Job.enqueue TranscriberUploaderJob.new(self.model.upload.path, self.model)
   end
 end

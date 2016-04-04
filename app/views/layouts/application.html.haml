@@ -38,9 +38,13 @@
           .row
             .col-md-6
               .navbar-header
+                %button.navbar-toggle{'data-toggle' => 'collapse', 'data-target' => '#nav-links'}
+                  %span.icon-bar
+                  %span.icon-bar
+                  %span.icon-bar
                 %h2{:class => "nav-title"} Village Memories Group
                 %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Local History and Archiving Project
-            .col-md-6.collapse.navbar-collapse.pull-right
+            .col-md-6.col-sm-12.collapse.navbar-collapse.pull-right#nav-links
               .row
                 %ul.nav.navbar-nav.navbar-left
                   = navbar_link_to :root, title: "Go to the home page", identifier: :X do
