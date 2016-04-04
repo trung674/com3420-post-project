@@ -1,21 +1,37 @@
-%h1 Listing events
-  - @events.each do |event|
-    .panel.panel-info
-      %div.panel-heading= event.title
-      div.panel-body
-        .row
-          .col-md-8
-            = event.description
-          .col-md-4
-            = image_tag event.object.image.url, :class => "img-responsive"
+.row
+  .col-md-8.col-md-offset-1
+    %h2 Upcoming Events
 
-      -# %td= event.title
-      -# %td= event.description
-      -# %td= event.date
-      -# %td= link_to 'Show', event
-      -# %td= link_to 'Edit', edit_event_path(event)
-      -# %td= link_to 'Destroy', event, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+      - @events.each do |event|
+        .panel.panel-default
+          #headingOne.panel-heading{:role => "tab"}
+            %h4.panel-title
+              %a{"aria-controls" => "event_#{event.id}", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#event_#{event.id}", :role => "button"}
+                = event.title
+          .panel-collapse.collapse{:id => "event_#{event.id}", "aria-labelledby" => "heading", :role => "tabpanel"}
+            .panel-body
+              = event.description
 
-%br
+      -# Code to be used later
+      -#.panel.panel-info
+      -#  .panel-heading
+      -#    = event.title
+      -#    %div.pull-right= event.date
+      -#  .panel-body
+      -#    .row
+      -#      .col-md-8
+      -#        = event.description
+      -#      .col-md-2.col-md-offset-2
+      -#        = image_tag event.image.url, :class => "img-responsive"
 
-= link_to 'New Event', new_event_path
+        -# %td= event.title
+        -# %td= event.description
+        -# %td= event.date
+        -# %td= link_to 'Show', event
+        -# %td= link_to 'Edit', edit_event_path(event)
+        -# %td= link_to 'Destroy', event, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    %br
+
+    = link_to 'New Event', new_event_path

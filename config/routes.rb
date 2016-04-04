@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-  resources :events
   devise_for :mods
   mount Mercury::Engine => '/'
     match "/403", to: "errors#error_403", via: :all
@@ -25,7 +23,7 @@ Rails.application.routes.draw do
     get '/createmod', to: 'mods#new'
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
-
+    resources :events
     resources :media
     resources :recordings, :controller => :media, :type => "Recording"
     resources :documents, :controller => :media, :type => "Document"
