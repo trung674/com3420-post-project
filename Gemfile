@@ -45,6 +45,7 @@ gem 'daemons'
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'mini_magick'
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
