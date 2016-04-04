@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     put '/about', to: 'pages#mercury_update'
     get '/modpanel', to: 'mods#modpanel'
     get '/modlist', to: 'mods#modlist'
-    get '/createmod', to: 'mods#new'
+    get '/modedit', to: 'mods#modedit'
+    post '/modedit', to: 'mods#update', as: :mods
+
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
 
     resources :events
