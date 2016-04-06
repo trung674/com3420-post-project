@@ -17,7 +17,7 @@ class SearchController < ApplicationController
       end
     end
 
-    
+
     records = Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?) AND medium_id IN (?)',
                             "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%", ids)
     medium_ids = []
@@ -32,7 +32,7 @@ class SearchController < ApplicationController
 
     # for loops create the array of the useful infomation. More efficient than passing objects.
     for x in 0..(records.length-1)
-      @results_hashes.append({:title => records[x].title, :url => medium_final[x].upload,
+      @results_hashes.append({:title => records[x].title, :id => medium_final[x].id,
                               :date => records[x].ref_date, :location => records[x].location,
                               :type => medium_final[x].type})
     end

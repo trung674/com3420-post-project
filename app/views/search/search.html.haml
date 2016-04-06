@@ -18,8 +18,8 @@
         %tr
           %td
             -#TODO this will be where the url will go, implement like below.
-            -#%a{:href => item[:url]}
-            =item[:title]
+            %a{:href => "media/#{raw(item[:id])}"}
+              =item[:title]
           %td
             =item[:date]
           %td
