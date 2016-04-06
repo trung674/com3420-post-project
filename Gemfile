@@ -45,12 +45,15 @@ gem 'daemons'
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
-gem 'mini_magick'
+
+gem 'mini_magick', require: false
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
 gem 'auto_strip_attributes', '~> 2.0'
+
+gem 'audiojs-rails'
 
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do
