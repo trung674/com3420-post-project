@@ -43,15 +43,28 @@ class ModsController < ApplicationController
   end
   
   def update    
-    @alteredMod = Mod.find_by(email: mod_params[:email])
-    @alteredMod.isActive = true
+    @alteredMod = Mod.find_by(email: mod_params[:email])    
+    @updateMsg = String.new
+
+    if @alteredMod.isActive == false #If mod inactive  
+      #Set mod to active
+      @alteredMod.isActive = true
+      @updateMsg = "activated"
+    else #If the mod is active, deactivate
+      @alteredMod.isActive = false
+      @updateMsg = "deactivated"
+    end
+
+    #If successful, redirect to panel and display message.
     if @alteredMod.save
       redirect_to "/modpanel"
-      flash[:notice] = "Update successful"
+      flash[:notice] = "Moderator successfully " << @updateMsg
     else
       redirect_to "/modedit"
       flash[:notice] = "There was an error, update unsuccessful"
     end
+
+
   end
 
   private

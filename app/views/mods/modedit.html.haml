@@ -2,7 +2,8 @@
 
 .row
   .col-md-6
-    %h2 Activate Moderator Account
+    %h2 Activate / Deactivate Moderator Account
+    %h3 Enter the moderator's email below.
     = form_for(@alteredMod) do |f|
       = f.label :email
       = f.text_field :email, class: "form-control"
