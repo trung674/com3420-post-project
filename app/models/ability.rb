@@ -9,6 +9,8 @@ class Ability
     if current_mod.isActive?
       can :modpanel, :all
       can :modlist, :all
+      can :modedit, :all
+      can :update, :all
     end
 
     # Define abilities for the passed in user here. For example:
