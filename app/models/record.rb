@@ -19,6 +19,8 @@
 #  index_records_on_medium_id  (medium_id)
 #
 
+require 'auto_strip_attributes'
+
 class Record < ActiveRecord::Base
   belongs_to :medium
 

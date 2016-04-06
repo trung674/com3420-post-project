@@ -46,12 +46,16 @@ gem 'daemons'
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
+# Transcribing
+gem 'rest-client', :require => false
+gem 'rubyzip', :require => false
+
 gem 'mini_magick', require: false
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
-gem 'auto_strip_attributes', '~> 2.0'
+gem 'auto_strip_attributes', '~> 2.0', :require => false
 
 gem 'audiojs-rails'
 

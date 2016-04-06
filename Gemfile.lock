@@ -71,11 +71,9 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
     arel (6.0.3)
-    audiojs-rails (1.0.1)
-      railties (>= 3.1)
     auto_strip_attributes (2.0.6)
       activerecord (>= 3.0)
-    autoprefixer-rails (6.3.3.1)
+    autoprefixer-rails (6.3.5)
       execjs
     bcrypt (3.1.11)
     bcrypt (3.1.11-x64-mingw32)
@@ -157,7 +155,7 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
-    epi_js (0.0.20)
+    epi_js (0.0.21)
       bootstrap-sass
       coffee-rails (>= 3.2)
       railties (>= 3.0)
@@ -204,17 +202,18 @@ GEM
       launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
-    mime-types (2.99.1)
-    mini_magick (4.5.1)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
+    mime-types (3.0)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
     net-ldap (0.11)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (3.1.0)
+    net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.2-x64-mingw32)
@@ -232,7 +231,7 @@ GEM
       websocket-driver (>= 0.2.0)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
-    puma (3.1.1)
+    puma (3.2.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -269,11 +268,13 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
-    recaptcha (1.1.0)
+    recaptcha (1.1.1)
       json
     request_store (1.3.0)
-    responders (2.1.1)
+    responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -301,6 +302,7 @@ GEM
       sexp_processor (~> 4.1)
     rubycas-client (2.3.9)
       activesupport
+    rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -347,9 +349,8 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2015.7)
       tzinfo (>= 1.0.0)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -375,7 +376,6 @@ DEPENDENCIES
   activerecord-session_store
   airbrake (~> 4.3.5)
   annotate
-  audiojs-rails
   auto_strip_attributes (~> 2.0)
   bootstrap-sass
   bootstrap-will_paginate
@@ -412,7 +412,6 @@ DEPENDENCIES
   launchy
   letter_opener
   mercury-rails!
-  mini_magick
   pg
   poltergeist
   puma
@@ -421,8 +420,10 @@ DEPENDENCIES
   ransack
   recaptcha
   responders (~> 2.1)
+  rest-client
   rspec-instafail
   rspec-rails
+  rubyzip
   sass-rails
   select2-rails
   shoulda-matchers

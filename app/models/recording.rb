@@ -22,4 +22,5 @@
 #
 
 class Recording < Medium
+  mount_uploader :upload, RecordingUploader
 end
