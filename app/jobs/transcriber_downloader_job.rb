@@ -1,26 +1,12 @@
-require 'http'
+require 'rest-client'
 require 'tempfile'
 
-class TranscriberDownloaderJob < Struct.new(:upload_id, :model)
+class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
 
   def perform
-    # Login to the webASR service, orig.cookies holds the session id
-    orig = HTTP.post('http://mini-vm21.dcs.shef.ac.uk/controller', :params => {:event => 'APICheckLogin', :client => ASR_ID})
-
-    if orig.status != 200
-      raise 'Error connecting to webASR'
-    end
-
-    # Get the status of the transcription
-    r = HTTP.cookies(orig.cookies).post('http://mini-vm21.dcs.shef.ac.uk/controller',
-                                        :params => {:event => 'APIGetStatus', :uploadID => upload_id})
-
-    if r.status != 200
-      raise 'Error getting status'
-    end
-
-    transcribe_status = r.headers['status']
-
+    
+    response = RestClient.post('http://www.webasr.org/getstatus',:email => ASR_EMAIL, :password => ASR_PASSWORD,
+                               :src => src, :ses => ses)
     case transcribe_status
     when 'queued'
       raise 'Still processing'
@@ -29,9 +15,6 @@ class TranscriberDownloaderJob < Struct.new(:upload_id, :model)
     when 'killed'
     when 'completed'
       # Download the xml file containing the transcription
-      r = HTTP.cookies(orig.cookies).post('http://mini-vm21.dcs.shef.ac.uk/controller',
-                                          :params => {:event => 'APIGetDocument', :type => 'transcript',
-                                                      :format => 'xml', :uploadID => upload_id})
 
       # Upload the transcript file using carrier wave
       # TODO: need to handle xml file so its contents are viewable on the show page
