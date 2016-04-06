@@ -3,7 +3,7 @@
 - content_for :scripts do
   = javascript_include_tag 'map'
   = javascript_include_tag 'parsley.min'
-  %script{:src => "//maps.google.com/maps/api/js", :type => "text/javascript"}
+  %script{:src => "//maps.googleapis.com/maps/api/js", :type => "text/javascript"}
   = yield :scripts
 
 %h2 Upload #{ @medium.type }
@@ -32,6 +32,7 @@
       #map-container.col-md-5.col-sm-12.pull-right
         %h3 Click to add marker
         #map{:style => 'height: 510px;'}
+        #geocodedLocation
 
       = simple_form_for @medium, html: { id: 'upload-form', class: 'col-md-6 col-sm-12' }  do |f|
         = f.input :type, as: :hidden, value: @medium.type
@@ -103,8 +104,27 @@
       function placeMarker(latLng){
         map.removeMarkers();
         map.addMarker({position:latLng});
+        GMaps.geocode({
+          latLng: latLng,
+          callback: function(results, status) {
+            if (status == 'OK') {
+              //This is to prevent house numbers appearing, as much as possible.
+              //Still occurs sometimes due to ranges of house numbers appearing
+              if (parseInt(results[0].address_components[0].long_name)) {
+                var html = "<p>"+results[0].formatted_address.substring(2)+'</p>'
+                $('#geocodedLocation').empty()
+                $('#geocodedLocation').html(html)
+              } else {
+                var html = "<p>"+results[0].formatted_address+'</p>';
+                $('#geocodedLocation').empty()
+                $('#geocodedLocation').html(html)
+              }
 
-        // Fills two hidden fields in the form which is submitted to the controller
+            }
+          }
+        });
+
+
         $("#latitude-input").val(latLng.lat())
         $("#longitude-input").val(latLng.lng())
       }
