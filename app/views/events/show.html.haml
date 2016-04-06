@@ -1,14 +1,33 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @event.title
-%p
-  %b Description:
-  = @event.description
-%p
-  %b Date:
-  = @event.date
+.row
+  .col-md-8
+    .row
+      .col-md-4
+        = image_tag @event.image.url
+
+      .col-md-8
+        .panel.panel-info
+          .panel-heading
+            %h4
+              = @event.title
+          .panel-body
+            = simple_format(@event.description)
+        .panel.panel-info
+          .panel-heading Location
+          .panel-body
+            = @event.location
+        .panel.panel-info
+          .panel-heading Date
+          .panel-body
+            = @event.date
+        .panel.panel-info
+          .panel-heading Time
+          .panel-body
+            = @event.time
+
+  .col-md-3.col-md-offset-1
+  -# TODO : Add list of event
 
 = link_to 'Edit', edit_event_path(@event)
 \|

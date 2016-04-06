@@ -9,6 +9,8 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  image       :string
+#  location    :string
+#  time        :string
 #
 
 class EventsController < ApplicationController
@@ -66,6 +68,6 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:title, :description, :date, :image)
+      params.require(:event).permit(:title, :description, :date, :image, :location, :time)
     end
 end

@@ -1,17 +1,11 @@
 .row
   .col-md-8.col-md-offset-1
     %h2 Upcoming Events
+    %ul.list-group
+    - @events.each do |event|
+      %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
 
-    #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-      - @events.each do |event|
-        .panel.panel-default
-          #headingOne.panel-heading{:role => "tab"}
-            %h4.panel-title
-              %a{"aria-controls" => "event_#{event.id}", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#event_#{event.id}", :role => "button"}
-                = event.title
-          .panel-collapse.collapse{:id => "event_#{event.id}", "aria-labelledby" => "heading", :role => "tabpanel"}
-            .panel-body
-              = event.description
+
 
       -# Code to be used later
       -#.panel.panel-info

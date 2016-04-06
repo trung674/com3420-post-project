@@ -6,9 +6,13 @@
 
         = f.input :title
 
-        = f.input :description, :input_html => {:rows => 15}
+        = f.input :location
+
+        = f.input :time
 
         = f.input :date
+
+        = f.input :description, :input_html => {:rows => 15}
 
     .col-md-5.col-md-offset-1
       = f.input :image, as: :file
