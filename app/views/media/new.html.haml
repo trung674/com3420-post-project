@@ -47,7 +47,7 @@
           - else
             = f.input :text, as: :text, required: true, :label => 'Text', :input_html => {:rows => 10}
 
-          = r.input :location
+          = r.input :location, input_html: {:id => 'location-field'}
           = r.input :latitude, as: :hidden, input_html: {:id => 'latitude-input'}
           = r.input :longitude, as: :hidden, input_html: {:id => 'longitude-input'}
 
@@ -111,13 +111,16 @@
               //This is to prevent house numbers appearing, as much as possible.
               //Still occurs sometimes due to ranges of house numbers appearing
               if (parseInt(results[0].address_components[0].long_name)) {
-                var html = "<p>"+results[0].formatted_address.substring(2)+'</p>'
-                $('#geocodedLocation').empty()
-                $('#geocodedLocation').html(html)
+                var location = results[0].formatted_address.substring(2)
+                if ($('#location-field').val().length <= 1){
+                  $('#location-field').val(location)
+                }
               } else {
-                var html = "<p>"+results[0].formatted_address+'</p>';
-                $('#geocodedLocation').empty()
-                $('#geocodedLocation').html(html)
+                var location = results[0].formatted_address;
+                if ($('#location-field').val().length <= 1){
+                  $('#location-field').val(location)
+                }
+
               }
 
             }
