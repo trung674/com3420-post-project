@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( jquery-1.7.js )
 Rails.application.config.assets.precompile += %w( map.js )
 Rails.application.config.assets.precompile += %w( parsley.min.js )
+Rails.application.config.assets.precompile += %w( media.js )

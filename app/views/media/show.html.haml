@@ -1,3 +1,9 @@
+- content_for :scripts do
+  = javascript_include_tag 'map'
+  = javascript_include_tag 'media'
+  %script{:src => "//maps.google.com/maps/api/js", :type => "text/javascript"}
+    = yield :scripts
+
 %div.panel.panel-default
   %div.panel-body.record
     .row
@@ -8,6 +14,40 @@
     .row
       .col-md-6.col-sm-12
         #{@current_record.description}
+    %br
     .row
-      - if @medium.class.name == 'Document'
-        %object{:data => @medium.upload.url}
+      - if @medium.class.name == 'Recording'
+        .col-md-8
+          %audio{:src => @medium.upload.url, :type => 'audio/wav', :preload => 'auto'}
+      - elsif @medium.class.name == 'Document'
+        .col-md-12
+          %object{:data => @medium.upload.url}
+      - elsif @medium.class.name == 'Text'
+        .col-md-12
+          #{File.read(@medium.upload.path)}
+      - elsif @medium.class.name == 'Image'
+        .col-md-8
+          %img{:src => @medium.upload.url, :height => '500px'}
+
+    - if @current_record.latitude?
+      %br
+      #map-container.col-md-5.col-sm-12
+        #map{:style => 'height: 250px;'}
+
+:javascript
+   //This is the map declaration, with the center and zoom etc.
+   //It is unlikely that changes will need to be made here.
+
+   map = new GMaps({
+    el: '#map',
+    lat: 53.452,
+    lng: -1.212,
+    zoom: 13,
+   });
+
+   var latlng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
+   map.addMarker({position:latlng});
+
+   audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
