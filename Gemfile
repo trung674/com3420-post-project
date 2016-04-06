@@ -46,7 +46,9 @@ gem 'daemons'
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
+# Transcribing
 gem 'rest-client', :require => false
+gem 'rubyzip', :require => false
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'

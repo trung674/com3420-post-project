@@ -1,31 +1,45 @@
 require 'rest-client'
 require 'tempfile'
+require 'zip'
 
 class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
 
   def perform
-    
     response = RestClient.post('http://www.webasr.org/getstatus',:email => ASR_EMAIL, :password => ASR_PASSWORD,
                                :src => src, :ses => ses)
+
+    transcribe_status = response.to_str.partition('is: ').last.strip.downcase
+
     case transcribe_status
-    when 'queued'
+    when 'processing...'
       raise 'Still processing'
-    when 'failed'
-      # TODO: remove job as it will never complete!
-    when 'killed'
-    when 'completed'
-      # Download the xml file containing the transcription
+    when 'transcription completed'
+      # Download the .zip file
+
+      response = RestClient::Request.execute({:url => 'http://www.webasr.org/getfile', :email => ASR_EMAIL, :password => ASR_PASSWORD,
+                                              :src => src, :ses => ses, :method => :get, :content_type => 'application/zip'})
+      zipfile = Tempfile.new('downloaded')
+      zipfile.binmode
+      zipfile.write(response)
+
+      Zip::ZipFile.open(zipfile.path) do |file|
+        file.each do |content|
+          #data = file.read(content)
+          puts content
+        end
+      end
 
       # Upload the transcript file using carrier wave
-      # TODO: need to handle xml file so its contents are viewable on the show page
-      f = Tempfile.new(['transcript', '.xml'])
-      f.write(r.to_s)
-      model.transcript = f
-      f.close
-      f.unlink
+      # TODO: handle the downloaded files
+      # f = Tempfile.new(['transcript', '.xml'])
+      # f.write(r.to_s)
+      # model.transcript = f
+      # f.close
+      # f.unlink
 
       raise model.errors unless model.save!
     else
+      # remove job?
       raise 'Status unknown'
     end
   end

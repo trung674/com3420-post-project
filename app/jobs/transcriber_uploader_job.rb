@@ -21,11 +21,8 @@ class TranscriberUploaderJob < Struct.new(:file_path, :model)
       src = src.slice(0..(src.index('"') - 1))
       ses = response.to_str.match(/ses=([^\/.]*)"$/)[1]
 
-      puts src
-      puts ses
-
-      # Schedule the downloader job to run 2 hours from now, uses the given upload id from webASR
-      Delayed::Job.enqueue(TranscriberDownloaderJob.new(upload_id, model), :run_at => 2.hours.from_now)
+      # Schedule the downloader job to run 2 hours from now, uses the given src and ses from webASR
+      Delayed::Job.enqueue(TranscriberDownloaderJob.new(src, ses, model), :run_at => 2.hours.from_now)
     else
       raise 'Error converting audio file'
     end
