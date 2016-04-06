@@ -18,7 +18,7 @@ class SearchController < ApplicationController
     end
 
 
-    records = Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?) AND medium_id IN (?)',
+    records = Record.where('approved == ? AND (location LIKE ? OR description LIKE ? OR title LIKE ?) AND medium_id IN (?)', true,
                             "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%", ids)
     medium_ids = []
     records.each do |getId|
