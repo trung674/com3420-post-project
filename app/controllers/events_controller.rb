@@ -16,6 +16,7 @@
 require 'mini_magick'
 
 class EventsController < ApplicationController
+  before_action :authenticate_mod!, except: [:index, :show]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
