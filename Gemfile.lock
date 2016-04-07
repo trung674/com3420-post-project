@@ -71,6 +71,8 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
     arel (6.0.3)
+    audiojs-rails (1.0.1)
+      railties (>= 3.1)
     auto_strip_attributes (2.0.6)
       activerecord (>= 3.0)
     autoprefixer-rails (6.3.5)
@@ -207,6 +209,7 @@ GEM
     mime-types (3.0)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0221)
+    mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -376,6 +379,7 @@ DEPENDENCIES
   activerecord-session_store
   airbrake (~> 4.3.5)
   annotate
+  audiojs-rails
   auto_strip_attributes (~> 2.0)
   bootstrap-sass
   bootstrap-will_paginate
@@ -412,6 +416,7 @@ DEPENDENCIES
   launchy
   letter_opener
   mercury-rails!
+  mini_magick
   pg
   poltergeist
   puma
