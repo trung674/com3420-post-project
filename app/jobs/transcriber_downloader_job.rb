@@ -10,37 +10,41 @@ class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
 
     transcribe_status = response.to_str.partition('is: ').last.strip.downcase
 
-    case transcribe_status
-    when 'processing...'
+    if transcribe_status.include? 'processing'
       raise 'Still processing'
-    when 'transcription completed'
+    elsif transcribe_status.include? 'completed'
       # Download the .zip file
+      response = RestClient.post('http://www.webasr.org/getfile',:email => ASR_EMAIL, :password => ASR_PASSWORD,
+                                 :src => src, :ses => ses)
 
-      response = RestClient::Request.execute({:url => 'http://www.webasr.org/getfile', :email => ASR_EMAIL, :password => ASR_PASSWORD,
-                                              :src => src, :ses => ses, :method => :get, :content_type => 'application/zip'})
-      zipfile = Tempfile.new('downloaded')
-      zipfile.binmode
-      zipfile.write(response)
+      zip_file = Tempfile.new('downloaded')
+      zip_file.binmode
+      zip_file.write(response.to_s)
 
-      Zip::ZipFile.open(zipfile.path) do |file|
+      dir = File.dirname(model.upload.path)
+
+      Zip::File.open(zip_file.path) do |file|
         file.each do |content|
-          #data = file.read(content)
-          puts content
+          data = file.read(content)
+          ext_name = File.extname(content.to_s)
+
+          if ext_name == '.pdf' or ext_name == '.ttml'
+            File.open(File.join(dir, 'transcript') + ext_name, 'wb') {|f| f.write(data) }
+          elsif ext_name == '.xml'
+            File.open(File.join(dir, 'transcript.xml'), 'w') {|f| f.write(data) }
+          else
+            puts content.to_s
+          end
         end
       end
 
-      # Upload the transcript file using carrier wave
-      # TODO: handle the downloaded files
-      # f = Tempfile.new(['transcript', '.xml'])
-      # f.write(r.to_s)
-      # model.transcript = f
-      # f.close
-      # f.unlink
+      # Upload the transcript file using carrier wave, currently will be the .pdf file
+      model.transcript = File.join(dir, 'transcript.pdf')
 
       raise model.errors unless model.save!
     else
       # remove job?
-      raise 'Status unknown'
+      raise transcribe_status + 'Status unknown'
     end
   end
 
