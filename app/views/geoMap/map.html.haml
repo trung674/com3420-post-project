@@ -7,9 +7,30 @@
 %div.panel.panel-default
   %div.panel-body
 
-    #map{:style => 'width: 70%; height: 510px;'}
+    #map{:style => 'width: 70%; height: 510px; padding: 10px;'}
 
-    #info
+    %br
+
+    %table.table.table-bordered{:style => 'width: 70%;'}
+      %tr
+        %th Title:
+        %td#title
+          -#TODO this will be where the url will go, implement like below.
+          %a{:href => "media/"}
+
+      %tr
+        %th Date:
+        %td#date
+
+      %tr
+        %th Location:
+        %td#location
+
+      %tr
+        %th Type:
+        %td#type
+
+
 
 :javascript
     $(document).ready( function() {
@@ -26,12 +47,24 @@
       for (i = 0; i < markers.length; i++) {
         //This adds listeners to each marker so that they perform
         //an action on clicking them.
-        markers[i].addListener('click', function() {
+        markers[i].addListener('click', function(evt) {
           //TODO ADD ON CLICK HERE!!!
-          $('#info').empty();
-          var z = document.createElement('div');
-          z.innerHTML = "harry smells";
-          document.getElementById('info').appendChild(z);
+          $('#title').empty();
+          $('#date').empty();
+          $('#location').empty();
+          $('#type').empty();
+          var title = document.createElement('div');
+          title.innerHTML = "bants";
+          var date = document.createElement('div');
+          date.innerHTML = "bants";
+          var location = document.createElement('div');
+          location.innerHTML = "bants";
+          var type = document.createElement('div');
+          type.innerHTML = "bants";
+          $('#title').html(title);
+          $('#date').html(date);
+          $('#location').html(location);
+          $('#type').html(type);
         });
       }
     });
