@@ -2,6 +2,7 @@ class PagesController < ApplicationController
 
   def home
     @current_nav_identifier = :home
+    @events = Event.all
   end
 
   def contact
