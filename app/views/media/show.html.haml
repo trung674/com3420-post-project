@@ -17,8 +17,11 @@
     %br
     .row
       - if @medium.class.name == 'Recording'
-        .col-md-8
+        .col-md-6
           %audio{:src => @medium.upload.url, :type => 'audio/wav', :preload => 'auto'}
+          - if @medium.transcript?
+            .col-md-6
+              %object{:data => @medium.transcript.url}
       - elsif @medium.class.name == 'Document'
         .col-md-12
           %object{:data => @medium.upload.url}
@@ -31,8 +34,11 @@
 
     - if @current_record.latitude?
       %br
-      #map-container.col-md-5.col-sm-12
+      #map-container.row.col-md-5.col-sm-12
         #map{:style => 'height: 250px;'}
+    - if @current_record.location?
+      .row.col-md-12
+        #{@current_record.location}
 
 :javascript
    //This is the map declaration, with the center and zoom etc.

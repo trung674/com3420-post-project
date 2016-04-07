@@ -4,7 +4,7 @@
   .col-md-8
     .row
       .col-md-4
-        = image_tag @event.image.url
+        = image_tag(@event.image.url, class: "img-responsive img-thumbnail", alt: "#{@event.image.file.identifier}")
 
       .col-md-8
         .panel.panel-info
@@ -27,7 +27,7 @@
             = @event.time
 
   .col-md-3.col-md-offset-1
-  -# TODO : Add list of event
+    = render 'list', :events => @events
 
 = link_to 'Edit', edit_event_path(@event)
 \|
