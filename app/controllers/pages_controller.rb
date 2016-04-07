@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :authenticate_mod!, only: [:mercury_update]
 
   def home
     @current_nav_identifier = :home
@@ -13,7 +14,6 @@ class PagesController < ApplicationController
     # TODO make this only editable when logged in!!
     @current_nav_identifier = :about
     @about_content = EditableContent.find_by name: 'about'
-
   end
 
   def mercury_update

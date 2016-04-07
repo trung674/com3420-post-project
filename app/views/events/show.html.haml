@@ -4,8 +4,12 @@
   .col-md-8
     .row
       .col-md-4
-        = image_tag(@event.image.url, class: "img-responsive img-thumbnail", alt: "#{@event.image.file.identifier}")
-
+        = image_tag(@event.image.url, class: "img-responsive img-thumbnail", alt: "#{@event.image.file.identifier unless @event.image.file.nil?}")
+        %br
+        %br
+        - if mod_signed_in?
+          %button.btn.btn-default= link_to 'Edit', edit_event_path(@event)
+          %button.btn.btn-default= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }
       .col-md-8
         .panel.panel-info
           .panel-heading
