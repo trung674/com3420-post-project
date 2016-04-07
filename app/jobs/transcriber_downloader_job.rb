@@ -56,7 +56,6 @@ class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
   end
 
   def reschedule_at(current_time, attempts)
-    # TODO: decrease with more attempts as it's more likely the processing has finished
-    current_time + 1.hour
+    current_time + 2.hours
   end
 end
