@@ -23,4 +23,5 @@
 
 class Recording < Medium
   mount_uploader :upload, RecordingUploader
+  mount_uploader :transcript, MediumUploader
 end

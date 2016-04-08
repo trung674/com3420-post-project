@@ -19,7 +19,8 @@
       - if @medium.class.name == 'Recording'
         .col-md-6
           %audio{:src => @medium.upload.url, :type => 'audio/wav', :preload => 'auto'}
-          - if @medium.transcript?
+          - unless @medium.transcript.nil?
+            #{@medium.transcript.url}
             .col-md-6
               %object{:data => @medium.transcript.url}
       - elsif @medium.class.name == 'Document'

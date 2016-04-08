@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
 
 
+  # TODO: This generates an error when no box is ticked
   def search
-    # TODO search logic will go here
     @search = [params[:search]]
     @type = params[:items]
     # More efficient to search by type first
