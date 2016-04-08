@@ -25,10 +25,18 @@ class MediumUploader < CarrierWave::Uploader::Base
     true
   end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_white_list
+    case model.class.name
+      when 'Document'
+        %w(pdf)
+      when 'Image'
+        %w{jpeg jpg gif tff bmp png}
+      when 'Text'
+        %w{txt}
+      when 'Recording'
+        # Recording allows the audio file as well as the transcript
+        %w{wav mp3 pdf}
+    end
+  end
 
 end

@@ -19,5 +19,5 @@ class Contributor < ActiveRecord::Base
 
   validates :name, format: { with: /(\w|\s)*/ }
   validates :email, presence: true
-  validates :phone, format: { with: /\d*/ }
+  validates :phone, format: { with: /(\+?(\s?\d)+)*/ }
 end

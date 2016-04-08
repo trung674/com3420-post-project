@@ -38,12 +38,14 @@ class MediaController < ApplicationController
       @medium.type = params[:type]
     end
 
-    if @medium.type == 'Recording'
-        @accepted_mimes = '.wav'
-    elsif @medium.type == 'Document'
-        @accepted_mimes = '.pdf'
-    elsif @medium.type =='Image'
-        @accepted_mimes = 'image/*'
+    # Set the allowed upload extensions depending on the media type
+    case @medium.type
+      when'Recording'
+          @accepted_mimes = '.wav,.mp3'
+      when 'Document'
+          @accepted_mimes = '.pdf'
+      when 'Image'
+          @accepted_mimes = '.jpeg,.jpg,.gif,.tff,.bmp,.png'
     end
 
   end
@@ -74,7 +76,7 @@ class MediaController < ApplicationController
   end
 
   def show
-    @medium = Medium.find(params[:id])
+    @medium = Medium.where(id: params[:id]).first
     @approved_records = @medium.records.where(approved: true).order('created_at DESC')
 
     # TODO: change current record depending on selected
@@ -83,6 +85,7 @@ class MediaController < ApplicationController
 
   private
     def medium_params(type)
+      # The media upload form submits a record as well as the contributor information
       params.require(type.underscore.to_sym).permit(:type, :upload, :upload_cache, :public_ref, :education_use,
                                                     :public_archive, :publication, :broadcasting, :editing, :copyright,
                                                     :text, records_attributes: [:title, :location, :description,

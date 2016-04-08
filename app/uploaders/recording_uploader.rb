@@ -6,4 +6,9 @@ class RecordingUploader < MediumUploader
     # Queue the transcription job
     Delayed::Job.enqueue TranscriberUploaderJob.new(self.model.upload.path, self.model)
   end
+
+  def extension_white_list
+    %w{wav mp3}
+  end
+
 end
