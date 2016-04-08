@@ -46,7 +46,7 @@ class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
       end
 
       # Upload the transcript file using carrier wave, currently will be the .pdf file. Then save the model
-      model.transcript = File.join(upload_dir, 'transcript.pdf')
+      model.transcript = File.open(File.join(upload_dir, 'transcript.pdf'))
 
       raise model.errors unless model.save!
     else
