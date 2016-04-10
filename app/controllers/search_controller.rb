@@ -2,6 +2,7 @@ class SearchController < ApplicationController
 
 
   # TODO: This generates an error when no box is ticked
+  # TODO: This also seems to break if there is more than one record for a medium
   def search
     @search = [params[:search]]
     @type = params[:items]
