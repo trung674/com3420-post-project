@@ -77,10 +77,20 @@ class MediaController < ApplicationController
 
   def show
     @medium = Medium.where(id: params[:id]).first
-    @approved_records = @medium.records.where(approved: true).order('created_at DESC')
+
+    @approved_records = @medium.records.where(approved: true).order('created_at ASC')
 
     # TODO: change current record depending on selected
-    @current_record = @approved_records.first
+    if params.has_key?(:record_id)
+      @current_record = @approved_records.find(params[:record_id])
+    else
+      @current_record = @approved_records.last
+    end
+
+  end
+
+  def format_date(date)
+    date.to_formatted_s(:long)
   end
 
   private
