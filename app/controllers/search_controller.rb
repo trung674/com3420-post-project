@@ -7,7 +7,12 @@ class SearchController < ApplicationController
 
 
     if params[:items] || [params[:search]]
-      @type = params[:items]
+      if params[:items].nil?
+        @type = ['Document', 'Recording', 'Image', 'Text']
+      else
+        @type = params[:items]
+      end
+
       @search = [params[:search]]
       # More efficient to search by type first
       ids = []
