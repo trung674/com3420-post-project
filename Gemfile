@@ -42,6 +42,9 @@ gem 'delayed_job_active_record'
 gem 'delayed-plugins-airbrake'
 gem 'daemons'
 
+# Contact Form
+gem 'actionmailer'
+
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'

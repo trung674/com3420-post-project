@@ -1,0 +1,2 @@
+class ModMailer < ApplicationMailer
+end
