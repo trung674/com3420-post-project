@@ -89,8 +89,12 @@ class MediaController < ApplicationController
 
   end
 
-  def format_date(date)
-    date.to_formatted_s(:long)
+  def edit
+    @medium = Medium.find(params[:id])
+    @current_record = @medium.records.where(approved: true).order('created_at').last
+  end
+
+  def update
   end
 
   private
