@@ -8,7 +8,8 @@ class SearchController < ApplicationController
 
     if params[:items] || [params[:search]]
       if params[:items].nil?
-        @type = ['Document', 'Recording', 'Image', 'Text']
+        # If the user provides no choice, the default is to return everything
+        @type = %w{Document Recording Image Text}
       else
         @type = params[:items]
       end
@@ -32,8 +33,6 @@ class SearchController < ApplicationController
       records.each do |getId|
         medium_ids.append(getId.medium_id)
       end
-      medium_final = Medium.where('id IN (?)', medium_ids)
-
 
       # This is the array of hashes that we send to the view based on the search.
       @results_hashes = []
@@ -42,7 +41,7 @@ class SearchController < ApplicationController
       for x in 0..(records.length-1)
         @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
                                 :date => records[x].ref_date, :location => records[x].location,
-                                :type => medium_final[x].type})
+                                :type => (Medium.where('id == (?)', records[x].medium_id))[0].type})
       end
     end
   end
