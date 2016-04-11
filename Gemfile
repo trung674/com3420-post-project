@@ -13,7 +13,6 @@ gem 'airbrake', '~> 4.3.5'
 # mapping/location gems
 gem 'gmaps4rails'
 gem 'geocoder'
-gem 'set'
 
 gem 'haml-rails'
 gem 'sass-rails'
