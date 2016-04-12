@@ -5,9 +5,13 @@ class ModMailer < ApplicationMailer
   #
   #   en.mod_mailer.contact_form.subject
   #
-  def contact_form(contact)
+  def contact_form(contact_params)
     @greeting = "This message is to inform you that someone has written to you via Village Memories"
-    
+       
+    @name = contact_params[:name]
+    @email = contact_params[:email]
+    @message = contact_params[:message]
+
     mail to: "asacook1@sheffield.ac.uk"
 
   end
