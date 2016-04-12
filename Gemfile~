@@ -43,7 +43,7 @@ gem 'delayed-plugins-airbrake'
 gem 'daemons'
 
 # Contact Form
-gem 'actionmailer'
+gem 'mail_form'
 
 # Uploading
 gem 'carrierwave'
