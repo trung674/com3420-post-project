@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "asacook1@sheffield.ac.uk"
+  default from: "VMcontactform@gmail.com"
   layout 'mailer'
 end

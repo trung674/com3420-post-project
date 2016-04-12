@@ -28,8 +28,8 @@ Rails.application.configure do
     domain: "myapp.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "asacook1@sheffield.ac.uk",
-    password: "sl1pknot"
+    user_name: "VMcontactform@gmail.com",
+    password: "villagemems"
   }
 
   config.action_mailer.default_url_options = { host: "localhost:3000" }
