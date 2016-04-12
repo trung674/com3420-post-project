@@ -7,7 +7,6 @@
   = yield :scripts
 
 %h2 Edit #{ @current_record.title }
-%br
 
 %div.panel.panel-default
   %div.panel-body
@@ -21,6 +20,17 @@
 
       = simple_form_for @medium, html: { id: 'edit-form', class: 'col-md-6 col-sm-12' }  do |f|
         = f.simple_fields_for @current_record do |r|
+
+          - if @medium.errors.any? or @current_record.errors.any?
+            #error_explanation
+              %h2
+                = pluralize(@medium.errors.count + @current_record.errors.count, 'error')
+              %ul
+                - @medium.errors.full_messages.each do |msg|
+                  %li #{msg}
+                - @current_record.errors.full_messages.each do |msg|
+                  %li #{msg}
+
           = r.input :title, required: true
 
           - if @medium.class.name == 'Text'
@@ -107,10 +117,7 @@
         return false;
       });
 
-      $(function() {
-        resetMap();
-      });
-
+      $(function() { resetMap(); });
 
       // Parsley form validation
       $('#edit-form').parsley();

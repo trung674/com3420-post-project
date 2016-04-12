@@ -29,9 +29,7 @@ class MediaController < ApplicationController
   def new
     @medium = Medium.new
     @medium.records.build
-
-    # This dosen't seem to work
-    @medium.build_contributor(params[:contributor_attributes])
+    @medium.build_contributor
 
     # By default a new contribution is a recording
     if params[:type].blank?
@@ -74,7 +72,6 @@ class MediaController < ApplicationController
     if verify_recaptcha(model: @medium) && @medium.save
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
-      # TODO: Error messages
       render :new
     end
   end
@@ -97,11 +94,14 @@ class MediaController < ApplicationController
     # When editing the most recent record for the medium is displayed
     @medium = Medium.where(id: params[:id]).first
     @current_record = @medium.records.where(approved: true).order('created_at').last
+
+    #TODO: decide whether text entries should be editable
   end
 
   def update
     @medium = Medium.where(id: params[:id]).first
 
+    # Create a new (unapproved) record for the medium
     if params[:medium].present?
       @record = Record.new(record_params(params['medium'])['record'])
     elsif params[:type].present?
@@ -111,9 +111,8 @@ class MediaController < ApplicationController
     @record.medium = @medium
 
     if verify_recaptcha(model: @medium) && @record.save
-      redirect_to root_url, notice: 'Edit successful, please wait for approval'
+      redirect_to medium_url, notice: 'Edit successful, please wait for approval'
     else
-      # TODO: Error messages
       @current_record = @record
       render :edit
     end
