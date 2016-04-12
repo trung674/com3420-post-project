@@ -1,4 +1,6 @@
-.row
+%p#notice= notice
+
+.row#event
   .col-md-8
     .row
       .col-md-4
@@ -6,8 +8,8 @@
         %br
         %br
         - if mod_signed_in?
-          = link_to 'Edit', edit_event_path(@event), class: "btn btn-default"
-          = link_to 'Delete', @event, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-default"
+          %button.btn.btn-default= link_to 'Edit', edit_event_path(@event)
+          %button.btn.btn-default= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }
       .col-md-8
         .panel.panel-info
           .panel-heading

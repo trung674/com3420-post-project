@@ -7,7 +7,6 @@
   = yield :scripts
 
 %h2 Upload #{ @medium.type }
-%br
 
 %div.panel.panel-default
   %div.panel-body
@@ -35,8 +34,16 @@
         %button{id: 'clear-marker', class: 'pull-right btn btn-warning'}
           Remove marker
 
-
       = simple_form_for @medium, html: { id: 'upload-form', class: 'col-md-6 col-sm-12' }  do |f|
+
+        - if @medium.errors.any?
+          #error_explanation
+            %h2
+              = pluralize(@medium.errors.count, 'error')
+            %ul
+              - @medium.errors.full_messages.each do |msg|
+                %li #{msg}
+
         = f.input :type, as: :hidden, value: @medium.type
 
         = f.simple_fields_for :records do |r|
@@ -61,7 +68,7 @@
 
         %h3 Contact Information
 
-        = f.simple_fields_for :contributor_attributes do |c|
+        = f.simple_fields_for :contributor do |c|
           = c.input :name, required: false
           = c.input :email, as: :email
           = c.input :phone, required: false, input_html: {pattern: '(\+?(\s?\d)+)*',

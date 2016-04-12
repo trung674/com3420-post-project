@@ -42,3 +42,7 @@ coverage/index.html
 /config/database.yml
 
 /uploads
+/public/uploads
+
+# Ignore application configuration
+/config/application.yml

@@ -1,0 +1,24 @@
+- content_for :title, "Contact"
+
+.row
+  .col-md-6#contact-form
+    %h2 Contact Us
+    = simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f|
+      = f.input :name, :required => true
+      = f.input :email, :required => true
+      = f.input :message, :as => :text, :required => true
+      .hidden
+      = f.input :nickname, :hint => 'Leave this field blank!'
+      = f.button :submit, 'Send message', :class=> "btn btn-primary"
+
+  .col-md-6#address-form
+    %h2 Our Address
+    %address
+      123 Street Name
+      %br
+      Sheffield
+      %br
+      South Yorkshire
+      %br
+      POSTCODE
+    %h4 Phone : 0029947288

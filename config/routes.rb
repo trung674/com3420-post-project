@@ -13,18 +13,21 @@ Rails.application.routes.draw do
     root to: 'pages#home'
     get '/upload', to: 'media#new'
     get '/map', to: 'geomap#map'
+    post '/map', to: 'geomap#map'
     get '/search', to: 'pages#home'
     post '/search', to: 'search#search'
     get '/about', to: 'pages#about'
-    get '/contact', to: 'pages#contact'
     put '/about', to: 'pages#mercury_update'
     get '/modpanel', to: 'mods#modpanel'
     get '/modlist', to: 'mods#modlist'
     get '/modedit', to: 'mods#modedit'
     post '/modedit', to: 'mods#update', as: :mods
 
-    #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
+    match '/contacts', to: 'contacts#new', via: 'get'
 
+    #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
+    
+    resources "contacts", only: [:new, :create]
     resources :events
     resources :media
     resources :recordings, :controller => :media, :type => "Recording"
