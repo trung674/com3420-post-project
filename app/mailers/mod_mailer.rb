@@ -5,9 +5,9 @@ class ModMailer < ApplicationMailer
   #
   #   en.mod_mailer.contact_form.subject
   #
-  def contact_form
+  def contact_form(contact)
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: "asacook1@sheffield.ac.uk"
   end
 end

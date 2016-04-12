@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     @contact.request = request
-    if @contact.deliver
+    if ModMailer.contact_form(@contact).deliver
       flash.now[:notice] = "Thank you for your message"
     else
       flash.now[:error] = "Cannot send message"
