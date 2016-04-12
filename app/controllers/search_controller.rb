@@ -7,7 +7,7 @@ class SearchController < ApplicationController
 
 
     if params[:items] || [params[:search]]
-      if params[:items].nil?
+      if params[:items].nil
         # If the user provides no choice, the default is to return everything
         @type = %w{Document Recording Image Text}
       else
