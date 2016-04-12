@@ -20,19 +20,19 @@
           Remove marker
 
       = simple_form_for @medium, html: { id: 'edit-form', class: 'col-md-6 col-sm-12' }  do |f|
-        = f.simple_fields_for :records do |r|
-          = r.input :title, required: true, value: @current_record.title
+        = f.simple_fields_for @current_record do |r|
+          = r.input :title, required: true
 
           - if @medium.class.name == 'Text'
             = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10, value: File.read(@medium.upload.path)}
 
-          = r.input :location, input_html: {id: 'location-field', value: @current_record.location}
-          = r.input :latitude, as: :hidden, input_html: {id: 'latitude-input', value: @current_record.latitude}
-          = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input', value: @current_record.longitude}
+          = r.input :location, input_html: {id: 'location-field'}
+          = r.input :latitude, as: :hidden, input_html: {id: 'latitude-input'}
+          = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input'}
 
           - if @medium.class.name  != 'Text'
-            = r.input :description, as: :text, required: true, :input_html => {:rows => 5, value: @current_record.description}
-          = r.input :ref_date, :label => 'Date', :include_blank => true, :start_year => 1850, :end_year => Date.today.year, value: @current_record.ref_date
+            = r.input :description, as: :text, required: true, :input_html => {:rows => 5}
+          = r.input :ref_date, :label => 'Date', :include_blank => true, :start_year => 1850, :end_year => Date.today.year
 
         %hr
 
