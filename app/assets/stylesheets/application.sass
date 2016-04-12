@@ -118,6 +118,17 @@ footer
   .filled
     opacity: 1
 
+#error_explanation
+  @extend .parsley-error
+  @extend .parsley-errors-list
+  margin: 0 0 10px
+  padding: 5px
+  color: #B94A48
+
+  h2
+    font-size: 27px
+    margin-top: 0
+
 #map-container
   h3
     margin-top: 0
@@ -136,5 +147,6 @@ footer
     height: 800px
     padding: 10px 15px 0
 
-.panel-body
-  word-wrap: break-word
+#event
+  .panel-body
+    word-wrap: break-word

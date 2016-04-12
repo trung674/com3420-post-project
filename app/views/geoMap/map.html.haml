@@ -10,34 +10,29 @@
     #map{:style => 'width: 70%; height: 510px; padding: 10px;'}
 
     %br
+    -#  the table only appears if you have clicked on an item displayed on the map
+    -if @result
+      %table.table.table-bordered{:style => 'width: 70%;'}
+        %tr
+          %th Title:
+          %td#title
+            %a{:href => "media/#{raw @result.medium_id}"}
+              =@result.title
+        %tr
+          %th Date:
+          %td#date
+            =@result.ref_date
+        %tr
+          %th Location:
+          %td#location
+            =@result.location
 
-    %table.table.table-bordered{:style => 'width: 70%;'}
-      %tr
-        %th Title:
-        %td#title
-          -#TODO this will be where the url will go, implement like below.
-          %a{:href => "media/"}
-
-      %tr
-        %th Date:
-        %td#date
-
-      %tr
-        %th Location:
-        %td#location
-
-      %tr
-        %th Type:
-        %td#type
     -#this div is for the javascript to submit a form to the controller
     %div.hidden
       = form_tag(map_path, method: "post") do
-        .form-group.form-inline
-          = text_field_tag(:lat, params[:lat], :class => "form-control")
-          = text_field_tag(:lng, params[:lat], :class => "form-control")
-          = submit_tag("Search", :class => "btn btn-default" )
-
-
+        = text_field_tag(:lat, params[:lat], :class => "form-control", :id => 'lat_tag')
+        = text_field_tag(:lng, params[:lat], :class => "form-control", :id => 'lng_tag')
+        = submit_tag('Search', :class => "btn btn-default", :id => 'Search')
 
 
 :javascript
@@ -60,21 +55,13 @@
           console.log(this.position.lat());
           var lat = this.position.lat();
           var lng = this.position.lng();
-          $('#title').empty();
-          $('#date').empty();
-          $('#location').empty();
-          $('#type').empty();
-          var title = document.createElement('div');
-          var date = document.createElement('div');
-          date.innerHTML = "bants";
-          var location = document.createElement('div');
-          location.innerHTML = "bants";
-          var type = document.createElement('div');
-          type.innerHTML = "bants";
-          $('#title').html(title);
-          $('#date').html(date);
-          $('#location').html(location);
-          $('#type').html(type);
+          var lat_input = document.getElementById('lat_tag');
+          lat_input.value = lat_input.value + lat;
+          var lng_input = document.getElementById('lng_tag');
+          lng_input.value = lng_input.value + lng;
+          console.log(document.getElementById('lat_tag').value+', '+document.getElementById('lng_tag').value)
+          document.getElementById('Search').click();
+
         });
       }
     });
