@@ -10,6 +10,7 @@ class EventImageUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
   process :resize_to_fill => [300, 300]
+  process convert: 'png'
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -47,5 +48,8 @@ class EventImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def filename
+    super.chomp(File.extname(super)) + '.png' if original_filename.present?
+  end
 
 end

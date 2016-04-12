@@ -5,27 +5,6 @@
     - @events.each do |event|
       %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
 
-
-
-      -# Code to be used later
-      -#.panel.panel-info
-      -#  .panel-heading
-      -#    = event.title
-      -#    %div.pull-right= event.date
-      -#  .panel-body
-      -#    .row
-      -#      .col-md-8
-      -#        = event.description
-      -#      .col-md-2.col-md-offset-2
-      -#        = image_tag event.image.url, :class => "img-responsive"
-
-        -# %td= event.title
-        -# %td= event.description
-        -# %td= event.date
-        -# %td= link_to 'Show', event
-        -# %td= link_to 'Edit', edit_event_path(event)
-        -# %td= link_to 'Destroy', event, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
     %br
-
-    = link_to 'New Event', new_event_path
+    - if mod_signed_in?
+      = link_to 'New Event', new_event_path
