@@ -1,0 +1,13 @@
+%p#notice= notice
+
+= simple_form_for(Wallpaper.new, html: {multipart: true}) do |f|
+  = f.error_notification
+  .row
+    .col-md-6
+      .form-inputs
+        = f.input :description
+
+    .col-md-5.col-md-offset-1
+      = f.input :image, as: :file
+  .form-actions
+    = f.button :submit

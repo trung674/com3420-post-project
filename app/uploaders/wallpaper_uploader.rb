@@ -1,16 +1,15 @@
 # encoding: utf-8
 
-class EventImageUploader < CarrierWave::Uploader::Base
+class WallpaperUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
-  process :resize_to_fill => [300, 300]
-  process convert: 'png'
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -29,12 +28,12 @@ class EventImageUploader < CarrierWave::Uploader::Base
   # process :scale => [200, 300]
   #
   # def scale(width, height)
-  #   process :scale => [300, 300]
+  #   # do something
   # end
 
   # Create different versions of your uploaded files:
   # version :thumb do
-  #   process :resize_to_fit => [200, 200]
+  #   process :resize_to_fit => [50, 50]
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -48,8 +47,5 @@ class EventImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-  def filename
-    super.chomp(File.extname(super)) + '.png' if original_filename.present?
-  end
 
 end

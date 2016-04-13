@@ -3,20 +3,19 @@
 .row
   .col-md-8#slide-container
     .row#slide
-      .carousel.slide{:id=>"slide-images", :data => {:ride => "carousel"}}
+      .carousel.slide.carousel-fade{:id=>"slide-images", :data => {:ride => "carousel"}}
         .carousel-inner
-          .item.active
-            = image_tag("image-slides/image-slide-1.jpg")
-            .carousel-caption
-              %h3 Picture 1
-          .item
-            = image_tag("image-slides/image-slide-2.jpg")
-            .carousel-caption
-              %h3 Picture 2
-          .item
-            = image_tag("image-slides/image-slide-3.jpg")
-            .carousel-caption
-              %h3 Picture 3
+          - @wallpapers.each do |wallpaper|
+            - if wallpaper.id == 1
+              .item.active
+                = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
+                .carousel-caption
+                  %h3= wallpaper.description
+            - else
+              .item
+                = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
+                .carousel-caption
+                  %h3= wallpaper.description
 
         %a.left.carousel-control{:href => "#slide-images", :data => {:slide => "prev"}}
           %span.glyphicon.glyphicon-chevron-left
@@ -28,4 +27,4 @@
       %p Braithwell, Micklebring and Clifton Local History and Archiving Project ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
 
   .col-md-3.col-md-offset-1
-    = render 'events/list', :events => @events 
+    = render 'events/list', :events => @events
