@@ -5,7 +5,7 @@ class GeomapController < ApplicationController
       # this is the code that gets done when there are both parameters provided
       lat = params[:lat]
       lng = params[:lng]
-      @result = Record.where(:latitude => lat, :longitude => lng)[0]
+      @result = Record.where(:latitude => lat, :longitude => lng, :approved => true)[0]
 
     end
     # this is done on the load of every map page /get or /post

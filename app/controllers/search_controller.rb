@@ -26,13 +26,22 @@ class SearchController < ApplicationController
         end
       end
 
-
-      records = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?) AND medium_id IN (?)',
-                             "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%", ids)).where(:approved=>true)
-      medium_ids = []
-      records.each do |getId|
-        medium_ids.append(getId.medium_id)
+      if ids
+        records = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
+                                "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%"))
+                      .where(:approved=>true, :medium_id=>ids)
+      else
+        records = []
       end
+
+      if records
+        medium_ids = []
+        records.each do |getId|
+          medium_ids.append(getId.medium_id)
+        end
+      end
+
+
 
       # This is the array of hashes that we send to the view based on the search.
       @results_hashes = []
