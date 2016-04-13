@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
     root to: 'pages#home'
     get '/upload', to: 'media#new'
-    get '/map', to: 'geomap#map'
-    post '/map', to: 'geomap#map'
+    get '/map', to: 'pages#map'
+    post '/map', to: 'pages#map'
     get '/search', to: 'pages#home'
     post '/search', to: 'search#search'
     get '/about', to: 'pages#about'
