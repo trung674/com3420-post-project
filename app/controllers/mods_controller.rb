@@ -46,7 +46,7 @@ class ModsController < ApplicationController
     @alteredMod = Mod.find_by(email: mod_params[:email])    
     @updateMsg = String.new
 
-    if (@alteredMod.isActive == false) && (@alteredMod.isAdmin != true) #If mod inactive and not an admin
+    if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true) #If mod inactive and not an admin
       #Set mod to active
       @alteredMod.isActive = true
       @updateMsg = "Moderator successfully activated"
