@@ -22,18 +22,48 @@
 #
 
 class Medium < ActiveRecord::Base
-  belongs_to :contributor
-  has_many :records, dependent: :destroy
+  belongs_to :contributor, autosave: true
+  has_many :records, dependent: :destroy, autosave: true
+
   attr_accessor :type, :text
+  accepts_nested_attributes_for :records
+  accepts_nested_attributes_for :contributor
+  mount_uploader :upload, MediumUploader
 
   validates :upload, presence: true
   validates :contributor, presence: true
   validates :copyright, :acceptance => true
+  validates_presence_of :upload
+  validates_presence_of :contributor
+  validates_presence_of :records
 
-  validates_associated :records
-  validates_associated :contributor
+  # Validates associated bubbling makes associated error messages more readable
+  validates_associated_bubbling :records
+  validates_associated_bubbling :contributor
 
-  accepts_nested_attributes_for :records
-  accepts_nested_attributes_for :contributor
-  mount_uploader :upload, MediumUploader
+  def unapproved_records
+    self.records.where(approved: false).order('created_at')
+  end
+
+  def approved_records
+    self.records.where(approved: true).order('created_at')
+  end
+
+  def latest_approved_record
+    self.records.where(approved: true).order('created_at').last
+  end
+
+  def accepted_mimes
+    case self.type
+      when'Recording'
+        '.wav,.mp3'
+      when 'Document'
+        '.pdf'
+      when 'Image'
+        '.jpeg,.jpg,.gif,.tff,.bmp,.png'
+      else
+        ''
+    end
+  end
+
 end

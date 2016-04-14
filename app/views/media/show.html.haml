@@ -8,7 +8,7 @@
   .col-md-6
     = form_tag(medium_url,  :method=>'get') do
       Edit History
-      = select_tag 'record_id', options_for_select(@approved_records.all.collect {|a| [a.created_at.to_formatted_s(:long) , a.id]},  @current_record.id)
+      = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.created_at.to_formatted_s(:long) , a.id]},  @current_record.id)
       = submit_tag 'View', name: nil
   .col-md-6
     = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
