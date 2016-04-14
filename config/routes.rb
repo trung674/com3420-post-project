@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :wallpapers
   devise_for :mods
   mount Mercury::Engine => '/'
     match "/403", to: "errors#error_403", via: :all

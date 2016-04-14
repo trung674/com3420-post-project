@@ -1,0 +1,23 @@
+%h1 Listing wallpapers
+
+%table
+  %thead
+    %tr
+      %th Image
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @wallpapers.each do |wallpaper|
+      %tr
+        %td= wallpaper.image
+        %td= wallpaper.description
+        %td= link_to 'Show', wallpaper
+        %td= link_to 'Edit', edit_wallpaper_path(wallpaper)
+        %td= link_to 'Destroy', wallpaper, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Wallpaper', new_wallpaper_path
