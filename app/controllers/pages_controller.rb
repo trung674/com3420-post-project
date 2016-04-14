@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def home
     @current_nav_identifier = :home
     @events = Event.all
+    @wallpapers = Wallpaper.all
   end
 
   def contact
