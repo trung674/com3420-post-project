@@ -1,0 +1,108 @@
+!!!
+%html
+  %head
+    %title Village Memories - #{content_for(:title)}
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    = stylesheet_link_tag    "application", media: :all
+    = javascript_include_tag "application"
+    = yield :scripts
+
+    = favicon_link_tag '/favicon.ico'
+    = csrf_meta_tags
+
+  %body{ class: environment_notice_body_class }
+    = render 'layouts/environment_notice'
+    .flash-messages
+      - flash.each do |name, msg|
+        - next unless name == 'alert' || name == 'notice'
+        .alert.fade.in
+          .container
+            - if name == 'notice'
+              = fa_icon('check', class: 'flash-success')
+            - else
+              = fa_icon('warning', class: 'flash-error')
+            = msg
+            %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
+
+
+    %noscript
+      .warning-page-cover
+        .alert.alert-info
+          %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
+          %p Please enable JavaScript or use a different, up to date, web browser.
+
+    .container
+      %nav.navbar.navbar-default.header-nav
+        .container-fluid
+          .row
+            .col-md-6
+              .navbar-header
+                %button.navbar-toggle{'data-toggle' => 'collapse', 'data-target' => '#nav-links'}
+                  %span.icon-bar
+                  %span.icon-bar
+                  %span.icon-bar
+                %h2{:class => "nav-title"} Village Memories Group
+                %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Local History and Archiving Project
+            .col-md-6.col-sm-12.collapse.navbar-collapse.pull-right#nav-links
+              .row
+                %ul.nav.navbar-nav.navbar-left
+                  = navbar_link_to :root, title: "Go to the home page", identifier: :X do
+                    = fa_icon 'home'
+                    Home
+                  = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
+                    = fa_icon 'upload'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Upload
+                  = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
+                    = fa_icon 'university'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    About
+                  = navbar_link_to '/events', title: "Go to the event page", identifier: :X do
+                    = fa_icon 'child'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Events
+                  = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
+                    = fa_icon 'map-marker'
+                    Map
+                  = navbar_link_to contacts_path, title: "Go to the contact page", identifier: :X do
+                    = fa_icon 'envelope'
+                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+                    Contact
+              .row
+                = form_tag(search_path, method: "post") do
+                  .form-group.form-inline
+                    = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
+                    = submit_tag("Search", :class => "btn btn-default" )
+                  = check_box_tag("items[]", "Recording", false)
+                  = label_tag(:age_adult, "Recording")
+                  = check_box_tag("items[]", "Document",  false)
+                  = label_tag(:age_child, "Document")
+                  = check_box_tag("items[]", "Image",  false)
+                  = label_tag(:age_child, "Image")
+                  = check_box_tag("items[]", "Text",  false)
+                  = label_tag(:age_adult, "Text")
+
+      #main-container
+        = yield
+
+      %footer#footer
+        %nav.navbar.navbar-default
+          .row
+            .col-md-6
+              %div.footer_img
+                = image_tag('lottery_img.png')
+            - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
+              .col-md-3.pull-right#moderator-login
+                = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
+                  %i.fa.fa-sign-out
+                  Moderator Logout
+            - elsif mod_signed_in?
+              .col-md-3.pull-right#moderator-login
+                %a.pull-right{:href => "/modpanel"} Moderator Controls
+            - else
+              .col-md-3.pull-right#moderator-login
+                %a.pull-right{:href => "/modpanel"} Moderator Login
+          .row
+            .col-md-6
+              %p &copy Braithwell and Micklebring Recreation and Leisure Association Ltd. #{Date.today.year}

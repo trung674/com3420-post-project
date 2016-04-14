@@ -25,84 +25,66 @@
             = msg
             %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
 
-
     %noscript
       .warning-page-cover
         .alert.alert-info
           %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
           %p Please enable JavaScript or use a different, up to date, web browser.
 
-    .container
-      %nav.navbar.navbar-default.header-nav
-        .container-fluid
-          .row
-            .col-md-6
-              .navbar-header
-                %button.navbar-toggle{'data-toggle' => 'collapse', 'data-target' => '#nav-links'}
-                  %span.icon-bar
-                  %span.icon-bar
-                  %span.icon-bar
-                %h2{:class => "nav-title"} Village Memories Group
-                %h4{:class => "nav-title"} Braithwell, Micklebring and Clifton Local History and Archiving Project
-            .col-md-6.col-sm-12.collapse.navbar-collapse.pull-right#nav-links
-              .row
-                %ul.nav.navbar-nav.navbar-left
-                  = navbar_link_to :root, title: "Go to the home page", identifier: :X do
-                    = fa_icon 'home'
-                    Home
-                  = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
-                    = fa_icon 'upload'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Upload
-                  = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
-                    = fa_icon 'university'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    About
-                  = navbar_link_to '/events', title: "Go to the event page", identifier: :X do
-                    = fa_icon 'child'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Events
-                  = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
-                    = fa_icon 'map-marker'
-                    Map
-                  = navbar_link_to contacts_path, title: "Go to the contact page", identifier: :X do
-                    = fa_icon 'envelope'
-                    -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
-                    Contact
-              .row
-                = form_tag(search_path, method: "post") do
-                  .form-group.form-inline
-                    = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
-                    = submit_tag("Search", :class => "btn btn-default" )
-                  = check_box_tag("items[]", "Recording", false)
-                  = label_tag(:age_adult, "Recording")
-                  = check_box_tag("items[]", "Document",  false)
-                  = label_tag(:age_child, "Document")
-                  = check_box_tag("items[]", "Image",  false)
-                  = label_tag(:age_child, "Image")
-                  = check_box_tag("items[]", "Text",  false)
-                  = label_tag(:age_adult, "Text")
+    -# Navigation Bar
+    %nav.navbar.navbar-default.navbar-static-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#"} Village Memories Group
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            = navbar_link_to :root, title: "Go to the home page", identifier: :X do
+              = fa_icon 'home'
+              Home
+            = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
+              = fa_icon 'upload'
+              -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+              Upload
+            = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
+              = fa_icon 'university'
+              -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+              About
+            = navbar_link_to '/events', title: "Go to the event page", identifier: :X do
+              = fa_icon 'child'
+              -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+              Events
+            = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
+              = fa_icon 'map-marker'
+              Map
+            = navbar_link_to contacts_path, title: "Go to the contact page", identifier: :X do
+              = fa_icon 'envelope'
+              -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
+              Contact
 
-      #main-container
-        = yield
+    -# Main Body
+    .container#main-container
+      = yield
 
-      %footer#footer
-        %nav.navbar.navbar-default
-          .row
-            .col-md-6
-              %div.footer_img
-                = image_tag('lottery_img.png')
-            - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
-              .col-md-3.pull-right#moderator-login
-                = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
-                  %i.fa.fa-sign-out
-                  Moderator Logout
-            - elsif mod_signed_in?
-              .col-md-3.pull-right#moderator-login
-                %a.pull-right{:href => "/modpanel"} Moderator Controls
-            - else
-              .col-md-3.pull-right#moderator-login
-                %a.pull-right{:href => "/modpanel"} Moderator Login
-          .row
-            .col-md-6
-              %p &copy Braithwell and Micklebring Recreation and Leisure Association Ltd. #{Date.today.year}
+      -# Footer
+      %hr
+      %footer
+        .row
+          .col-md-8
+            = image_tag('lottery_img.png')
+
+          - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
+            .col-md-3.pull-right#moderator-login
+              = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
+                %i.fa.fa-sign-out
+                Moderator Logout
+          - elsif mod_signed_in?
+            .col-md-3.pull-right#moderator-login
+              %a.pull-right{:href => "/modpanel"} Moderator Controls
+          - else
+            .col-md-3.pull-right#moderator-login
+              %a.pull-right{:href => "/modpanel"} Moderator Login

@@ -6,147 +6,115 @@
 @import "environment_notice.sass"
 @import "custom_flash.sass"
 
-body
-  background: image-url("background.png") repeat
+
+//body
+//  background-color: #F9F0E8
 
 a
   text-decoration: none !important
 
-.header-nav
-  border-radius: 0
-  background-color: #b3ecff
-  padding-bottom: 15px
-  margin-bottom: 0
-
-  li
-    a
-      font-size: 20px
-      margin-top: 5px
-      padding: 20px
-      line-height: 20px
-
-  li:first-child
-    a
-      padding-left: 0px
-
-  h2
-    padding-bottom: 5px
-
-  .navbar-header
-    margin-left: 50px
-
-  .form-control
-    width: 70%
-
-footer
-  .navbar
-    min-height: 0
-
-  h3
-    margin: 35px 30px 0 0
-
-  #moderator-login
-    font-size: 20px
-    margin: 15px 10px 0 0
-
-  .footer_img
-    img
-      height: 60px
-
-  .row
-    padding: 10px
-
-#footer
-  border-top: none
-  padding: 0
-
-#main-container
-  background-color: white
-  border-left : 1px solid rgb(238, 238, 238)
-  border-right : 1px solid rgb(238, 238, 238)
-  padding: 20px 30px
+// Change color of navbar
+.navbar-default
+  background-color: $bgDefault
+  border-color: $bgHighlight
+  .navbar-brand
+    color: $colDefault
+    &:hover, &:focus
+      color: $colHighlight
+  .navbar-text
+    color: $colDefault
+  .navbar-nav
+    > li
+      > a
+        color: $colDefault
+        &:hover, &:focus
+          color: $colHighlight
+      @if $dropDown
+        > .dropdown-menu
+          background-color: $bgDefault
+          > li
+            > a
+              color: $colDefault
+              &:hover, &:focus
+                color: $colHighlight
+                background-color: $bgHighlight
+            > .divider
+              background-color: $bgHighlight
+    @if $dropDown
+      .open .dropdown-menu > .active
+        > a, > a:hover, > a:focus
+          color: $colHighlight
+          background-color: $bgHighlight
+    > .active
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
+    > .open
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
+  .navbar-toggle
+    border-color: $bgHighlight
+    &:hover, &:focus
+      background-color: $bgHighlight
+    .icon-bar
+      background-color: $colDefault
+  .navbar-collapse,
+  .navbar-form
+    border-color: $colDefault
+  .navbar-link
+    color: $colDefault
+    &:hover
+      color: $colHighlight
+@media (max-width: 767px)
+  .navbar-default .navbar-nav .open .dropdown-menu
+    > li > a
+      color: $colDefault
+      &:hover, &:focus
+        color: $colHighlight
+    > .active
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
 
 @media (min-width: 1200px)
-  .container
-    width: 75%
+  .navbar, .navbar-header, .navbar-collapse
+    min-height: 30px !important
+    height: 52px
+    margin-bottom: 0px
 
-#slide
-  border : 1px solid black
-  margin-bottom: 10px
 
-  #slide-images
-    margin: 3px
-    max-height : 700px
-    img
-      min-width: 100%
-      height: 500px
-      max-width: none
+#main-container
+  padding: 0px
 
-#contact-form
-  input, textarea
-    width: 80%
-  p
-    color: #ff0000
+#slide-images
+  max-height : 700px
+  img
+    min-width: 100%
+    height: 500px
+    max-width: none
 
-#address-form
-  address
-    font-size: 17px
+.carousel.slide
+  width: auto
+  height: 500px
 
-.parsley-success
-  color: #468847
-  background-color: #DFF0D8
-  border: 1px solid #D6E9C6
+.carousel-inner
+  height: 500px
 
-.parsley-error
-  color: #B94A48
-  background-color: #F7CA99
-  border: 1px solid #EED3D7
+.custom-panel
+  //border-left: 1px solid #b3b3b3
+  //border-right: 1px solid #b3b3b3
+  //border-top: 1px solid #b3b3b3
+  margin: 0px
+  padding-bottom: 30px
 
-  &[type="file"]
-    background-color: transparent
-    border: transparent
+.page-header
 
-.parsley-errors-list
-  margin: 10px 0 3px
-  padding: 0
-  list-style-type: none
-  font-size: 0.9em
-  line-height: 0.9em
-  font-weight: bold
-  color: #F58207
+.input-group
+  width: 100%
+  .form-control, .btn
+    height: 50px
 
-  .filled
-    opacity: 1
-
-#error_explanation
-  @extend .parsley-error
-  @extend .parsley-errors-list
-  margin: 0 0 10px
-  padding: 5px
-  color: #B94A48
-
-  h2
-    font-size: 27px
-    margin-top: 0
-
-#map-container
-  h3
-    margin-top: 0
-
-.record
-  h2
-    margin-top: 0
-
-  font-size: 20px
-
-  .date
-    text-align: right
-
-  object
-    width: 100%
-    height: 800px
-    padding: 10px 15px 0
-
-#event
-  .panel-body
-    word-wrap: break-word
+footer
+  img
+    height: 60px

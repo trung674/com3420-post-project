@@ -1,9 +1,11 @@
 .row
-  .col-md-8.col-md-offset-1
-    %h2 Upcoming Events
+  .col-md-12
+    %h1.page-header All events
+
+  .col-md-12
     %ul.list-group
-    - @events.each do |event|
-      %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
+      - @events.each do |event|
+        %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
 
     %br
     - if mod_signed_in?
