@@ -6,70 +6,147 @@
 @import "environment_notice.sass"
 @import "custom_flash.sass"
 
+
 body
-  background: image-url("background.png") repeat
+  background-image: url("background.png")
 
 a
   text-decoration: none !important
 
-.header-nav
-  border-radius: 0
-  background-color: #b3ecff
-  padding-bottom: 15px
-  margin-bottom: 0
-
-  li
-    a
-      font-size: 20px
-      margin-top: 5px
-      padding: 20px
-      line-height: 20px
-
-  li:first-child
-    a
-      padding-left: 0px
-
-  h2
-    padding-bottom: 5px
-
-  .navbar-header
-    margin-left: 50px
-
-  .form-control
-    width: 70%
-
-footer
-  .navbar
-    min-height: 0
-
-  h3
-    margin: 35px 30px 0 0
-
-  #moderator-login
-    font-size: 20px
-    margin: 15px 10px 0 0
-
-  .footer_img
-    img
-      height: 60px
-
-  .row
-    padding: 10px
-
-#footer
-  border-top: none
-  padding: 0
-
-#main-container
-  background-color: white
-  border-left : 1px solid rgb(238, 238, 238)
-  border-right : 1px solid rgb(238, 238, 238)
-  padding: 20px 30px
+// Change color of navbar
+.navbar-default
+  background-color: $bgDefault
+  border-color: $bgHighlight
+  .navbar-brand
+    color: $colDefault
+    &:hover, &:focus
+      color: $colHighlight
+  .navbar-text
+    color: $colDefault
+  .navbar-nav
+    > li
+      > a
+        color: $colDefault
+        &:hover, &:focus
+          color: $colHighlight
+      @if $dropDown
+        > .dropdown-menu
+          background-color: $bgDefault
+          > li
+            > a
+              color: $colDefault
+              &:hover, &:focus
+                color: $colHighlight
+                background-color: $bgHighlight
+            > .divider
+              background-color: $bgHighlight
+    @if $dropDown
+      .open .dropdown-menu > .active
+        > a, > a:hover, > a:focus
+          color: $colHighlight
+          background-color: $bgHighlight
+    > .active
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
+    > .open
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
+  .navbar-toggle
+    border-color: $bgHighlight
+    &:hover, &:focus
+      background-color: $bgHighlight
+    .icon-bar
+      background-color: $colDefault
+  .navbar-collapse,
+  .navbar-form
+    border-color: $colDefault
+  .navbar-link
+    color: $colDefault
+    &:hover
+      color: $colHighlight
+@media (max-width: 767px)
+  .navbar-default .navbar-nav .open .dropdown-menu
+    > li > a
+      color: $colDefault
+      &:hover, &:focus
+        color: $colHighlight
+    > .active
+      > a, > a:hover, > a:focus
+        color: $colHighlight
+        background-color: $bgHighlight
 
 @media (min-width: 1200px)
-  .container
-    width: 75%
+  .navbar, .navbar-header, .navbar-collapse
+    min-height: 30px !important
+    height: 52px
+    margin-bottom: 0px
 
+
+#main-container
+  padding: 0px
+  width: 55%
+
+.carousel, .carousel-inner, .item
+  height: 550px
+
+.carousel-inner
+  .item
+    img
+      width: 100%
+      height: inherit
+
+//Custom bootstrap carousel transisition
+.carousel-fade
+  .carousel-inner
+    .item
+      opacity: 0
+      transition-property: opacity
+    .active
+      opacity: 1
+      &.left, &.right
+        left: 0
+        opacity: 0
+        z-index: 1
+    .next.left, .prev.right
+      opacity: 1
+  .carousel-control
+    z-index: 2
+
+@media all and (transform-3d), (-webkit-transform-3d)
+  .carousel-fade .carousel-inner > .item
+    &.next, &.active.right, &.prev, &.active.left
+      opacity: 0
+      -webkit-transform: translate3d(0, 0, 0)
+      transform: translate3d(0, 0, 0)
+    &.next.left, &.prev.right, &.active
+      opacity: 1
+      -webkit-transform: translate3d(0, 0, 0)
+      transform: translate3d(0, 0, 0)
+
+.custom-panel
+  //border-left: 1px solid #b3b3b3
+  //border-right: 1px solid #b3b3b3
+  //border-top: 1px solid #b3b3b3
+  margin: 0px
+  padding-bottom: 30px
+  background-color: white
+
+.page-header
+
+.input-group
+  width: 100%
+  .form-control, .btn
+    height: 50px
+
+.page-header
+  border-bottom: 1px solid rgb(215, 192, 192)
+
+hr
+  border-top: 1px solid rgb(215, 192, 192)
+
+<<<<<<< HEAD
 #slide
   border : 1px solid black
   margin-bottom: 10px
@@ -179,3 +256,7 @@ footer
       opacity: 1
       -webkit-transform: translate3d(0, 0, 0)
       transform: translate3d(0, 0, 0)
+
+footer
+  img
+    height: 60px

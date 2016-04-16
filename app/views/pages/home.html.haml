@@ -1,30 +1,61 @@
 - content_for :title, "Home"
 
-.row
-  .col-md-8#slide-container
-    .row#slide
-      .carousel.slide.carousel-fade{:id=>"slide-images", :data => {:ride => "carousel"}}
-        .carousel-inner
-          - @wallpapers.each do |wallpaper|
-            - if wallpaper.id == 1
-              .item.active
-                = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
-                .carousel-caption
-                  %h3= wallpaper.description
-            - else
-              .item
-                = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
-                .carousel-caption
-                  %h3= wallpaper.description
+-# Image slider
+.carousel.slide.carousel-fade{:id=>"wallpapers", :data => {:ride => "carousel"}}
+  .carousel-inner
+    - @wallpapers.each_with_index do |wallpaper, index|
+      .item{ class: "#{ "active" if index == 0 }"}
+        = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
+        .carousel-caption
+          %h3= wallpaper.description
 
-        %a.left.carousel-control{:href => "#slide-images", :data => {:slide => "prev"}}
-          %span.glyphicon.glyphicon-chevron-left
-        %a.right.carousel-control{:href => "#slide-images", :data => {:slide => "next"}}
-          %span.glyphicon.glyphicon-chevron-right
+-#  %a.left.carousel-control{"data-slide" => "prev", :href => "#walpapers", :role => "button"}
+-#    %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+-#    %span.sr-only Previous
+-#  %a.right.carousel-control{"data-slide" => "next", :href => "#wallpapers", :role => "button"}
+-#    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+-#    %span.sr-only Next
 
-    .row#text-container
-      %h2 Village Memories:
-      %p Braithwell, Micklebring and Clifton Local History and Archiving Project ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+-# Main body
+-# Welcome
+.row.custom-panel
+  .col-md-12
+    .page-header
+      %h1 Welcome to Village Memories Group Website
 
-  .col-md-3.col-md-offset-1
+    %p (Group description might goes here with an image ?) Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
+
+-# Search bar
+.row.custom-panel
+  .col-md-12
+    .page-header
+      %h1 Find what you need here
+  .col-md-12
+    = form_tag(search_path, method: "post", id: "search-bar") do
+      .form-group.form-inline
+        .input-group
+          = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
+          %span.input-group-btn
+            = submit_tag("Search", :class => "btn btn-primary" )
+      = check_box_tag("items[]", "Recording", false)
+      = label_tag(:age_adult, "Recording")
+      = check_box_tag("items[]", "Document",  false)
+      = label_tag(:age_child, "Document")
+      = check_box_tag("items[]", "Image",  false)
+      = label_tag(:age_child, "Image")
+      = check_box_tag("items[]", "Text",  false)
+      = label_tag(:age_adult, "Text")
+
+-# More services
+.row.custom-panel
+  .col-md-12
+    .page-header
+      %h1 Recent activities
+
+  .col-md-6
+    .panel.panel-info
+      .panel-heading
+        %h4 Recent Uploads
+
+  .col-md-6
     = render 'events/list', :events => @events

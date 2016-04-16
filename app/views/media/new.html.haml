@@ -6,93 +6,96 @@
   %script{:src => '//maps.google.com/maps/api/js', :type => 'text/javascript'}
   = yield :scripts
 
-%h2 Upload #{ @medium.type }
+.row
+  .col-md-12
+    %h1.page-header Upload #{ @medium.type }
 
-%div.panel.panel-default
-  %div.panel-body
-    %ul.nav.nav-pills
-      %li{:class => ("active" if @medium.type == 'Recording'), :role => 'presentation'}
-        =link_to new_recording_path do
-          Oral Recording
-      %li{:class => ("active" if @medium.type == 'Document'), :role => 'presentation'}
-        =link_to new_document_path do
-          Document
-      %li{:class => ("active" if @medium.type == 'Image'), :role => 'presentation'}
-        =link_to new_image_path do
-          Image
-      %li{:class => ("active" if @medium.type == 'Text'), :role => 'presentation'}
-        =link_to new_text_path do
-          Text
-
-    %hr
-
-    .row
-      - # This is at the top when the layout is small, not so great!
-      #map-container.col-md-5.col-sm-12.pull-right
-        %h3 Click to add marker
-        #map{style: 'height: 510px;'}
-        %button{id: 'clear-marker', class: 'pull-right btn btn-warning'}
-          Remove marker
-
-      = simple_form_for @medium, html: { id: 'upload-form', class: 'col-md-6 col-sm-12' }  do |f|
-
-        - if @medium.errors.any?
-          #error_explanation
-            %h2
-              = pluralize(@medium.errors.count, 'error')
-            %ul
-              - @medium.errors.full_messages.each do |msg|
-                %li #{msg}
-
-        = f.input :type, as: :hidden, value: @medium.type
-
-        = f.simple_fields_for :records do |r|
-          = r.input :title, required: true
-          = r.input :ref_date, :label => 'Date', include_blank: true, start_year:1850, end_year: Date.today.year
-
-          - if @medium.type != 'Text'
-            = f.input :upload, as: :file, :label => 'File', required: true,
-              input_html: {accept: @medium.accepted_mimes, :'data-parsley-file-extension' => @medium.accepted_mimes}
-            = f.input :upload_cache, as: :hidden
-          - else
-            = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10}
-
-          = r.input :location, input_html: {id: 'location-field'}
-          = r.input :latitude, as: :hidden, input_html: {id:'latitude-input'}
-          = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input'}
-
-          - if @medium.type != 'Text'
-            = r.input :description, as: :text, required: true, input_html: {rows: 5}
+  .col-md-12
+    %div.panel.panel-default
+      %div.panel-body
+        %ul.nav.nav-pills
+          %li{:class => ("active" if @medium.type == 'Recording'), :role => 'presentation'}
+            =link_to new_recording_path do
+              Oral Recording
+          %li{:class => ("active" if @medium.type == 'Document'), :role => 'presentation'}
+            =link_to new_document_path do
+              Document
+          %li{:class => ("active" if @medium.type == 'Image'), :role => 'presentation'}
+            =link_to new_image_path do
+              Image
+          %li{:class => ("active" if @medium.type == 'Text'), :role => 'presentation'}
+            =link_to new_text_path do
+              Text
 
         %hr
 
-        %h3 Contact Information
+        .row
+          - # This is at the top when the layout is small, not so great!
+          #map-container.col-md-5.col-sm-12.pull-right
+            %h3 Click to add marker
+            #map{style: 'height: 510px;'}
+            %button{id: 'clear-marker', class: 'pull-right btn btn-warning'}
+              Remove marker
 
-        = f.simple_fields_for :contributor do |c|
-          = c.input :name, required: false
-          = c.input :email, as: :email
-          = c.input :phone, required: false, input_html: {pattern: '(\+?(\s?\d)+)*',
-            :'data-parsley-error-message' => 'Please enter a valid phone number' }
+          = simple_form_for @medium, html: { id: 'upload-form', class: 'col-md-6 col-sm-12' }  do |f|
 
-        %hr
+            - if @medium.errors.any?
+              #error_explanation
+                %h2
+                  = pluralize(@medium.errors.count, 'error')
+                %ul
+                  - @medium.errors.full_messages.each do |msg|
+                    %li #{msg}
 
-        %h4 Village Memories Group may use my contribution for:
+            = f.input :type, as: :hidden, value: @medium.type
 
-        = f.input :public_ref, label: 'Public reference, eg talks, exhibitions'
-        = f.input :education_use, label: 'Educational use, eg in schools'
-        = f.input :public_archive, label: 'Public archive'
-        = f.input :publication, label: 'Publication'
-        = f.input :broadcasting, label: 'Broadcasting use on radio/TV or on the web'
-        = f.input :editing, label: 'Editing for the above purposes'
+            = f.simple_fields_for :records do |r|
+              = r.input :title, required: true
 
-        %hr
+              - if @medium.type != 'Text'
+                = f.input :upload, as: :file, :label => 'File', required: true,
+                  input_html: {accept: @accepted_mimes, :'data-parsley-file-extension' => @accepted_mimes}
+                = f.input :upload_cache, as: :hidden
+              - else
+                = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10}
 
-        = f.input :copyright, as: :boolean,
-            label: 'I agree to transfer full copyright of the media to Village Memories (BRMLA)', required: true
-        = recaptcha_tags
+              = r.input :location, input_html: {id: 'location-field'}
+              = r.input :latitude, as: :hidden, input_html: {id:'latitude-input'}
+              = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input'}
 
-        %br
-        = f.button :submit, 'Upload', class: 'btn btn-primary'
+              - if @medium.type != 'Text'
+                = r.input :description, as: :text, required: true, input_html: {rows: 5}
+              = r.input :ref_date, :label => 'Date', include_blank: true, start_year:1850, end_year: Date.today.year
+
+            %hr
+
+            %h3 Contact Information
+
+            = f.simple_fields_for :contributor do |c|
+              = c.input :name, required: false
+              = c.input :email, as: :email
+              = c.input :phone, required: false, input_html: {pattern: '(\+?(\s?\d)+)*',
+                :'data-parsley-error-message' => 'Please enter a valid phone number' }
+
+            %hr
+
+            %h4 Village Memories Group may use my contribution for:
+
+            = f.input :public_ref, label: 'Public reference, eg talks, exhibitions'
+            = f.input :education_use, label: 'Educational use, eg in schools'
+            = f.input :public_archive, label: 'Public archive'
+            = f.input :publication, label: 'Publication'
+            = f.input :broadcasting, label: 'Broadcasting use on radio/TV or on the web'
+            = f.input :editing, label: 'Editing for the above purposes'
+
+            %hr
+
+            = f.input :copyright, as: :boolean,
+                label: 'I agree to transfer full copyright of the media to Village Memories (BRMLA)', required: true
+            = recaptcha_tags
+
+            %br
+            = f.button :submit, 'Upload', class: 'btn btn-primary'
 
 :javascript
       //This is the map declaration, with the center and zoom etc.
