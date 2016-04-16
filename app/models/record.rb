@@ -26,17 +26,19 @@ class Record < ActiveRecord::Base
 
   auto_strip_attributes :title, :description, :location, :squish => true
 
-  # Should descriptions be required?
+  validate :ref_date_valid_date?, if: 'ref_date.present?'
+  validates :latitude, :longitude, numericality: true, if: 'latitude.present?'
   validates :title, presence: true
   validates :description, presence: true, if: :should_require_description?
 
-  # reverse_geocoded_by :latitude, :longitude
-  # after_validation :reverse_geocode
-
   private
-
     def should_require_description?
       # Thorough testing for this!
       medium.respond_to?(:text)
+    end
+
+    def ref_date_valid_date?
+      # Check the date is a valid date
+      errors.add(:ref_date, 'must be a valid date') if ((Date.parse(:ref_date) rescue ArgumentError) == ArgumentError)
     end
 end

@@ -37,18 +37,6 @@ class MediaController < ApplicationController
     else
       @medium.type = params[:type]
     end
-
-    # Set the allowed upload extensions depending on the media type
-    case @medium.type
-      when'Recording'
-          @accepted_mimes = '.wav,.mp3'
-      when 'Document'
-          @accepted_mimes = '.pdf'
-      when 'Image'
-          @accepted_mimes = '.jpeg,.jpg,.gif,.tff,.bmp,.png'
-      else
-        @accepted_mimes = ''
-    end
   end
 
   def create
@@ -80,20 +68,18 @@ class MediaController < ApplicationController
   def show
     @medium = Medium.where(id: params[:id]).first
 
-    @approved_records = @medium.records.where(approved: true).order('created_at DESC')
-
     # Change current record depending on selected
     if params.has_key?(:record_id)
-      @current_record = @approved_records.find(params[:record_id])
+      @current_record = @medium.approved_records.find(params[:record_id])
     else
-      @current_record = @approved_records.first
+      @current_record = @medium.latest_approved_record
     end
   end
 
   def edit
     # When editing the most recent record for the medium is displayed
     @medium = Medium.where(id: params[:id]).first
-    @current_record = @medium.records.where(approved: true).order('created_at').last
+    @current_record = @medium.latest_approved_record
 
     #TODO: decide whether text entries should be editable
   end
