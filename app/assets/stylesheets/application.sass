@@ -6,7 +6,6 @@
 @import "environment_notice.sass"
 @import "custom_flash.sass"
 
-
 body
   background-image: url("background.png")
 
@@ -66,6 +65,8 @@ a
     color: $colDefault
     &:hover
       color: $colHighlight
+
+
 @media (max-width: 767px)
   .navbar-default .navbar-nav .open .dropdown-menu
     > li > a
@@ -81,11 +82,10 @@ a
   .navbar, .navbar-header, .navbar-collapse
     min-height: 30px !important
     height: 52px
-    margin-bottom: 0px
-
+    margin-bottom: 0
 
 #main-container
-  padding: 0px
+  padding: 0
   width: 55%
 
 .carousel, .carousel-inner, .item
@@ -129,11 +129,9 @@ a
   //border-left: 1px solid #b3b3b3
   //border-right: 1px solid #b3b3b3
   //border-top: 1px solid #b3b3b3
-  margin: 0px
-  padding-bottom: 30px
+  //margin: 0
+  padding: 10px 25px
   background-color: white
-
-.page-header
 
 .input-group
   width: 100%
@@ -145,10 +143,10 @@ a
 
 hr
   border-top: 1px solid rgb(215, 192, 192)
-
-#address-form
-  address
-    font-size: 17px
+  
+#contact-form
+  p
+    color: #ff0000
 
 .parsley-success
   color: #468847
@@ -241,3 +239,6 @@ hr
 footer
   img
     height: 60px
+
+.page-header
+  margin-top: 20px

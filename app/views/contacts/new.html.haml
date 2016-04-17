@@ -1,24 +1,37 @@
 - content_for :title, "Contact"
 
 .row
-  .col-md-6#contact-form
-    %h2 Contact Us
-    = simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f|
+  .col-md-12
+    .page-header
+      %h1 Contact Us
+
+  .col-md-8#contact-form
+    %h2 Send us a Message
+    = simple_form_for @contact do |f|
       = f.input :name, :required => true
       = f.input :email, :required => true
-      = f.input :message, :as => :text, :required => true
+      = f.input :message, :as => :text, :input_html => {:rows => 10}, :required => true
       .hidden
       = f.input :nickname, :hint => 'Leave this field blank!'
       = f.button :submit, 'Send message', :class=> "btn btn-primary"
 
-  .col-md-6#address-form
-    %h2 Our Address
-    %address
-      123 Street Name
+  .col-md-4
+    %h2 Contact details
+    %p
+      %span.glyphicon.glyphicon-home
+      %strong Address:
+      23 Edward Street,
       %br
-      Sheffield
-      %br
-      South Yorkshire
-      %br
-      POSTCODE
-    %h4 Phone : 0029947288
+      Sheffield, UK, S3 7FG
+    %p
+      %span.glyphicon.glyphicon-earphone
+      %strong Phone:
+      (+44) 08827364723
+    %p
+      %span.glyphicon.glyphicon-envelope
+      %strong Email:
+      changeme@websitename.co.uk
+    %p
+      %span.glyphicon.glyphicon-calendar
+      %strong Working Hour:
+      Monday - Friday: 9:00 AM to 5:00 PM
