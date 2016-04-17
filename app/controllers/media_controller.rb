@@ -63,7 +63,7 @@ class MediaController < ApplicationController
       render :new
     end
   end
-  
+
   def show
     @medium = Medium.where(id: params[:id]).first
 
