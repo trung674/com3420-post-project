@@ -41,6 +41,10 @@ class Medium < ActiveRecord::Base
   validates_associated_bubbling :records
   validates_associated_bubbling :contributor
 
+  def all_records
+    self.records.order('created_at')
+  end
+
   def unapproved_records
     self.records.where(approved: false).order('created_at')
   end

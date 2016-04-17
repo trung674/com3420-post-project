@@ -63,14 +63,17 @@ class MediaController < ApplicationController
       render :new
     end
   end
-
-  # TODO: Some way for admins to see the unapproved records
+  
   def show
     @medium = Medium.where(id: params[:id]).first
 
     # Change current record depending on selected
     if params.has_key?(:record_id)
-      @current_record = @medium.approved_records.find(params[:record_id])
+      if mod_signed_in?
+        @current_record = @medium.all_records.find(params[:record_id])
+      else
+        @current_record = @medium.approved_records.find(params[:record_id])
+      end
     else
       @current_record = @medium.latest_approved_record
     end

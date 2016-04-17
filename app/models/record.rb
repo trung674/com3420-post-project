@@ -31,6 +31,18 @@ class Record < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true, if: :should_require_description?
 
+  def to_s
+    self.created_at.to_formatted_s(:long)
+  end
+
+  def to_s_mod
+    if self.approved
+      self.created_at.to_formatted_s(:long) + ' (Approved)'
+    else
+      self.created_at.to_formatted_s(:long) + ' (Unapproved)'
+    end
+  end
+
   private
     def should_require_description?
       # Thorough testing for this!
