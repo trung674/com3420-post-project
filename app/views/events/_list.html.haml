@@ -2,6 +2,10 @@
 .panel.panel-info
   .panel-heading
     %h4 Events
-  %ul.list-group
-  - events.each do |event|
-    %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
+  - if events.exists?
+    %ul.list-group
+    - events.each do |event|
+      %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
+  - else
+    .panel-body
+      %p There is no upcoming event at the moment

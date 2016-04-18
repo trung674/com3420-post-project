@@ -1,7 +1,7 @@
 = simple_form_for(@event, html: {multipart: true})   do |f|
   = f.error_notification
   .row
-    .col-md-6
+    .col-md-7
       .form-inputs
 
         = f.input :title
@@ -14,9 +14,10 @@
 
         = f.input :description, :input_html => {:rows => 15}
 
-    .col-md-5.col-md-offset-1
+    .col-md-4.col-md-offset-1
       = f.input :image, as: :file
       - if f.object.image?
-        = image_tag f.object.image.url
+        = f.label :current_image
+        = image_tag(f.object.image.url, class: "img-responsive img-thumbnail")
   .form-actions
     = f.button :submit

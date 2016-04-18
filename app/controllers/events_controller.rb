@@ -51,8 +51,17 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
+    @event = Event.find(params[:id])
+
+    # Carrierwave bug - Carrierwave does not remove old files when new files are updated on the same model
+    if params[:event][:image]
+      # Only remove the old file from the file system
+      @event.image.remove!
+    end
+
     if @event.update(event_params)
       redirect_to @event, notice: 'Event was successfully updated.'
+
     else
       render :edit
     end

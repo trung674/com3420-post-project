@@ -1,34 +1,47 @@
+- content_for :title, @event.title
 %p#notice= notice
 
 .row#event
-  .col-md-8
+  .col-md-12
+    .page-header
+      %h1= @event.title
+
+  .col-md-12
     .row
       .col-md-4
         = image_tag(@event.image.url, class: "img-responsive img-thumbnail", alt: "#{@event.image.file.identifier unless @event.image.file.nil?}")
         %br
         %br
+        -# Location
+        %p
+          %span.fa.fa-home{"aria-hidden" => "true"}
+          %strong Location:
+          = @event.location
+
+        -# Date
+        %p
+          %span.fa.fa-calendar{"aria-hidden" => "true"}
+          %strong Date:
+          = @event.date
+
+        -# Time
+        %p
+          %span.fa.fa-clock-o{"aria-hidden" => "true"}
+          %strong Time:
+          = @event.time
+        -# only mod can see edit, delete button
         - if mod_signed_in?
-          %button.btn.btn-default= link_to 'Edit', edit_event_path(@event)
-          %button.btn.btn-default= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }
+          = link_to 'Edit', edit_event_path(@event), :class => "btn btn-default"
+          = link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"
       .col-md-8
+        -# Event description
         .panel.panel-info
           .panel-heading
             %h4
-              = @event.title
+              Event Description
           .panel-body
             = simple_format(@event.description)
-        .panel.panel-info
-          .panel-heading Location
-          .panel-body
-            = @event.location
-        .panel.panel-info
-          .panel-heading Date
-          .panel-body
-            = @event.date
-        .panel.panel-info
-          .panel-heading Time
-          .panel-body
-            = @event.time
 
-  .col-md-3.col-md-offset-1
-    = render 'list', :events => @events
+        = link_to events_path, :class => "btn btn-default pull-right" do
+          %span.fa.fa-arrow-left{"aria-hidden" => "true"}
+          Back to event list

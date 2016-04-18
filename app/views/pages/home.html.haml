@@ -33,7 +33,7 @@
   .col-md-12
     .page-header
       %h1 Find what you need here
-  .col-md-12
+  .col-md-12.col-md-offset-1
     = form_tag(search_path, method: "post", id: "search-bar") do
       .form-group.form-inline
         .input-group
@@ -60,6 +60,7 @@
     .panel.panel-info
       .panel-heading
         %h4 Recent Uploads
+        -# TODO Add codes for list of most recent uploads
 
   .col-md-6
     = render 'events/list', :events => @events
