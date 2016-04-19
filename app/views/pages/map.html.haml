@@ -52,12 +52,14 @@
         //an action on clicking them.
         markers[i].addListener('click', function(evt) {
           //TODO ADD ON CLICK HERE!!!
-          console.log(this.position.lat());
+          console.log(this.position.lat(), this.position.lat());
           var lat = this.position.lat();
           var lng = this.position.lng();
           var lat_input = document.getElementById('lat_tag');
+          lat_input.empty();
           lat_input.value = lat_input.value + lat;
           var lng_input = document.getElementById('lng_tag');
+          lng_input.empty();
           lng_input.value = lng_input.value + lng;
           console.log(document.getElementById('lat_tag').value+', '+document.getElementById('lng_tag').value)
           document.getElementById('Search').click();
