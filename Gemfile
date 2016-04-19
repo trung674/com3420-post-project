@@ -46,6 +46,9 @@ gem 'daemons'
 gem 'mail_form'
 gem 'figaro'
 
+#View counter
+gem 'impressionist'
+
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'

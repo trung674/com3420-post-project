@@ -14,5 +14,6 @@
 #
 
 class Event < ActiveRecord::Base
+  is_impressionable
   mount_uploader :image, EventImageUploader
 end

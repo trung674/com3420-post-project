@@ -44,6 +44,9 @@ gem 'daemons'
 
 # Contact Form
 gem 'mail_form'
+gem 'figaro'
+
+gem 'impressionist'
 
 # Uploading
 gem 'carrierwave'
