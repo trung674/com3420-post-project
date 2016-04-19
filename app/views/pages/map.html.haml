@@ -44,24 +44,32 @@
           zoom: 13,
       });
 
-      //This adds listeners to each marker
+      console.log(#{raw @result.to_json});
 
+      //This adds listeners to each marker
       var markers = map.addMarkers(#{raw @lat_lng.to_json});
       for (i = 0; i < markers.length; i++) {
         //This adds listeners to each marker so that they perform
         //an action on clicking them.
         markers[i].addListener('click', function(evt) {
           //TODO ADD ON CLICK HERE!!!
-          console.log(this.position.lat()', '+ this.position.lat());
+          console.log('pre form: '+this.position.lat()+', '+ this.position.lng());
+          //this sets the form's latitude
           var lat = this.position.lat();
-          var lng = this.position.lng();
           var lat_input = document.getElementById('lat_tag');
           lat_input.empty();
           lat_input.value = lat_input.value + lat;
+
+          //this sets the form's longitude
+          var lng = this.position.lng();
           var lng_input = document.getElementById('lng_tag');
           lng_input.empty();
           lng_input.value = lng_input.value + lng;
-          console.log(document.getElementById('lat_tag').value+', '+document.getElementById('lng_tag').value)
+
+          //debugging log
+          console.log('form values: '+document.getElementById('lat_tag').value+', '+document.getElementById('lng_tag').value)
+
+          //this triggers the form
           document.getElementById('Search').click();
 
         });
