@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     @current_nav_identifier = :map
     @lat_lng = []
     @obj_array = []
-    Record.all.each do |thing|
+    Record.where(:approved => true).each do |thing|
       #this check for the 'people' who didnt manage to click on the map when uploading
       if thing.latitude
         @lat_lng.append({lat: thing.latitude , lng: thing.longitude})
@@ -91,7 +91,7 @@ class PagesController < ApplicationController
       for x in 0..(records.length-1)
         @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
                                 :date => records[x].ref_date, :location => records[x].location,
-                                :type => (Medium.where('id == (?)', records[x].medium_id))[0].type})
+                                :type => (Medium.where(:id=> records[x].medium_id))[0].type})
       end
     end
   end
