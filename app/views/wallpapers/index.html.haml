@@ -1,37 +1,38 @@
-%p#notice= notice
+- content_for :title, "Wallpapers"
+%p#notice.bg-info.text-center= notice
 
-= simple_form_for(Wallpaper.new, html: {multipart: true}) do |f|
-  = f.error_notification
-  .row
-    .col-md-6
-      .form-inputs
-        = f.input :description
+.row
+  / Upload Wallpaper form
+  .col-md-12
+    .page-header
+      %h2 Upload New Wallpaper
+    = simple_form_for(Wallpaper.new, html: {multipart: true}) do |f|
+      = f.error_notification
+      .row
+        .col-md-6
+          .form-inputs
+            = f.input :description
 
-    .col-md-5.col-md-offset-1
-      = f.input :image, as: :file
-  .form-actions
-    = f.button :submit
+        .col-md-5.col-md-offset-1
+          = f.input :image, as: :file
+          %p.text-danger Recommend image with resolution of 1920 * 1080
+      .form-actions
+        = f.button :submit, :class => "btn btn-primary"
 
-%h1 Listing wallpapers
+  / List of exisitng wallpaper if there is one
+  .col-md-12
+    .page-header
+      %h2 Current Wallpapers
 
-%table
-  %thead
-    %tr
-      %th Image
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @wallpapers.each do |wallpaper|
-      %tr
-        %td= wallpaper.image
-        %td= wallpaper.description
-        %td= link_to 'Show', wallpaper
-        %td= link_to 'Edit', edit_wallpaper_path(wallpaper)
-        %td= link_to 'Destroy', wallpaper, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Wallpaper', new_wallpaper_path
+    - if @wallpapers.exists?
+      - @wallpapers.each do |wallpaper|
+        .col-md-4
+          .thumbnail.show-buttons
+            = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
+            = link_to 'Edit', edit_wallpaper_path(wallpaper), :class => "btn btn-default edit-button"
+            = link_to 'Delete', wallpaper, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-danger delete-button"
+            .caption
+              %p= wallpaper.description
+    - else
+      / Show this if there is 0 wallpaper in database
+      %h4.text-center There is 0 wallpaper in database, please use form above to upload new wallpaper

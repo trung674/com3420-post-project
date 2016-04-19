@@ -10,6 +10,7 @@
 #
 
 class WallpapersController < ApplicationController
+  before_action :authenticate_mod!
   before_action :set_wallpaper, only: [:show, :edit, :update, :destroy]
 
   # GET /wallpapers
@@ -35,18 +36,18 @@ class WallpapersController < ApplicationController
     @wallpaper = Wallpaper.new(wallpaper_params)
 
     if @wallpaper.save
-      redirect_to @wallpaper, notice: 'Wallpaper was successfully created.'
+      redirect_to wallpapers_url, notice: 'Wallpaper was successfully created.'
     else
-      render :new
+      redirect_to wallpapers_url, notice: 'Something was wrong, please try again.'
     end
   end
 
   # PATCH/PUT /wallpapers/1
   def update
     if @wallpaper.update(wallpaper_params)
-      redirect_to @wallpaper, notice: 'Wallpaper was successfully updated.'
+      redirect_to wallpapers_url, notice: 'Wallpaper was successfully updated.'
     else
-      render :edit
+      redirect_to wallpapers_url, notice: 'Something was wrong, please try again.'
     end
   end
 

@@ -1,0 +1,23 @@
+// Place all the styles related to the Wallpapers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//Show buttons when hover an image
+.show-buttons
+  position: relative
+  float: left
+  margin: 5px
+  &:hover
+    img
+      opacity: 0.5
+    a
+      display: block
+  a
+    position: absolute
+    display: none
+    &.edit-button
+      top: 5%
+      left: 3%
+    &.delete-button
+      top: 5%
+      right: 3%

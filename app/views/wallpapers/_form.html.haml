@@ -1,12 +1,11 @@
 = simple_form_for(@wallpaper) do |f|
   = f.error_notification
-
+  %p.text-danger
+    Notice: You can only edit image description. If you want to upload new image, click
+    = link_to 'here', wallpapers_path
   .form-inputs
-
-    = f.input :image
 
     = f.input :description
 
-
   .form-actions
-    = f.button :submit
+    = f.button :submit, :class => "btn btn-primary"
