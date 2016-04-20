@@ -34,17 +34,19 @@
           .modal-body
             -#TODO add the form in here!
             = form_tag(media_path, method: "get", :id =>'form_id') do
-              -#=
-              Name:
+              Title:
+              =@current_record.title
+              %p
+                Name:
               = text_field_tag(:name, params[:name], :class => "form-control", :style=>'padding:5px')
               Email:
-              = text_field_tag(:email, params[:name], :class => "form-control", :style=>'padding:5px')
+              = text_field_tag(:email, params[:email], :class => "form-control", :style=>'padding:5px')
               Issue:
-              = text_field_tag(:issue, params[:name], :class => "form-control", :style=>'padding:5px; height: 45px')
+              = text_field_tag(:issue, params[:issue], :class => "form-control", :style=>'padding:5px; height: 45px')
               %br
               = recaptcha_tags
               %br
-              = submit_tag('Search', :class => "btn btn-default", :id => 'Search')
+              = submit_tag('Send', :class => "btn btn-default", :id => 'Send')
           .modal-footer
             %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
 
