@@ -1,6 +1,6 @@
 - content_for :title, 'Search Results'
 
--if !@search[0].empty?
+-if !@search.empty?
   %h2 Showing #{raw @type}(s) for: "#{raw @search[0]}".
 -else
   %h2 Showing all results that are #{raw @type}s.

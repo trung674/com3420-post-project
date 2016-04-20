@@ -74,53 +74,58 @@ class PagesController < ApplicationController
 
   def search
 
-    if params[:items] || [params[:search]]
+    if !params[:items].nil? || ![params[:search]].nil?
       if params[:items].nil?
         # If the user provides no choice, the default is to return everything
         @type = %w{Document Recording Image Text}
       else
         @type = params[:items]
+        @search = []
       end
+    else
+      @type = %w{Document Recording Image Text}
+    end
 
-      @search = [params[:search]]
-      # More efficient to search by type first
-      ids = []
-      if @type
-        for y in 0..@type.length-1
-          medium_results = (Medium.where :type => @type[y]).ids
-          medium_results.each do |add|
-            ids.push(add)
-          end
+    @search = [params[:search]]
+    # More efficient to search by type first
+    ids = []
+    if @type
+      for y in 0..@type.length-1
+        medium_results = (Medium.where :type => @type[y]).ids
+        medium_results.each do |add|
+          ids.push(add)
         end
-      end
-
-      if ids
-        records = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
-                                "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%"))
-                      .where(:approved=>true, :medium_id=>ids)
-      else
-        records = []
-      end
-
-      if records
-        medium_ids = []
-        records.each do |getId|
-          medium_ids.append(getId.medium_id)
-        end
-      end
-
-
-
-      # This is the array of hashes that we send to the view based on the search.
-      @results_hashes = []
-
-      # for loops create the array of the useful infomation. More efficient than passing objects.
-      for x in 0..(records.length-1)
-        @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
-                                :date => records[x].ref_date, :location => records[x].location,
-                                :type => (Medium.where(:id=> records[x].medium_id))[0].type})
       end
     end
+
+    if ids
+      records = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
+                              "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%"))
+                    .where(:approved=>true, :medium_id=>ids)
+      #TODO filter this so that only the most recent record is shown.
+    else
+      records = []
+    end
+
+    if records
+      medium_ids = []
+      records.each do |getId|
+        medium_ids.append(getId.medium_id)
+      end
+    end
+
+
+
+    # This is the array of hashes that we send to the view based on the search.
+    @results_hashes = []
+
+    # for loops create the array of the useful infomation. More efficient than passing objects.
+    for x in 0..(records.length-1)
+      @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
+                              :date => records[x].ref_date, :location => records[x].location,
+                              :type => (Medium.where(:id=> records[x].medium_id))[0].type})
+    end
   end
+
 
 end

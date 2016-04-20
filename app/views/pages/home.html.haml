@@ -34,7 +34,7 @@
     .page-header
       %h2 Find What You Need Here
   .col-md-12.col-md-offset-1
-    = form_tag(search_path, method: "post", id: "search-bar") do
+    = form_tag(search_path, method: "get", id: "search-bar") do
       .form-group.form-inline
         .input-group
           = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
