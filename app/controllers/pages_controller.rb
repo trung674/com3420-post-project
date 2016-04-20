@@ -98,14 +98,21 @@ class PagesController < ApplicationController
       end
     end
 
-    if ids
-      records = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
+    records =[]
+    ids.each do |id|
+      record = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
                               "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%"))
-                    .where(:approved=>true, :medium_id=>ids)
-      #TODO filter this so that only the most recent record is shown.
-    else
-      records = []
+                    .where(:approved=>true, :medium_id=>id).order(:created_at)
+      if record[-1]
+        records.append(record[-1])
+      end
+
     end
+
+    #TODO filter this so that only the most recent record is shown.
+    #   for each take the first one and sort by
+
+
 
     if records
       medium_ids = []
