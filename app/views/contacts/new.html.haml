@@ -16,6 +16,7 @@
             .hidden
             = # f.input :nickname, :hint => 'Leave this field blank!'
             = recaptcha_tags
+            %br
             = f.button :submit, 'Send message', :class=> "btn btn-primary"
 
         .col-md-4
