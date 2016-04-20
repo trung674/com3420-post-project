@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get '/upload', to: 'media#new'
     get '/map', to: 'pages#map'
     get '/search', to: 'pages#search'
-    get '/report', to: 'report#new'
+    get 'report', to: 'report#new'
     get '/about', to: 'pages#about'
     put '/about', to: 'pages#mercury_update'
     get '/modpanel', to: 'mods#modpanel'
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     match '/contacts', to: 'contacts#new', via: 'get'
 
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
+    resources 'report', only: [:new, :create]
     resources "contacts", only: [:new, :create]
     resources :events
     resources :wallpapers

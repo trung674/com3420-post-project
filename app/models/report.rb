@@ -8,7 +8,7 @@ class Report < MailForm::Base
   def headers
     {
         :subject => "Website Contact",
-        :to => "asacook1@sheffield.ac.uk",
+        :to => "hhowarth1@sheffield.ac.uk",
         :from => %("#{name}" <#{email}>)
     }
   end

@@ -1,23 +1,24 @@
 class ReportController < ApplicationController
 
   def new
-    # @contact = Contact.new
+    @report = Report.new
   end
 
   def create
-    # @contact = Contact.new(contact_params)
-    # @contact.request = request
-    #
-    # if ModMailer.contact_form(contact_params).deliver
-    #   flash.now[:notice] = "Thank you for your message"
-    # else
-    #   flash.now[:error] = "Cannot send message"
+
+    @report = Report.new(report_params)
+    @report.request = request
+
+    if ModMailer.contact_form(report_params).deliver
+      flash.now[:notice] = "Thank you for your message"
+    else
+      flash.now[:error] = "Cannot send message"
       render :new
-    # end
+    end
   end
 
-  # private
-  # def contact_params
-  #   # params.require(:contact).permit(:name, :email, :message)
-  # end
+  private
+  def report_params
+    params.require(report_path).permit(:name, :email, :message)
+  end
 end

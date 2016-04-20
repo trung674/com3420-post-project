@@ -11,6 +11,10 @@ class PagesController < ApplicationController
     @current_nav_identifier = :contact
   end
 
+  def report
+    @current_nav_identifier = :report
+  end
+
   def about
     # TODO make this only editable when logged in!!
     @current_nav_identifier = :about
