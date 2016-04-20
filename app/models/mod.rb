@@ -29,4 +29,18 @@ class Mod < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  # This method means newly registered mods cannot log in
+  def active_for_authentication?
+    super && isActive?
+  end
+
+  def inactive_message
+    if !isActive?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
+  end
+
 end
