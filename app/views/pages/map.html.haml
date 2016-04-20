@@ -29,7 +29,7 @@
 
     -#this div is for the javascript to submit a form to the controller
     %div.hidden
-      = form_tag(map_path, method: "post") do
+      = form_tag(map_path, method: "get", :id =>'form_id') do
         = text_field_tag(:lat, params[:lat], :class => "form-control", :id => 'lat_tag')
         = text_field_tag(:lng, params[:lat], :class => "form-control", :id => 'lng_tag')
         = submit_tag('Search', :class => "btn btn-default", :id => 'Search')
@@ -54,15 +54,16 @@
         markers[i].addListener('click', function(evt) {
           //TODO ADD ON CLICK HERE!!!
           console.log('pre form: '+this.position.lat()+', '+ this.position.lng());
+          document.getElementById("form_id").reset();
           //this sets the form's latitude
           var lat = this.position.lat();
           var lat_input = document.getElementById('lat_tag');
-          lat_input.value = lat_input.value + lat;
+          lat_input.value = '' + lat;
 
           //this sets the form's longitude
           var lng = this.position.lng();
           var lng_input = document.getElementById('lng_tag');
-          lng_input.value = lng_input.value + lng;
+          lng_input.value = '' + lng;
 
           //debugging log
           console.log('form values: '+document.getElementById('lat_tag').value+', '+document.getElementById('lng_tag').value)
