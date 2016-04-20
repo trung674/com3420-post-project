@@ -39,7 +39,34 @@ class PagesController < ApplicationController
     Record.where(:approved => true).each do |thing|
       #this check for the 'people' who didnt manage to click on the map when uploading
       if thing.latitude
-        @lat_lng.append({lat: thing.latitude , lng: thing.longitude})
+        @lat_lng.append({lat: thing.latitude, lng: thing.longitude, infoWindow: {
+            content: "<table>
+             <tbody>
+            <tr>
+            <th>Title: </th>
+                <td>
+                  <a href='media/#{thing.medium_id}'>
+                    #{thing.title}
+                  </a>
+                </td>
+           </tr>
+           <tr>
+              <th>Date: </th>
+                <td>
+                  #{thing.ref_date}
+                </td>
+          </tr>
+          <tr>
+            <th>Location: </th>
+              <td>
+                #{thing.location}
+              </td>
+           </tr>
+          </tbody>
+        </table>"
+        }})
+
+
         @obj_array.append(thing)
       end
     end
