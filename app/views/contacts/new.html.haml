@@ -15,6 +15,7 @@
             = f.input :message, :as => :text, :input_html => {:rows => 10}, :required => true
             .hidden
             = # f.input :nickname, :hint => 'Leave this field blank!'
+            = recaptcha_tags
             = f.button :submit, 'Send message', :class=> "btn btn-primary"
 
         .col-md-4
