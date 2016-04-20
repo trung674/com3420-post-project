@@ -20,7 +20,7 @@
 
     %br
     -#TODO someone needs to put this in a better place (ie make it look decent)
-    = form_tag(search_path, method: "get", id: "report_record") do
+    = form_tag(report_path, method: "get", id: "report_record") do
       -#put some hidden fields here
       = submit_tag("Report", :class => "btn btn-primary" )
     %br
