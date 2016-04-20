@@ -57,13 +57,11 @@
           //this sets the form's latitude
           var lat = this.position.lat();
           var lat_input = document.getElementById('lat_tag');
-          lat_input.empty();
           lat_input.value = lat_input.value + lat;
 
           //this sets the form's longitude
           var lng = this.position.lng();
           var lng_input = document.getElementById('lng_tag');
-          lng_input.empty();
           lng_input.value = lng_input.value + lng;
 
           //debugging log
