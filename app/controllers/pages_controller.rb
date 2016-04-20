@@ -49,19 +49,19 @@ class PagesController < ApplicationController
                     #{thing.title}
                   </a>
                 </td>
-           </tr>
-           <tr>
-              <th>Date: </th>
-                <td>
-                  #{thing.ref_date}
-                </td>
+          </tr>
+          <tr>
+            <th>Date: </th>
+              <td>
+                #{thing.ref_date}
+              </td>
           </tr>
           <tr>
             <th>Location: </th>
               <td>
                 #{thing.location}
               </td>
-           </tr>
+          </tr>
           </tbody>
         </table>"
         }})
