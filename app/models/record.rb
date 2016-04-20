@@ -51,6 +51,6 @@ class Record < ActiveRecord::Base
 
     def ref_date_valid_date?
       # Check the date is a valid date
-      errors.add(:ref_date, 'must be a valid date') if ((Date.parse(:ref_date) rescue ArgumentError) == ArgumentError)
+      errors.add(:ref_date, 'must be a valid date') unless (Date.parse(self.ref_date.to_s) rescue false)
     end
 end
