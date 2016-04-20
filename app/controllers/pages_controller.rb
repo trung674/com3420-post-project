@@ -106,11 +106,8 @@ class PagesController < ApplicationController
       if record[-1]
         records.append(record[-1])
       end
-
     end
 
-    #TODO filter this so that only the most recent record is shown.
-    #   for each take the first one and sort by
 
 
 
