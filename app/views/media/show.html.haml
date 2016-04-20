@@ -15,15 +15,13 @@
       = submit_tag 'View', name: nil
   - # Only the latest record can be edified to reduce conflicts
   - if @current_record == @medium.latest_approved_record
-    .col-md-6
+    .col-md-1.col-md-offset-4
       = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
-
-    %br
+  .col-md-1
     -#TODO someone needs to put this in a better place (ie make it look decent)
     = form_tag(report_path, method: "get", id: "report_record") do
       -#put some hidden fields here
-      = submit_tag("Report", :class => "btn btn-primary" )
-    %br
+      = submit_tag("Report", class: "btn btn-primary pull-right" )
 
 - if mod_signed_in?
   %br
