@@ -76,6 +76,10 @@ class MediaController < ApplicationController
       end
     else
       @current_record = @medium.latest_approved_record
+
+      if mod_signed_in? && @current_record.nil?
+        @current_record = @medium.latest_record
+      end
     end
   end
 
@@ -120,6 +124,7 @@ class MediaController < ApplicationController
         end
       end
 
+      # TODO: make it impossible to remove the last record for a medium
       if params[:remove]
         record.destroy
       end

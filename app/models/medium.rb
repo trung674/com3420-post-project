@@ -53,6 +53,10 @@ class Medium < ActiveRecord::Base
     self.records.where(approved: true).order('created_at')
   end
 
+  def latest_record
+    self.records.order('created_at').last
+  end
+
   def latest_approved_record
     self.records.where(approved: true).order('created_at').last
   end
