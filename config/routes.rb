@@ -27,11 +27,14 @@ Rails.application.routes.draw do
     match '/contacts', to: 'contacts#new', via: 'get'
 
     #TODO add routing stuff here!! IMPORTANT TO DO PROPERLY, BUT DON'T KNOW HOW!!!
-
     resources "contacts", only: [:new, :create]
     resources :events
     resources :wallpapers
-    resources :media
+    resources :media do
+      member do
+        get 'approve'
+      end
+    end
     resources :recordings, :controller => :media, :type => "Recording"
     resources :documents, :controller => :media, :type => "Document"
     resources :images, :controller => :media, :type => "Image"

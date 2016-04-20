@@ -13,8 +13,20 @@
       - else
         = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.to_s , a.id]},  @current_record.id)
       = submit_tag 'View', name: nil
-  .col-md-6
-    = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
+  - # Only the latest record can be edified to reduce conflicts
+  - if @current_record == @medium.latest_approved_record
+    .col-md-6
+      = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
+
+- if mod_signed_in? && (not @current_record.approved?)
+  %br
+  .row
+    .col-md-12
+      = form_tag(approve_medium_url,  :method=>'get') do
+        = hidden_field_tag :record_id, @current_record.id
+        = submit_tag 'Approve Edit', name: 'approve', class: 'btn btn-primary'
+        = submit_tag 'Remove Edit', name: 'remove', class: 'btn btn-danger pull-right'
+
 %br
 %div.panel.panel-default
   %div.panel-body.record
@@ -45,7 +57,7 @@
         .col-md-8
           %img{:src => @medium.upload.url, :height => '500px'}
 
-    - if not @medium.transcript.nil?
+    - unless @medium.transcript.nil?
       .row
         .col-md-12
           %object{:data => @medium.transcript.url, :height => '300px'}

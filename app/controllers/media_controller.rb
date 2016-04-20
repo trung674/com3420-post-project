@@ -107,6 +107,27 @@ class MediaController < ApplicationController
     end
   end
 
+  def approve
+    if mod_signed_in?
+      record = Record.where(id: params[:record_id]).first
+
+      if params[:approve]
+        record.approved = true
+
+        if record.save
+          redirect_to medium_url, record_id: record.id
+          return
+        end
+      end
+
+      if params[:remove]
+        record.destroy
+      end
+    end
+
+    redirect_to medium_url
+  end
+
   private
     def medium_params(type)
       # The media upload form submits a record as well as the contributor information
