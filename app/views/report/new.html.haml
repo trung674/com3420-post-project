@@ -3,7 +3,9 @@
 .row
   .col-md-12
     .page-header
-      %h1 Report a problem
+      %h1 Report a problem for
+      %h2
+        =params[:record_title]
   .col-md-12
     .panel.panel-default
       .panel-body
@@ -14,7 +16,6 @@
             = f.input :email, :required => true
             = f.input :message, :as => :text, :input_html => {:rows => 10}, :required => true
             .hidden
-            = # f.input :nickname, :hint => 'Leave this field blank!'
             = recaptcha_tags
             %br
             = f.button :submit, 'Send message', :class=> "btn btn-primary"
