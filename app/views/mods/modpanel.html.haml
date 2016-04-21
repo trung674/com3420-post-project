@@ -17,6 +17,15 @@
 
 
 .row
-  .col-md-6#address-form
-    %h2 Approve Edits
-    %p Edit list goes here.
+  .col-md-6#contact-form
+    %h2 Edits Waiting Approval
+    %table.table.table-bordered
+      %tr
+        %th Date Edited
+        %th Upload
+      - @waitingApproval.each do |edit|
+        %tr
+        - if edit.approved == false
+          %td= edit.updated_at
+          %td= edit.title
+        
