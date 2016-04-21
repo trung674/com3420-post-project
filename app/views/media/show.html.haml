@@ -61,7 +61,7 @@
           #{File.read(@medium.upload.path)}
       - elsif @medium.class.name == 'Image'
         .col-md-8
-          %img{:src => @medium.upload.url, :height => '500px'}
+          %img{:src => @medium.upload.url,:width=>'100%'}
 
     - unless @medium.transcript.nil?
       .row
@@ -78,14 +78,13 @@
       :javascript
         //This is the map declaration, with the center and zoom etc.
         //It is unlikely that changes will need to be made here.
+        var latlng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
         map = new GMaps({
           el: '#map',
-          lat: 53.452,
-          lng: -1.212,
-          zoom: 13,
+          lat: parseFloat("#{@current_record.latitude}"),
+          lng: parseFloat("#{@current_record.longitude}"),
+          zoom: 13
         });
-
-        var latlng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
         map.addMarker({position:latlng});
     - if @current_record.location?
       .row.col-md-12
