@@ -26,6 +26,6 @@
       - @waitingApproval.each do |edit|
         %tr
         - if edit.approved == false
-          %td= edit.updated_at
+          %td= edit.updated_at.to_s[0, edit.updated_at.to_s.index('+')]
           %td= edit.title
         
