@@ -30,7 +30,7 @@
   .row
     .col-md-12
       = form_tag(approve_medium_url,  :method=>'get') do
-        = hidden_field_tag :record_id, @current_record.id
+        = hidden_field_tag :record_id, @current_record.medium_id
         - unless @current_record.approved?
           = submit_tag 'Approve Edit', name: 'approve', class: 'btn btn-primary'
         = submit_tag 'Remove Edit', name: 'remove', class: 'btn btn-danger pull-right'
