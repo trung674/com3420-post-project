@@ -115,9 +115,9 @@ class MediaController < ApplicationController
 
   def approve
     if mod_signed_in?
-      record = Record.where(id: params[:record_id]).first
-
-      if params[:approve]
+      record = Record.where(:id => params[:record_id]).first
+      # puts record.size
+      if params[:approve] && record
         record.approved = true
 
         if record.save

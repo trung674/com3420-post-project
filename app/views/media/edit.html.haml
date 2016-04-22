@@ -56,16 +56,31 @@
 :javascript
       //This is the map declaration, with the center and zoom etc.
       //It is unlikely that changes will need to be made here.
-      map = new GMaps({
-        el: '#map',
-        lat: parseFloat("#{@current_record.latitude}"),
-        lng: parseFloat("#{@current_record.longitude}"),
-        zoom: 13,
-        //This adds a marker on click
-        click: function(e) {
-          placeMarker(e.latLng);
-        },
+      var latC = parseFloat("#{@current_record.latitude}");
+      var lngC = parseFloat("#{@current_record.longitude}")
+      if (latC && lngC){
+        map = new GMaps({
+          el: '#map',
+          lat: latC,
+          lng: lngC,
+          zoom: 13,
+          //This adds a marker on click
+          click: function(e) {
+            placeMarker(e.latLng);
+          }
+        });
+      }else {
+        map = new GMaps({
+          el: '#map',
+          lat: 53.452,
+          lng: -1.212,
+          zoom: 13,
+          click: function(e) {
+            placeMarker(e.latLng);
+          }
       });
+      }
+
 
       function resetMap() {
         var latLng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));

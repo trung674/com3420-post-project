@@ -21,7 +21,7 @@
   .col-md-1.pull-right
     = form_tag(report_path, method: "post", id: "report_record") do
       -#put some hidden fields here
-      = hidden_field_tag :medium_id, @current_record.id
+      = hidden_field_tag :medium_id, @current_record.medium_id
       = hidden_field_tag :record_title, @current_record.title
       = submit_tag("Report", class: "btn btn-primary pull-right" )
 
@@ -30,7 +30,7 @@
   .row
     .col-md-12
       = form_tag(approve_medium_url,  :method=>'get') do
-        = hidden_field_tag :record_id, @current_record.medium_id
+        = hidden_field_tag :record_id, @current_record.id
         - unless @current_record.approved?
           = submit_tag 'Approve Edit', name: 'approve', class: 'btn btn-primary'
         = submit_tag 'Remove Edit', name: 'remove', class: 'btn btn-danger pull-right'
