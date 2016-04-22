@@ -1,10 +1,9 @@
 - content_for :title, "Map"
 
-%h3 Quick Links
-
 .row
-  .col-md-3#contact-form
-    %table.table
+  .col-md-3
+    %h3 Quick Links
+    %table.table.table-unbordered
       %tr
         %td
           %a{:href => "/modlist"} View Moderators
@@ -15,7 +14,7 @@
         %td
           %a{:href => "/wallpapers"} Wallpaper Management
 
-  .col-md-11
+  .col-md-7
     %h3 Edits Waiting Approval
     %table.table.table-bordered
       %tr
