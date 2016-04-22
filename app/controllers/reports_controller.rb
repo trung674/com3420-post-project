@@ -1,8 +1,11 @@
 class ReportsController < ApplicationController
 
   def new
+    if params[:record_title].nil? || params[:medium_id].nil?
+      render :'pages/home'
+    end
     @title_name = params[:record_title]
-    @id = params[:record_id]
+    @id = params[:medium_id]
     @report = Report.new
   end
 
