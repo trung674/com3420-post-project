@@ -96,7 +96,13 @@ class PagesController < ApplicationController
     # add the medium id to an array if the tml contains the search string
     #
 
-    # more
+    if @type.include? 'Recording'
+      recording_ids = Medium.where(:type => 'Recording').ids
+      recording_ids.each do |id|
+        puts Dir.entries('public/uploads/recording/'+''+id.to_s)
+      end
+
+    end
     #
     #
     # Dir.foreach('public/uploads/recording') do |item|
