@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
     super(file, opts)
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   private
     def update_headers_to_disable_caching
       response.headers['Cache-Control'] = 'no-cache, no-cache="set-cookie", no-store, private, proxy-revalidate'

@@ -81,6 +81,8 @@ class MediaController < ApplicationController
         @current_record = @medium.latest_record
       end
     end
+
+    raise ActiveRecord::RecordNotFound if @current_record.nil?
   end
 
   def edit
