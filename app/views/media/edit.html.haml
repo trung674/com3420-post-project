@@ -58,8 +58,8 @@
       //It is unlikely that changes will need to be made here.
       map = new GMaps({
         el: '#map',
-        lat: 53.452,
-        lng: -1.212,
+        lat: parseFloat("#{@current_record.latitude}"),
+        lng: parseFloat("#{@current_record.longitude}"),
         zoom: 13,
         //This adds a marker on click
         click: function(e) {
