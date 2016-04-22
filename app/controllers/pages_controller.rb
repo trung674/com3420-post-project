@@ -12,7 +12,7 @@ class PagesController < ApplicationController
   end
 
   def report
-    @current_nav_identifier = :report
+    @current_nav_identifier = :reports
   end
 
   def about

@@ -19,7 +19,7 @@
     .col-md-1
       = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
   .col-md-1.pull-right
-    = form_tag(report_path, method: "get", id: "report_record") do
+    = form_tag(report_path, method: "post", id: "report_record") do
       -#put some hidden fields here
       = hidden_field_tag :record_id, @current_record.id
       = hidden_field_tag :record_title, @current_record.title
