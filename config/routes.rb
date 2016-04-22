@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get '/map', to: 'pages#map'
     get '/search', to: 'pages#search'
     post 'report', to: 'reports#new'
-    get '/reports', to: 'pages#home'
+    get '/report', to: 'pages#home'
     get '/about', to: 'pages#about'
     put '/about', to: 'pages#mercury_update'
     get '/modpanel', to: 'mods#modpanel'
