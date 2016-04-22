@@ -14,6 +14,7 @@ gem 'airbrake', '~> 4.3.5'
 gem 'gmaps4rails'
 gem 'geocoder'
 
+
 gem 'haml-rails'
 gem 'sass-rails'
 gem 'uglifier'

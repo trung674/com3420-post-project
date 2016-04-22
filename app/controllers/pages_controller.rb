@@ -89,27 +89,7 @@ class PagesController < ApplicationController
     else
       @type = %w{Document Recording Image Text}
     end
-    # if recording is in the search params
-    # then look in the directorys
-    # get each medium id that is a recording
-    # go into each of these directories and search the tml
-    # add the medium id to an array if the tml contains the search string
-    #
 
-    if @type.include? 'Recording'
-      recording_ids = Medium.where(:type => 'Recording').ids
-      recording_ids.each do |id|
-        puts Dir.entries('public/uploads/recording/'+''+id.to_s)
-      end
-
-    end
-    #
-    #
-    # Dir.foreach('public/uploads/recording') do |item|
-    #   next if item == '.' or item == '..'
-    #   puts item
-    #   # do work on real items
-    # end
     @search = [params[:search]]
     # More efficient to search by type first
     ids = []
@@ -142,6 +122,26 @@ class PagesController < ApplicationController
       end
     end
 
+    if @type.include? 'Recording'
+      # if recording is in the search params
+      # then look in the directorys
+      # get each medium id that is a recording
+      # go into each of these directories and search the tml
+      # add the medium id to an array if the tml contains the search string
+      trans_param = []
+      ids = Medium.where(:type => 'Recording').ids
+      ids.each do |test|
+        if !medium_ids.include? test
+          trans_param.append(test)
+        end
+      end
+      extra_records = transcript_search(trans_param)
+      extra_records.each do |rec|
+        records.append(rec)
+        medium_ids.append(rec.medium_id)
+      end
+    end
+
 
 
     # This is the array of hashes that we send to the view based on the search.
@@ -155,5 +155,35 @@ class PagesController < ApplicationController
     end
   end
 
+  private
+  def transcript_search(ids)
+    if ids
+      recording_ids = ids
+      trans_search_hits = []
+      recording_ids.each do |id|
+        (Dir.entries('public/uploads/recording/'+''+id.to_s)).each do |name|
+          if name=~/.*\.xml$/
+            #   TODO put search code here
+            result = false
+            file = Nokogiri::XML(File.open(name))
+            tag_set = file.xpath("//label")
+            tag_set.each do |node|
+              puts node.to_s
+              result = node.to_s.include?(@search[0])
+              if result
+                trans_search_hits.append(id)
+              end
+            end
+          end
+        end
+      end
+
+      # todo use the medium ids to get the most recent record
+      records = []
+
+      return records
+
+    end
+  end
 
 end
