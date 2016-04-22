@@ -1,9 +1,9 @@
 - content_for :title, "Map"
 
 .row
-  .col-md-3
+  .col-md-5
     %h3 Quick Links
-    %table.table.table-unbordered
+    %table.table
       %tr
         %td
           %a{:href => "/modlist"} View Moderators
@@ -14,16 +14,16 @@
         %td
           %a{:href => "/wallpapers"} Wallpaper Management
 
-  .col-md-7
+  .col-md-11
     %h3 Edits Waiting Approval
     %table.table.table-bordered
       %tr
         %th Date Edited
         %th Upload
-      - @waitingApproval.each do |edit|
+      - @approveRec.each do |edit|
         %tr
         - if edit.approved != true
           %td= edit.updated_at.to_s[0, edit.updated_at.to_s.index('+')]
           %td
-            %a{:href => "/media/#{edit.id}?record_id=#{edit.id}"} Link
+            %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} Link
         

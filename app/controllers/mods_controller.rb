@@ -32,7 +32,7 @@ class ModsController < ApplicationController
   load_and_authorize_resource
   
   def modpanel
-    @waitingApproval = Record.all
+    @approveRec = Record.all
   end
 
   def modlist
