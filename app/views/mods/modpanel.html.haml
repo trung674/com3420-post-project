@@ -25,8 +25,8 @@
         %th Upload
       - @waitingApproval.each do |edit|
         %tr
-        - if edit.approved == false
+        - if edit.approved != true
           %td= edit.updated_at.to_s[0, edit.updated_at.to_s.index('+')]
           %td
-            %a{:href => "/media/#{edit.id}"} Link
+            %a{:href => "/media/#{edit.id}?record_id=#{edit.id}"} Link
         
