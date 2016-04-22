@@ -89,12 +89,20 @@ class PagesController < ApplicationController
     else
       @type = %w{Document Recording Image Text}
     end
-    # Here item is the name of all the subdirectories. so we then have to loops around these searching each XML
-    Dir.foreach('public/uploads/recording') do |item|
-      next if item == '.' or item == '..'
-      puts item
-      # do work on real items
-    end
+    # if recording is in the search params
+    # then look in the directorys
+    # get each medium id that is a recording
+    # go into each of these directories and search the tml
+    # add the medium id to an array if the tml contains the search string
+    #
+    #
+    #
+    #
+    # Dir.foreach('public/uploads/recording') do |item|
+    #   next if item == '.' or item == '..'
+    #   puts item
+    #   # do work on real items
+    # end
     @search = [params[:search]]
     # More efficient to search by type first
     ids = []
