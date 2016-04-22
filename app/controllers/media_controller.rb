@@ -70,6 +70,7 @@ class MediaController < ApplicationController
     # Change current record depending on selected
     if params.has_key?(:record_id)
       if mod_signed_in?
+        # Mods have access to all records
         @current_record = @medium.all_records.find(params[:record_id])
       else
         @current_record = @medium.approved_records.find(params[:record_id])
@@ -77,6 +78,7 @@ class MediaController < ApplicationController
     else
       @current_record = @medium.latest_approved_record
 
+      # This handles when there are no approved records
       if mod_signed_in? && @current_record.nil?
         @current_record = @medium.latest_record
       end
@@ -89,8 +91,6 @@ class MediaController < ApplicationController
     # When editing the most recent record for the medium is displayed
     @medium = Medium.where(id: params[:id]).first
     @current_record = @medium.latest_approved_record
-
-    #TODO: decide whether text entries should be editable
   end
 
   def update
@@ -126,7 +126,7 @@ class MediaController < ApplicationController
         end
       end
 
-      # TODO: make it impossible to remove the last record for a medium
+      # TODO: make it impossible to remove the last record for a medium?
       if params[:remove]
         record.destroy
       end

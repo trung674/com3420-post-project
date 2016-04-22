@@ -13,12 +13,12 @@
       - else
         = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.to_s , a.id]},  @current_record.id)
       = submit_tag 'View', name: nil
+  .col-md-4
   - # Only the latest record can be edified to reduce conflicts
   - if @current_record == @medium.latest_approved_record
-    .col-md-1.col-md-offset-4
+    .col-md-1
       = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
-  .col-md-1
-    -#TODO someone needs to put this in a better place (ie make it look decent)
+  .col-md-1.pull-right
     = form_tag(report_path, method: "get", id: "report_record") do
       -#put some hidden fields here
       = hidden_field_tag :record_id, @current_record.id
@@ -72,10 +72,13 @@
     .ui-content{"data-role" => "main"}
 
 
-
+    - if @current_record.location?
+      %br
+      .row.col-md-12
+        #{@current_record.location}
     - if @current_record.latitude?
       %br
-      #map-container.row.col-md-5.col-sm-12
+      #map-container.row.col-md-12.col-sm-12
         #map{:style => 'height: 250px;'}
       :javascript
         //This is the map declaration, with the center and zoom etc.
@@ -88,6 +91,3 @@
           zoom: 13
         });
         map.addMarker({position:latlng});
-    - if @current_record.location?
-      .row.col-md-12
-        #{@current_record.location}
