@@ -32,7 +32,7 @@ class ModsController < ApplicationController
   load_and_authorize_resource
   
   def modpanel
-    @approveRec = Record.all
+    @approveRec = Record.where(approved: false)
   end
 
   def modlist
