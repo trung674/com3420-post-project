@@ -152,7 +152,7 @@ class PagesController < ApplicationController
     for x in 0..(records.length-1)
       @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
                               :date => records[x].ref_date, :location => records[x].location,
-                              :type => (Medium.where(:id => records[x].medium_id))[0].type})
+                              :type => (Medium.where(:id => records[x].medium_id)).first.class.name})
     end
   end
 
