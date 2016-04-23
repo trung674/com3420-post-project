@@ -49,32 +49,7 @@
       = check_box_tag("items[]", "Text",  false)
       = label_tag(:age_adult, "Text")
 
-%br
--# Why Choose Us
-.row
-  .col-md-12
-    .page-header
-      %h2 Why Choose Us
 
-  .col-md-4
-    .text-center
-      %h1
-        %span.fa.fa-download.fa-3x
-      %h4 No download required
-
-  .col-md-4
-    .text-center
-      %h1
-        %span.fa.fa-thumbs-up.fa-3x
-      %h4 User friendly interface
-
-  .col-md-4
-    .text-center
-      %h1
-        %span.fa.fa-gbp.fa-3x
-      %h4 Everything is FREE
-
--# More services
 %br
 .row
   .col-md-12
@@ -85,7 +60,18 @@
     .panel.panel-info
       .panel-heading
         %h4 Recent Uploads
-        -# TODO Add codes for list of most recent uploads
-
+        -results = Record.where(:approved => true).order(:created_at).last(3)
+      .panel-body
+        %table.table.table-bordered
+          %tr
+            %th Title
+            %th Type
+          -results.each do |item|
+            %tr
+              %td
+                %a{:href => "media/#{raw(item[:id])}"}
+                  =item.title
+              %td
+                = Medium.where(:id => item.medium_id).first.class.name
   .col-md-6
     = render 'events/list', :events => @events
