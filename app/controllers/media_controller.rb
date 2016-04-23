@@ -87,6 +87,24 @@ class MediaController < ApplicationController
     raise ActiveRecord::RecordNotFound if @current_record.nil?
   end
 
+  def show_upload
+    @medium = Medium.where(id: params[:id]).first
+
+    if @medium.class.name == 'Text'
+      # Text files are displayed as plain text so we only need to read the file
+      @medium.upload.file.read
+    else
+      send_file(@medium.upload.path, disposition: 'inline')
+    end
+  end
+  # Helper method so plain text can be shown for the text files
+  helper_method :show_upload
+
+  def show_transcript
+    @medium = Medium.where(id: params[:id]).first
+    send_file(@medium.transcript.path, disposition: 'inline')
+  end
+
   def edit
     # When editing the most recent record for the medium is displayed
     @medium = Medium.where(id: params[:id]).first
@@ -116,7 +134,7 @@ class MediaController < ApplicationController
   def approve
     if mod_signed_in?
       record = Record.where(:id => params[:record_id]).first
-      # puts record.size
+
       if params[:approve] && record
         record.approved = true
 
@@ -126,7 +144,6 @@ class MediaController < ApplicationController
         end
       end
 
-      # TODO: make it impossible to remove the last record for a medium?
       if params[:remove]
         record.destroy
       end

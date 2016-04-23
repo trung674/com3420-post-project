@@ -6,8 +6,12 @@ class MediumUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{model.id}"
+    "#{Rails.root}/uploads/#{model.class.to_s.underscore}/#{model.id}"
   end
+
+  # def url
+  #   "/uploads/#{model.class.name}/#{model.id}/#{File.basename(self.path)}"
+  # end
 
   # Remove tmp upload folders
   def delete_tmp_dir(new_file)

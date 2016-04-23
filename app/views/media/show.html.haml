@@ -43,34 +43,34 @@
         %h2 #{@current_record.title}
       .col-md-3.col-sm-6.date.pull-right
         #{@current_record.ref_date.to_formatted_s(:long) if @current_record.ref_date?}
-    .row
-      .col-md-6.col-sm-12
-        #{@current_record.description}
+    - unless @current_record.description.nil?
+      .row
+        .col-md-6.col-sm-12
+          #{@current_record.description}
     %br
     .row
       - if @medium.class.name == 'Recording'
         .col-md-6
-          %audio{:src => @medium.upload.url, :type => 'audio/wav', :preload => 'auto'}
+          %audio{src: url_for(action: :show_upload), type: 'audio/wav', preload: 'auto'}
           :javascript
             audiojs.events.ready(function() {
               var as = audiojs.createAll();
             });
       - elsif @medium.class.name == 'Document'
         .col-md-12
-          %object{:data => @medium.upload.url}
+          %object{data: url_for(action: :show_upload)}
       - elsif @medium.class.name == 'Text'
         .col-md-12
-          #{File.read(@medium.upload.path)}
+          #{show_upload}
       - elsif @medium.class.name == 'Image'
         .col-md-8
-          %img{:src => @medium.upload.url,:width=>'100%'}
+          %img{src: url_for(action: :show_upload),width: '100%'}
 
-    - unless @medium.transcript.nil?
+    - # TODO: check once transcription is complete
+    - if @medium.class.name == 'Recording' && @medium.transcript.url.nil?
       .row
         .col-md-12
-          %object{:data => @medium.transcript.url, :height => '300px'}
-    .ui-content{"data-role" => "main"}
-
+          %object{date: url_for(action: :show_transcript), height: '300px'}
 
     - if @current_record.location?
       %br
