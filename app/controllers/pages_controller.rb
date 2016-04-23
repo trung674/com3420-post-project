@@ -181,8 +181,6 @@ class PagesController < ApplicationController
         end
       end
 
-      puts trans_search_hits
-
       records = []
       trans_search_hits.each do |id|
         record_matches = Record.where(:medium_id => id)
