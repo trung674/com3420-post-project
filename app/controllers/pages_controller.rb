@@ -29,18 +29,21 @@ class PagesController < ApplicationController
   end
 
   def map
-    if !params[:lat].nil? && !params[:lng].nil?
-      # this is the code that gets done when there are both parameters provided
-      lat = params[:lat]
-      lng = params[:lng]
-      @result = Record.where(:latitude => lat, :longitude => lng, :approved => true)[0]
-
-    end
     # this is done on the load of every map page /get or /post
     @current_nav_identifier = :map
     @lat_lng = []
     @obj_array = []
-    Record.where(:approved => true).each do |thing|
+    # This code ensures that only the most recent approved record gets shown
+    med_ids = Medium.all.ids
+    records = []
+    med_ids.each do |id|
+      record = Record.where(:medium_id => id, :approved => true).order(:created_at)
+      if record[-1]
+        records.append(record[-1])
+      end
+    end
+    # for each record add the html for infoWindow and lat&lng. this all for the markers
+    records.each do |thing|
       #this check for the 'people' who didnt manage to click on the map when uploading
       if thing.latitude
         @lat_lng.append({lat: thing.latitude, lng: thing.longitude, infoWindow: {
