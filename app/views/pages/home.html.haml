@@ -60,7 +60,13 @@
     .panel.panel-info
       .panel-heading
         %h4 Recent Uploads
-        -results = Record.where(:approved => true).order(:created_at).last(3)
+        -ids = Medium.ids.last(3)
+        -results = []
+        -ids.each do |id|
+          -result = Record.where(:medium_id => id,:approved => true).order(:created_at).last
+          -if result
+            -results.append(result)
+        -
       .panel-body
         %table.table.table-bordered
           %tr
