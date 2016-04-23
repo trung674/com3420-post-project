@@ -70,7 +70,7 @@
     - if @medium.class.name == 'Recording' && @medium.transcript.url.nil?
       .row
         .col-md-12
-          %object{date: url_for(action: :show_transcript), height: '300px'}
+          %object{data: url_for(action: :show_transcript), height: '300px'}
 
     - if @current_record.location?
       %br
