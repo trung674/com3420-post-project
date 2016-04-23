@@ -191,10 +191,7 @@ class PagesController < ApplicationController
       end
       # returns the records
       return records
-
     end
-  else
-    return []
   end
 
 end
