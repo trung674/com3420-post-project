@@ -87,6 +87,7 @@ class PagesController < ApplicationController
         @search = []
       end
     else
+      # If the user provides no choice, the default is to return everything
       @type = %w{Document Recording Image Text}
     end
 
@@ -113,8 +114,6 @@ class PagesController < ApplicationController
     end
 
 
-
-
     if records
       medium_ids = []
       records.each do |getId|
@@ -122,19 +121,18 @@ class PagesController < ApplicationController
       end
     end
 
+    # only search transcripts if the user has said to look at recordings
     if @type.include? 'Recording'
-      # if recording is in the search params
-      # then look in the directorys
-      # get each medium id that is a recording
-      # go into each of these directories and search the tml
-      # add the medium id to an array if the tml contains the search string
       trans_param = []
+      # Get the ids of all the mediums that are recordings
       ids = Medium.where(:type => 'Recording').ids
+      # make sure that they haven't already been returned, to save time.
       ids.each do |test|
         if !medium_ids.include? test
           trans_param.append(test)
         end
       end
+      # search the transcripts of the recordings that haven't already been returned
       extra_records = transcript_search(trans_param)
       extra_records.each do |rec|
         records.append(rec)
@@ -151,31 +149,31 @@ class PagesController < ApplicationController
     for x in 0..(records.length-1)
       @results_hashes.append({:title => records[x].title, :id => records[x].medium_id,
                               :date => records[x].ref_date, :location => records[x].location,
-                              :type => (Medium.where(:id=> records[x].medium_id))[0].type})
+                              :type => (Medium.where(:id => records[x].medium_id))[0].type})
     end
   end
 
   private
   def transcript_search(ids)
+    # Function that takes recording's medium ids and searches the transcripts for matches
     if ids
-      recording_ids = ids
       trans_search_hits = []
-      recording_ids.each do |id|
-        (Dir.entries("#{Rails.root}/uploads/recording/"+''+id.to_s)).each do |name|
+      ids.each do |med_id|
+        # looks through each directory to find a file with an xml ending.
+        (Dir.entries("#{Rails.root}/uploads/recording/"+''+med_id.to_s)).each do |name|
           if name=~/.*\.xml$/
-            #   TODO put search code here
-            file = Nokogiri::XML(File.open("#{Rails.root}/uploads/recording/"+''+id.to_s+'/'+name))
-            tag_set = file.xpath("//label")
+            # read in the xml - label tags only! <label></label>
+            labels = Nokogiri::XML(File.open("#{Rails.root}/uploads/recording/"+''+med_id.to_s+'/'+name)).xpath('//label')
             file_string = ''
-            tag_set.each do |node|
+            labels.each do |node|
               text = node.text
-              if text != "!SENT_START"
+              if text != '!SENT_START'
                 file_string = file_string +' '+ text.downcase
               end
             end
-            # if the string contains the search string then it will return the record.
+            # if the string contains the search string then it will add the record to the 'hits' array.
             if file_string.include?(@search[0].downcase)
-              trans_search_hits.append(id)
+              trans_search_hits.append(med_id)
             end
           end
         end
@@ -183,14 +181,17 @@ class PagesController < ApplicationController
 
       records = []
       trans_search_hits.each do |id|
-        record_matches = Record.where(:medium_id => id)
+        record_matches = Record.where(:medium_id => id).order(:created_at)
         if record_matches[-1]
           records.append(record_matches[-1])
         end
       end
+      # returns the records
       return records
 
     end
+  else
+    return []
   end
 
 end
