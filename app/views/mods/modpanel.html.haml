@@ -23,7 +23,7 @@
       - @approveRec.each do |edit|
         %tr
         - if edit.approved != true
-          %td= edit.updated_at.to_s[0, edit.updated_at.to_s.index('+')]
+          %td= edit.updated_at.to_formatted_s(:long)
           %td
             %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} Link
         
