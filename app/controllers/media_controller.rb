@@ -93,6 +93,31 @@ class MediaController < ApplicationController
     if @medium.class.name == 'Text'
       # Text files are displayed as plain text so we only need to read the file
       @medium.upload.file.read
+    elsif @medium.class.name == 'Recording'
+      # http://stackoverflow.com/questions/6759426/rails-media-file-stream-accept-byte-range-request-through-send-data-or-send-file
+      file_begin = 0
+      file_size = @medium.upload.file.size
+      file_end = file_size - 1
+
+      if request.headers['Range']
+        status_code = '206 Partial Content'
+        match = request.headers['range'].match(/bytes=(\d+)-(\d*)/)
+
+        if match
+          file_begin = match[1]
+          file_end = match[1] if match[2] && !match[2].empty?
+        end
+
+        response.header['Content-Range'] = 'bytes ' + file_begin.to_s + '-' + file_end.to_s + '/' + file_size.to_s
+      else
+        status_code = '200 OK'
+      end
+
+      response.header['Content-Length'] = (file_end.to_i - file_begin.to_i + 1).to_s
+      response.header['Accept-Ranges' ] = 'bytes'
+
+      send_file(@medium.upload.file.path, filename: @medium.upload.file.filename, type: @medium.upload.content_type,
+            disposition: 'inline', status: status_code)
     else
       send_file(@medium.upload.path, disposition: 'inline')
     end

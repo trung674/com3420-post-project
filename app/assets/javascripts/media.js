@@ -1,1 +1,1 @@
-//= require audiojs
+//= require mediaelement_rails
