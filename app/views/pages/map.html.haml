@@ -44,8 +44,6 @@
           zoom: 13,
       });
 
-      console.log(#{raw @result.to_json});
-
       //This adds listeners to each marker
       var markers = map.addMarkers(#{raw @lat_lng.to_json});
       //for (i = 0; i < markers.length; i++) {
