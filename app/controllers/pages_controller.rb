@@ -161,26 +161,35 @@ class PagesController < ApplicationController
       recording_ids = ids
       trans_search_hits = []
       recording_ids.each do |id|
-        (Dir.entries('public/uploads/recording/'+''+id.to_s)).each do |name|
+        (Dir.entries("#{Rails.root}/uploads/recording/"+''+id.to_s)).each do |name|
           if name=~/.*\.xml$/
             #   TODO put search code here
-            result = false
-            file = Nokogiri::XML(File.open(name))
+            file = Nokogiri::XML(File.open("#{Rails.root}/uploads/recording/"+''+id.to_s+'/'+name))
             tag_set = file.xpath("//label")
+            file_string = ''
             tag_set.each do |node|
-              puts node.to_s
-              result = node.to_s.include?(@search[0])
-              if result
-                trans_search_hits.append(id)
+              text = node.text
+              if text != "!SENT_START"
+                file_string = file_string +' '+ text.downcase
               end
+            end
+            # if the string contains the search string then it will return the record.
+            if file_string.include?(@search[0].downcase)
+              trans_search_hits.append(id)
             end
           end
         end
       end
 
-      # todo use the medium ids to get the most recent record
-      records = []
+      puts trans_search_hits
 
+      records = []
+      trans_search_hits.each do |id|
+        record_matches = Record.where(:medium_id => id)
+        if record_matches[-1]
+          records.append(record_matches[-1])
+        end
+      end
       return records
 
     end
