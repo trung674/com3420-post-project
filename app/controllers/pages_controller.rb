@@ -25,7 +25,7 @@ class PagesController < ApplicationController
     content = EditableContent.find_by name: 'about'
     content.content = params[:content][:about_content][:value]
     content.save!
-    render text: ""
+    render text: ''
   end
 
   def map
