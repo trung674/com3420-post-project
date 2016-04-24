@@ -1,9 +1,27 @@
-- content_for :title, 'Search Results'
+- content_for :title, "#{@search[0]} Search Results"
+
+-# Search bar
+.row
+  .col-md-12.col-md-offset-1
+    = form_tag(search_path, method: "get", id: "search-bar") do
+      .form-group.form-inline
+        .input-group
+          = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!", value: @search[0])
+          %span.input-group-btn
+            = submit_tag("Search", :class => "btn btn-primary" )
+      = check_box_tag("items[]", "Recording", false)
+      = label_tag(:age_adult, "Recording")
+      = check_box_tag("items[]", "Document",  false)
+      = label_tag(:age_child, "Document")
+      = check_box_tag("items[]", "Image",  false)
+      = label_tag(:age_child, "Image")
+      = check_box_tag("items[]", "Text",  false)
+      = label_tag(:age_adult, "Text")
 
 -if !@search.empty?
-  %h2 Showing #{raw @type}(s) for: "#{raw @search[0]}".
+  %h2 Showing #{@type.join('s, ')}s for: "#{raw @search[0]}".
 -else
-  %h2 Showing all results that are #{raw @type}s.
+  %h2 Showing all results that are #{@type.join('s, ')}s.
 
 %div.panel.panel-default
   %div.panel-body
