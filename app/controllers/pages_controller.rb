@@ -166,10 +166,10 @@ class PagesController < ApplicationController
       trans_search_hits = []
       ids.each do |med_id|
         # looks through each directory to find a file with an xml ending.
-        (Dir.entries("#{Rails.root}/uploads/recording/"+''+med_id.to_s)).each do |name|
+        (Dir.entries('public/uploads/recording/'+''+med_id.to_s)).each do |name|
           if name=~/.*\.xml$/
             # read in the xml - label tags only! <label></label>
-            labels = Nokogiri::XML(File.open("#{Rails.root}/uploads/recording/"+''+med_id.to_s+'/'+name)).xpath('//label')
+            labels = Nokogiri::XML(File.open('public/uploads/recording/'+''+med_id.to_s+'/'+name)).xpath('//label')
             file_string = ''
             labels.each do |node|
               text = node.text
