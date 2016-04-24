@@ -1,29 +1,30 @@
-- content_for :title, "Map"
+- content_for :title, 'Moderator Controls'
 
-.row
-  .col-md-3
-    %h3 Quick Links
-    %table.table
-      %tr
-        %td
-          %a{:href => "/modlist"} View Moderators
-      %tr
-        %td
-          %a{:href => "/modedit"} Edit Moderators
-      %tr
-        %td
-          %a{:href => "/wallpapers"} Wallpaper Management
-
-  .col-md-11
-    %h3 Edits Waiting Approval
-    %table.table.table-bordered
-      %tr
-        %th Date Edited
-        %th Upload
-      - @approveRec.each do |edit|
+.panel-container
+  .row
+    .col-md-9
+      %h2 Welcome #{current_mod.email}
+    .col-md-3.pull-right
+      %h4 Quick Links
+      %table.table
         %tr
-        - if edit.approved != true
-          %td= edit.updated_at.to_formatted_s(:long)
           %td
-            %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} Link
-        
+            %a{:href => "/modlist"} View Moderators
+        %tr
+          %td
+            %a{:href => "/modedit"} Edit Moderators
+        %tr
+          %td
+            %a{:href => "/wallpapers"} Wallpaper Management
+
+    .col-md-9
+      %h3 Edits Waiting Approval
+      %table.table.table-bordered
+        %tr
+          %th Title
+          %th Date Edited
+        - @approveRec.each do |edit|
+          %tr
+            %td
+              %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} #{edit.title}
+            %td= edit.updated_at.to_formatted_s(:long)
