@@ -5,7 +5,7 @@ module ActiveRecord
     class AssociatedBubblingValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         ((value.kind_of?(Enumerable) || value.kind_of?(ActiveRecord::Relation)) ? value : [value]).each do |v|
-          unless v.valid?
+          unless v.nil? || v.valid?
             v.errors.full_messages.each do |msg|
 
               # Seems to stop multiple errors being shown twice

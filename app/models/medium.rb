@@ -31,7 +31,6 @@ class Medium < ActiveRecord::Base
   mount_uploader :upload, MediumUploader
 
   validates :upload, presence: true
-  validates :contributor, presence: true
   validates :copyright, :acceptance => true
   validates_presence_of :upload
   validates_presence_of :contributor

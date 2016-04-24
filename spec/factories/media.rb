@@ -24,12 +24,24 @@
 FactoryGirl.define do
   factory :medium do
     contributor
-    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/images/test.jpg')))
+    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/test.jpg')))
 
     trait :with_record do
       after(:build) do |medium|
         medium.records << FactoryGirl.create(:record, medium: medium)
       end
     end
+  end
+
+  factory :image, parent: :medium, class: 'Image' do
+    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/test.jpg')))
+  end
+
+  factory :document, parent: :medium, class: 'Document' do
+    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/pdf-test.pdf')))
+  end
+
+  factory :recording, parent: :medium, class: 'Recording' do
+    upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/sample.wav')))
   end
 end

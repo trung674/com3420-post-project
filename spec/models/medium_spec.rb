@@ -31,9 +31,38 @@ RSpec.describe Medium, type: :model do
     expect(medium.errors[:upload]).to include("can't be blank")
   end
 
-  it 'is valid with an upload' do
-    medium = FactoryGirl.create(:medium, :with_record)
-    expect(medium).to be_valid
+  it 'is invalid without an record' do
+    medium = FactoryGirl.build(:medium)
+    medium.valid?
+    expect(medium.errors[:records]).to include("can't be blank")
+  end
+
+  it 'is invalid without an contributor' do
+    medium = FactoryGirl.build(:medium, :with_record, contributor: nil)
+    medium.valid?
+    expect(medium.errors[:contributor]).to include("can't be blank")
+  end
+
+  it 'Recording upload is valid' do
+    # this is build since recordings run a delayed job when created
+    recording = FactoryGirl.build(:recording, :with_record)
+    expect(recording).to be_valid
+  end
+
+  it 'Document upload is valid' do
+    document = FactoryGirl.create(:document, :with_record)
+    expect(document).to be_valid
+  end
+
+  it 'Image upload is valid' do
+    image = FactoryGirl.create(:image, :with_record)
+    expect(image).to be_valid
+  end
+
+  it 'Image upload is invalid with incorrect file type' do
+    image = FactoryGirl.build(:image, :with_record, upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/sample.wav'))))
+    image.valid?
+    expect(image.errors[:upload]).to include("You are not allowed to upload")
   end
 
 end
