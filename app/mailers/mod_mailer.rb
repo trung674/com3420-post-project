@@ -15,4 +15,16 @@ class ModMailer < ApplicationMailer
     mail to: "asacook1@sheffield.ac.uk"
 
   end
+
+  def report_form(report_params)
+    @greeting = "This message is to inform you that someone is reporting a record"
+
+    @name = report_params[:name]
+    @email = report_params[:email]
+    @message = report_params[:message]
+    @url = "media/#{report_params[:id]}"
+    @title = report_params[:title]
+
+    mail to: "hhowarth1@sheffield.ac.uk"
+  end
 end

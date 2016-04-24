@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
     @report.request = request
 
     if verify_recaptcha(model: @reports)
-      if ModMailer.contact_form(report_params).deliver
+      if ModMailer.report_form(report_params).deliver
         flash.now[:notice] = "Thank you for your message"
       else
         flash.now[:error] = "Cannot send message"
