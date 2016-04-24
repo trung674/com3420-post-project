@@ -65,7 +65,7 @@ gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
 gem 'auto_strip_attributes', '~> 2.0', require: false
 
-gem 'mediaelement_rails', require: false
+gem 'mediaelement_rails'
 
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do

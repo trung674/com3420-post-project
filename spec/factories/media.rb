@@ -25,5 +25,11 @@ FactoryGirl.define do
   factory :medium do
     contributor
     upload Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/images/test.jpg')))
+
+    trait :with_record do
+      after(:build) do |medium|
+        medium.records << FactoryGirl.create(:record, medium: medium)
+      end
+    end
   end
 end

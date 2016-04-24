@@ -26,5 +26,6 @@ FactoryGirl.define do
     location 'Braithwell Church'
     ref_date Date.today
     approved false
+    medium
   end
 end

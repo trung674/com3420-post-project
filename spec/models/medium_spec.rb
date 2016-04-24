@@ -26,29 +26,14 @@ require 'rails_helper'
 RSpec.describe Medium, type: :model do
 
   it 'is invalid without an upload' do
-    medium = Medium.new
-    medium.contributor = FactoryGirl.create(:contributor)
+    medium = FactoryGirl.build(:medium, :with_record, upload: nil)
     medium.valid?
     expect(medium.errors[:upload]).to include("can't be blank")
   end
 
   it 'is valid with an upload' do
-    medium = FactoryGirl.create(:medium)
-    medium.contributor = FactoryGirl.create(:contributor)
+    medium = FactoryGirl.create(:medium, :with_record)
     expect(medium).to be_valid
   end
-
-  it 'is valid with a valid contributor' do
-    medium = FactoryGirl.create(:medium)
-    medium.contributor = FactoryGirl.create(:contributor)
-    expect(medium).to be_valid
-  end
-
-  # Can't get this to work even though it should
-  # it 'validates associated contributor' do
-  #   # medium = FactoryGirl.create(:medium)
-  #   # medium.contributor = FactoryGirl.create(:contributor, email: nil)
-  #   # expect(medium.error[:contributor.email]).to include("can't be blank")
-  # end
 
 end
