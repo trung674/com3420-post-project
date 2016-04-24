@@ -135,11 +135,14 @@ class PagesController < ApplicationController
           trans_param.append(test)
         end
       end
+
       # search the transcripts of the recordings that haven't already been returned
-      extra_records = transcript_search(trans_param)
-      extra_records.each do |rec|
-        records.append(rec)
-        medium_ids.append(rec.medium_id)
+      if trans_param
+        extra_records = transcript_search(trans_param)
+        extra_records.each do |rec|
+          records.append(rec)
+          medium_ids.append(rec.medium_id)
+        end
       end
     end
 
