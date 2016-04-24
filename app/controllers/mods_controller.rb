@@ -47,14 +47,22 @@ class ModsController < ApplicationController
     @alteredMod = Mod.find_by(email: mod_params[:email])    
     @updateMsg = String.new
 
-    if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true) #If mod inactive and not an admin
+    if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true)
+      #If mod inactive and not an admin
+      
       #Set mod to active
       @alteredMod.isActive = true
       @updateMsg = "Moderator successfully activated"
-    elsif (@alteredMod.isActive == true) && (@alteredMod.isAdmin != true) #If the mod is active and not an admin
+    
+    elsif (@alteredMod.isActive == true) && (@alteredMod.isAdmin != true)
+      #If the mod is active and not an admin
+
       @alteredMod.isActive = false
       @updateMsg = "Moderator successfully deactivated"
+
     else
+      #Admins cannot be deactivated
+
       @updateMsg = "Site administrators cannot be deactivated." #Cancel update, display error.
     end
 
