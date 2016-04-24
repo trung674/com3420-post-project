@@ -12,7 +12,7 @@
         = select_tag 'record_id', options_for_select(@medium.all_records.reverse.collect {|a| [a.to_s_mod , a.id]},  @current_record.id)
       - else
         = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.to_s , a.id]},  @current_record.id)
-      = submit_tag 'View', name: nil
+      = submit_tag 'View', name: nil, class: 'btn btn-secondary'
   .col-md-4
   - # Only the latest record can be edified to reduce conflicts
   - if @current_record == @medium.latest_approved_record
@@ -23,7 +23,7 @@
       -#put some hidden fields here
       = hidden_field_tag :medium_id, @current_record.medium_id
       = hidden_field_tag :record_title, @current_record.title
-      = submit_tag("Report", class: "btn btn-primary pull-right" )
+      = submit_tag('Report', class: 'btn btn-danger pull-right' )
 
 - if mod_signed_in?
   %br

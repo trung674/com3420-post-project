@@ -55,18 +55,17 @@ gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 # Transcribing
-gem 'rest-client', :require => false
-gem 'rubyzip', :require => false
+gem 'rest-client', require: false
+gem 'rubyzip', require: false
 
 gem 'mini_magick', require: false
 
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
 
-gem 'auto_strip_attributes', '~> 2.0', :require => false
+gem 'auto_strip_attributes', '~> 2.0', require: false
 
-gem 'audiojs-rails'
-gem 'mediaelement_rails'
+gem 'mediaelement_rails', require: false
 
 # Win32 specific gems
 platforms :mswin, :mingw, :x64_mingw do

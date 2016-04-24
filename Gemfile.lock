@@ -71,8 +71,6 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
     arel (6.0.3)
-    audiojs-rails (1.0.1)
-      railties (>= 3.1)
     auto_strip_attributes (2.0.6)
       activerecord (>= 3.0)
     autoprefixer-rails (6.3.6)
@@ -412,7 +410,6 @@ DEPENDENCIES
   activerecord-session_store
   airbrake (~> 4.3.5)
   annotate
-  audiojs-rails
   auto_strip_attributes (~> 2.0)
   bootstrap-sass
   bootstrap-will_paginate

@@ -22,7 +22,7 @@
 #
 
 require 'tempfile'
-require 'audiojs/rails'
+require 'mediaelement_rails'
 
 class MediaController < ApplicationController
 
