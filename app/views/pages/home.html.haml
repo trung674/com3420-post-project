@@ -75,7 +75,7 @@
           -results.each do |item|
             %tr
               %td
-                %a{:href => "media/#{raw(item[:id])}"}
+                %a{:href => "media/#{raw(item[:medium_id])}"}
                   =item.title
               %td
                 = Medium.where(:id => item.medium_id).first.class.name
