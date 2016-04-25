@@ -1,6 +1,7 @@
 - content_for :title, @event.title
 %p#notice.bg-info.text-center= notice
 
+// Show detail of an event
 .row#event
   .col-md-12
     .page-header
@@ -9,22 +10,23 @@
   .col-md-12
     .row
       .col-md-4
+        // Image
         = image_tag(@event.image.url, class: "img-responsive img-thumbnail", alt: "#{@event.image.file.identifier unless @event.image.file.nil?}")
         %br
         %br
-        -# Location
+        // Location
         %p
           %span.fa.fa-home{"aria-hidden" => "true"}
           %strong Location:
           = @event.location
 
-        -# Date
+        // Date
         %p
           %span.fa.fa-calendar{"aria-hidden" => "true"}
           %strong Date:
           = @event.date
 
-        -# Time
+        // Time
         %p
           %span.fa.fa-clock-o{"aria-hidden" => "true"}
           %strong Time:

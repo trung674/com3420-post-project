@@ -1,13 +1,34 @@
-- content_for :title, "Event"
+- content_for :title, "Events"
+
+// List of all events
 .row
   .col-md-12
     %h1.page-header All Events
 
   .col-md-12
-    %ul.list-group
-      - @events.each do |event|
-        %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
+    -# check if there is any event in database
+    - if !@events.empty?
+      %table.table
+        %thread
+          %tr
+            %th
+            %th Name
+            %th Location
+            %th Date
+        - @events.each do |event|
+          %tr
+            %td{:width => "15%"}
+              = image_tag(event.image.url, size: "75x75", class: "img-thumbnail", alt: "#{event.image.file.identifier unless event.image.file.nil?}")
+            %td{:width => "35%"}
+              %h4= link_to event.title, :controller => "events", :action => "show", :id => event.id
+            %td{:width => "35%"}
+              %h4= event.location
+            %td{:width => "15%"}
+              %h4= event.date
+    - else
+      %h3.text-center There is no upcoming event at the moment
 
     %br
+    -# only mods can see this link
     - if mod_signed_in?
       = link_to 'New Event', new_event_path

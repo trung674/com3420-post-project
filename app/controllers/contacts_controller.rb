@@ -34,7 +34,7 @@ class ContactsController < ApplicationController
   end
 
   def update
-    # Noob & bad codes but at least it works :(
+    # bad noob codes but at least it works :(
     @editable_contents = EditableContent.find(2,3,4)
     @editable_contents[0].content = params[:editable_content][:contact_address]
     @editable_contents[1].content = params[:editable_content][:contact_phone]
@@ -44,7 +44,6 @@ class ContactsController < ApplicationController
     else
       redirect_to contacts_edit_path notice: 'Something was wrong. Please try again !'
     end
-
   end
 
   private

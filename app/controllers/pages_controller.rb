@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @current_nav_identifier = :home
-    @events = Event.all
+    @events = Event.order(created_at: :desc).last(3)
     @wallpapers = Wallpaper.all
   end
 
@@ -16,7 +16,6 @@ class PagesController < ApplicationController
   end
 
   def about
-    # TODO make this only editable when logged in!!
     @current_nav_identifier = :about
     @about_content = EditableContent.find_by name: 'about'
   end
