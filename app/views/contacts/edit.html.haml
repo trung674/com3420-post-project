@@ -1,0 +1,17 @@
+- content_for :title, "Edit Contact Detail"
+%p#notice.bg-info.text-center= notice
+
+.row
+  .col-md-12
+    .page-header
+      %h1 Edit Contact Details
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        .col-md-8
+          // Form for Editing contact info
+          = simple_form_for :editable_content, :url => contacts_update_path, html: { method: :put } do |f|
+            - @editable_contents.each do |content|
+              = f.input content.name, input_html: {value: content.content}
+
+            = f.button :submit, 'Submit', :class=> "btn btn-primary"

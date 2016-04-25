@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :wallpapers
   devise_for :mods
   mount Mercury::Engine => '/'
     match "/403", to: "errors#error_403", via: :all
@@ -22,6 +21,8 @@ Rails.application.routes.draw do
     get '/modpanel', to: 'mods#modpanel'
     get '/modlist', to: 'mods#modlist'
     get '/modedit', to: 'mods#modedit'
+    get '/contacts/edit', to: 'contacts#edit'
+    put '/contacts/update', to: 'contacts#update'
     post '/modedit', to: 'mods#update', as: :mods
 
     match '/contacts', to: 'contacts#new', via: 'get'

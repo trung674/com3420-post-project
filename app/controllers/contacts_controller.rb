@@ -1,7 +1,10 @@
 class ContactsController < ApplicationController
+  before_action :authenticate_mod!, only: [:edit]
 
   def new
     @contact = Contact.new
+    #Select info (contact address, phone, working hour) from database
+    @editable_contents = EditableContent.find(2,3,4)
   end
 
   def create
@@ -22,6 +25,24 @@ class ContactsController < ApplicationController
       #If missed verification
       render :new
       flash.now[:notice] = "Please verify yourself by clicking 'I'm not a robot'"
+    end
+
+  end
+
+  def edit
+    @editable_contents = EditableContent.find(2,3,4)
+  end
+
+  def update
+    # Noob & bad codes but at least it works :(
+    @editable_contents = EditableContent.find(2,3,4)
+    @editable_contents[0].content = params[:editable_content][:contact_address]
+    @editable_contents[1].content = params[:editable_content][:contact_phone]
+    @editable_contents[2].content = params[:editable_content][:working_hour]
+    if @editable_contents[0].save! && @editable_contents[1].save! && @editable_contents[2].save!
+      redirect_to modpanel_path, notice: 'Wallpaper was successfully updated.'
+    else
+      redirect_to contacts_edit_path notice: 'Something was wrong. Please try again !'
     end
 
   end

@@ -1,4 +1,5 @@
 - content_for :title, 'Moderator Controls'
+%p#notice.bg-info.text-center= notice
 
 .panel-container
   .row
@@ -16,6 +17,10 @@
         %tr
           %td
             %a{:href => "/wallpapers"} Wallpaper Management
+        %tr
+          %td
+            %a{:href => "/contacts/edit"} Edit Contact Detail
+
 
     .col-md-9
       %h3 Edits Waiting Approval

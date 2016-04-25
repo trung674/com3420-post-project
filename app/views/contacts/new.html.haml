@@ -22,14 +22,12 @@
           %p
             %span.fa.fa-home{"aria-hidden" => "true"}
             %strong Address:
-            23 Edward Street,
-            %br
-            Sheffield, UK, S3 7FG
+            = @editable_contents[0].content
           %p
             %span.fa.fa-phone{"aria-hidden" => "true"}
             %strong Phone:
-            (+44) 08827364723
+            = @editable_contents[1].content
           %p
             %span.fa.fa-calendar{"aria-hidden" => "true"}
             %strong Working Hour:
-            Monday - Friday: 9:00 AM to 5:00 PM
+            = @editable_contents[2].content
