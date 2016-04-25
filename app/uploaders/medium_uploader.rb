@@ -39,7 +39,7 @@ class MediumUploader < CarrierWave::Uploader::Base
         %w{txt}
       when 'Recording'
         # Recording allows the audio file as well as the transcript
-        %w{wav mp3 pdf}
+        %w{pdf}
     end
   end
 

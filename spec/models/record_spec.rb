@@ -41,14 +41,20 @@ RSpec.describe Record, type: :model do
     expect(record.errors[:latitude]).to include('is not a number')
   end
 
-  it 'is invalid without a medium' do
-    record = FactoryGirl.build(:record)
-    record.valid?
-    expect(record.errors[:medium]).to include("can't be blank")
-  end
-
   it 'is valid with a medium' do
     record = FactoryGirl.create(:record, :with_medium)
+    expect(record).to be_valid
+  end
+
+  it 'is invalid without a description' do
+    record = FactoryGirl.build(:record, :with_medium, description: nil)
+    record.valid?
+    expect(record.errors[:description]).to include("can't be blank")
+  end
+
+  it 'is valid without a description for text upload' do
+    text = FactoryGirl.create(:text, :with_record)
+    record = FactoryGirl.create(:record, medium: text, description: nil)
     expect(record).to be_valid
   end
 

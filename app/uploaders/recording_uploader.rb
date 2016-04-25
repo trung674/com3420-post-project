@@ -10,5 +10,4 @@ class RecordingUploader < MediumUploader
   def extension_white_list
     %w{wav mp3}
   end
-
 end

@@ -59,10 +59,15 @@ RSpec.describe Medium, type: :model do
     expect(image).to be_valid
   end
 
+  it 'Text upload is valid' do
+    text = FactoryGirl.create(:text, :with_record)
+    expect(text).to be_valid
+  end
+
   it 'Image upload is invalid with incorrect file type' do
     image = FactoryGirl.build(:image, :with_record, upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/sample.wav'))))
     image.valid?
-    expect(image.errors[:upload]).to include("You are not allowed to upload")
+    expect(image.errors[:upload]).to include("can't be blank")
   end
 
 end

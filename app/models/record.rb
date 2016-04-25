@@ -28,8 +28,8 @@ class Record < ActiveRecord::Base
 
   validates :latitude, :longitude, numericality: true, if: 'latitude.present?'
   validates :title, presence: true
-  validates :description, presence: true, if: :should_require_description?
-  validates :medium, presence: true
+  validates :description, presence: true, unless: :medium_is_text?
+  # validates :medium, presence: true
 
   def to_s
     self.created_at.to_formatted_s(:long)
@@ -44,8 +44,8 @@ class Record < ActiveRecord::Base
   end
 
   private
-    def should_require_description?
+    def medium_is_text?
       # Thorough testing for this!
-      medium.respond_to?(:text)
+      self.medium.is_a?(Text)
     end
 end

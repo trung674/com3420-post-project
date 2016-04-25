@@ -57,6 +57,8 @@ class MediaController < ApplicationController
       f.unlink
     end
 
+    @medium.records.first.medium = @medium
+
     if verify_recaptcha(model: @medium) && @medium.save
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
