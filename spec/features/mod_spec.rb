@@ -1,10 +1,17 @@
 require 'rails_helper'
+require 'spec_helper'
+require 'database_cleaner'
 
 describe 'Mod' do
-
+  
+  before :each do
+    Capybara.javascript_driver = :webkit
+    Capybara.current_driver = Capybara.javascript_driver
+  end
+  
   let!(:mod) { FactoryGirl.create(:mod) }
   
-  specify 'I can log in' do
+  specify 'I can log in', javascript: true do
     visit '/mods/sign_in'
     fill_in 'Email', with: mod.email
     fill_in 'Password', with: mod.password
