@@ -26,6 +26,9 @@
 
 FactoryGirl.define do
   factory :mod do
-    
+    email 'testuser@villagememories.com'
+    password 'villagemems'
+    password_confirmation 'villagemems'
+    isActive true
   end
 end
