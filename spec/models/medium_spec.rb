@@ -31,13 +31,13 @@ RSpec.describe Medium, type: :model do
     expect(medium.errors[:upload]).to include("can't be blank")
   end
 
-  it 'is invalid without an record' do
+  it 'is invalid without a record' do
     medium = FactoryGirl.build(:medium)
     medium.valid?
     expect(medium.errors[:records]).to include("can't be blank")
   end
 
-  it 'is invalid without an contributor' do
+  it 'is invalid without a contributor' do
     medium = FactoryGirl.build(:medium, :with_record, contributor: nil)
     medium.valid?
     expect(medium.errors[:contributor]).to include("can't be blank")

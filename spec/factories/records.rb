@@ -26,6 +26,14 @@ FactoryGirl.define do
     location 'Braithwell Church'
     ref_date Date.today
     approved false
-    medium
+    latitude Faker::Address.latitude
+    longitude Faker::Address.longitude
+
+    trait :with_medium do
+      after(:build) do |record|
+        record.medium = FactoryGirl.build(:medium, records: [record])
+      end
+    end
+
   end
 end

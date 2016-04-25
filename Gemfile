@@ -14,7 +14,6 @@ gem 'airbrake', '~> 4.3.5'
 gem 'gmaps4rails'
 gem 'geocoder'
 
-
 gem 'haml-rails'
 gem 'sass-rails'
 gem 'uglifier'
@@ -58,10 +57,9 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'rest-client', require: false
 gem 'rubyzip', require: false
 
-gem 'mini_magick', require: false
-
 # Editor
 gem 'mercury-rails', git: 'http://github.com/jejacks0n/mercury'
+gem 'mini_magick', require: false
 
 gem 'auto_strip_attributes', '~> 2.0', require: false
 
@@ -113,4 +111,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'simplecov'
+  gem 'faker'
 end
