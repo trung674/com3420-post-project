@@ -16,7 +16,7 @@ describe 'Mod' do
     fill_in 'Email', with: mod.email
     fill_in 'Password', with: mod.password
     click_button 'Log in'
-    #expect(page).to have_content 'Welcome {#user.email}'
+    expect(page).to have_content 'Welcome #{user.email}'
     expect(page).to have_content 'Edits Waiting Approval'
   end
   

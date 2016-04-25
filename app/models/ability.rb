@@ -11,6 +11,7 @@ class Ability
       can :modlist, :all
       can :modedit, :all
       can :update, :all
+      can :read, Impression
     end
 
     # Define abilities for the passed in user here. For example:

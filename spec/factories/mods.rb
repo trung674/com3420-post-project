@@ -30,5 +30,6 @@ FactoryGirl.define do
     password 'villagemems'
     password_confirmation 'villagemems'
     isActive true
+    isAdmin false
   end
 end
