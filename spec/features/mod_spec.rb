@@ -2,28 +2,30 @@ require 'rails_helper'
 require 'spec_helper'
 require 'database_cleaner'
 
+include Warden::Test::Helpers
+Warden.test_mode!
+
 describe 'Mod' do
   
-  before :each do
-    Capybara.javascript_driver = :webkit
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-  
-  let!(:mod) { FactoryGirl.create(:mod) }
-  
-  specify 'I can log in', javascript: true do
-    visit '/mods/sign_in'
-    fill_in 'Email', with: mod.email
-    fill_in 'Password', with: mod.password
-    click_button 'Log in'
-    expect(page).to have_content 'Welcome #{user.email}'
-    expect(page).to have_content 'Edits Waiting Approval'
-  end
-  
   specify 'I can view moderators' do
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit '/modlist'
+    expect(page).to have_content 'List of all current Moderators'
+    within(:css, 'table.table.table-bordered') { expect(page).to have_content 'testuser@villagememories.com' }
   end
 
   specify 'I can activate moderator account' do
+    mod = FactoryGirl.create(:mod)
+    inactiveMod = FactoryGirl.create(:inactiveMod)
+    login_as(mod, :scope => :mod)
+    visit '/modedit'
+    fill_in 'email', with: inactiveMod.email
+    click_button 'Update'
+    logout(:mod)
+    login_as(inactiveMod, :scope => :inactiveMod)
+    visit '/modpanel'
+    expect(page).to have_content 'Welcome #{current_mod.email}'
   end
 
   specify 'I can deactivate moderator account' do
