@@ -30,6 +30,12 @@ FactoryGirl.define do
         medium.records << FactoryGirl.create(:record, medium: medium)
       end
     end
+
+    trait :with_approved_record do
+      after(:build) do |medium|
+        medium.records << FactoryGirl.create(:record, medium: medium, approved: true)
+      end
+    end
   end
 
   factory :text, parent: :medium, class: 'Text' do

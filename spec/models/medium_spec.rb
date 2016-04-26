@@ -70,4 +70,34 @@ RSpec.describe Medium, type: :model do
     expect(image.errors[:upload]).to include("can't be blank")
   end
 
+  it 'returns no approved records when there are none' do
+    document = FactoryGirl.create(:document, :with_record)
+    expect(document.approved_records.length).to eq(0)
+  end
+
+  it 'returns the correct number of records' do
+    document = FactoryGirl.create(:document, :with_record)
+    FactoryGirl.create(:record, medium: document)
+    expect(document.all_records.length).to eq(2)
+  end
+
+  it 'returns the correct number of unapproved records' do
+    document = FactoryGirl.create(:document, :with_record)
+    FactoryGirl.create(:record, medium: document, approved: true)
+    expect(document.unapproved_records.length).to eq(1)
+  end
+
+  it 'returns the correct latest record' do
+    document = FactoryGirl.create(:document, :with_record)
+    record = FactoryGirl.create(:record, medium: document)
+    expect(document.latest_record).to eq(record)
+  end
+
+  it 'returns the correct latest approved record' do
+    document = FactoryGirl.create(:document, :with_record)
+    FactoryGirl.create(:record, medium: document, approved: true)
+    record = FactoryGirl.create(:record, medium: document, approved: true)
+    expect(document.latest_approved_record).to eq(record)
+  end
+
 end
