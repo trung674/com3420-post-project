@@ -9,6 +9,6 @@
       %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
   - else
     .panel-body
-      %p There are no upcoming event at the moment
+      %p There are no upcoming events at the moment
 %span.fa.fa-arrow-right.pull-right{"aria-hidden" => "true"}
   = link_to "See full list of events", events_path

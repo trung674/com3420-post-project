@@ -10,17 +10,22 @@
       %table.table
         %tr
           %td
-            %a{:href => "/modlist"} View Moderators
+            %a{:href => modlist_path} View Moderators
         %tr
           %td
-            %a{:href => "/modedit"} Edit Moderators
+            %a{:href => modedit_path} Edit Moderators
         %tr
           %td
-            %a{:href => "/wallpapers"} Wallpaper Management
+            %a{:href => wallpapers_path} Wallpaper Management
         %tr
           %td
-            %a{:href => "/contacts/edit"} Edit Contact Detail
-
+            %a{:href =>  events_path} View Events
+        %tr
+          %td
+            %a{:href =>  new_event_path} Create Event
+        %tr
+          %td
+            %a{:href => contacts_edit_path} Edit Contact Details
 
     .col-md-9
       %h3 Edits Waiting Approval

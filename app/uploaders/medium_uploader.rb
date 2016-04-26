@@ -38,7 +38,7 @@ class MediumUploader < CarrierWave::Uploader::Base
       when 'Text'
         %w{txt}
       when 'Recording'
-        # Recording allows the audio file as well as the transcript
+        # Recording allows the transcript, audio is handled by recording_uploader.rb
         %w{pdf}
     end
   end
