@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Med one:
+  = @link.med_one
+%p
+  %b Med two:
+  = @link.med_two
+
+= link_to 'Edit', edit_link_path(@link)
+\|
+= link_to 'Back', links_path

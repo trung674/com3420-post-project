@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419102155) do
+ActiveRecord::Schema.define(version: 20160426185348) do
 
   create_table "contributors", force: :cascade do |t|
     t.string   "name"
@@ -79,6 +79,13 @@ ActiveRecord::Schema.define(version: 20160419102155) do
   add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
   add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id"
+
+  create_table "links", force: :cascade do |t|
+    t.integer  "med_one"
+    t.integer  "med_two"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "media", force: :cascade do |t|
     t.string   "upload"

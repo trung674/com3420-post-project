@@ -1,0 +1,23 @@
+%h1 Listing links
+
+%table
+  %thead
+    %tr
+      %th Med one
+      %th Med two
+      %th
+      %th
+      %th
+
+  %tbody
+    - @links.each do |link|
+      %tr
+        %td= link.med_one
+        %td= link.med_two
+        %td= link_to 'Show', link
+        %td= link_to 'Edit', edit_link_path(link)
+        %td= link_to 'Destroy', link, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Link', new_link_path
