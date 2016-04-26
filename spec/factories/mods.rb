@@ -32,4 +32,22 @@ FactoryGirl.define do
     isActive true
     isAdmin false
   end
+
+  factory :inactiveMod do
+    email 'inactivemod@villagememories.com'
+    password 'villagemems'
+    password_confirmation 'villagemems'
+    isActive false
+    isAdmin false
+  end
+
+  factory :activeMod do
+    email 'activemod@villagememories.com'
+    password 'villagemems'
+    password_confirmation 'villagemems'
+    isActive true
+    isAdmin false
+
+  end
+
 end

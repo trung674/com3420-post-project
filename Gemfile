@@ -101,7 +101,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'rspec-instafail', require: false
   platforms :mswin, :mingw, :x64_mingw do
