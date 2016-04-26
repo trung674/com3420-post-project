@@ -1,10 +1,11 @@
 class PagesController < ApplicationController
-  before_action :authenticate_mod!, only: [:mercury_update]
+  before_action :authenticate_mod!, only: [:mercury_update_about, :mercury_update_homepage ]
 
   def home
     @current_nav_identifier = :home
     @events = Event.order(created_at: :desc).last(3)
     @wallpapers = Wallpaper.all
+    @homepage_description = EditableContent.find_by name: 'homepage_description'
   end
 
   def contact
@@ -20,9 +21,17 @@ class PagesController < ApplicationController
     @about_content = EditableContent.find_by name: 'about'
   end
 
-  def mercury_update
+  # Working around for mercury editor by creating 2 methods
+  def mercury_update_about
     content = EditableContent.find_by name: 'about'
     content.content = params[:content][:about_content][:value]
+    content.save!
+    render text: ''
+  end
+
+  def mercury_update_homepage
+    content = EditableContent.find_by name: 'homepage_description'
+    content.content = params[:content][:description_content][:value]
     content.save!
     render text: ''
   end

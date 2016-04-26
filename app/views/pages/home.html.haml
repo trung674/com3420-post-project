@@ -23,9 +23,12 @@
   .col-md-12
     .page-header
       %h1 Welcome To Village Memories Group Website
+  .col-md-12
+    %div.mercury-region#description_content{ data: { mercury: 'full' } }
+      =raw @homepage_description.content
 
-    %p (Group description might goes here with an image ?) Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
-
+    - if mod_signed_in?
+      = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
 %br
 
 -# Search bar

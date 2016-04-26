@@ -40,7 +40,7 @@ class ContactsController < ApplicationController
     @editable_contents[1].content = params[:editable_content][:contact_phone]
     @editable_contents[2].content = params[:editable_content][:working_hour]
     if @editable_contents[0].save! && @editable_contents[1].save! && @editable_contents[2].save!
-      redirect_to modpanel_path, notice: 'Wallpaper was successfully updated.'
+      redirect_to modpanel_path, notice: 'Contact info was successfully updated.'
     else
       redirect_to contacts_edit_path notice: 'Something was wrong. Please try again !'
     end

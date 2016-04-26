@@ -124,6 +124,23 @@ ActiveRecord::Schema.define(version: 20160426185348) do
   add_index "mods", ["email"], name: "index_mods_on_email", unique: true
   add_index "mods", ["reset_password_token"], name: "index_mods_on_reset_password_token", unique: true
 
+  create_table "phrasing_phrase_versions", force: :cascade do |t|
+    t.integer  "phrasing_phrase_id"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "phrasing_phrase_versions", ["phrasing_phrase_id"], name: "index_phrasing_phrase_versions_on_phrasing_phrase_id"
+
+  create_table "phrasing_phrases", force: :cascade do |t|
+    t.string   "locale"
+    t.string   "key"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "records", force: :cascade do |t|
     t.string   "title"
     t.string   "description"

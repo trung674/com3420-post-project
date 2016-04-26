@@ -11,4 +11,4 @@
       =raw @about_content.content
 
     - if mod_signed_in?
-      = link_to "Edit Page", "/editor" + request.path, id: "edit_link", data: {save_url: mercury_update_page_path(@about_content)}
+      = link_to "Edit Page", "/editor" + request.path, id: "edit_link", data: {save_url: mercury_update_about_page_path(@about_content)}

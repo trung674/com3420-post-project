@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     post 'report', to: 'reports#new'
     get '/report', to: 'pages#home'
     get '/about', to: 'pages#about'
-    put '/about', to: 'pages#mercury_update'
+    put '/about', to: 'pages#mercury_update_about'
+    put '/', to: 'pages#mercury_update_homepage'
     get '/modpanel', to: 'mods#modpanel'
     get '/modlist', to: 'mods#modlist'
     get '/modedit', to: 'mods#modedit'
@@ -48,7 +49,7 @@ Rails.application.routes.draw do
     resources :images, :controller => :media, :type => "Image"
     resources :texts, :controller => :media, :type => "Text"
     resources :pages do
-      member { post :mercury_update }
+      member { post :mercury_update_about, :mercury_update_homepage }
     end
 
 end
