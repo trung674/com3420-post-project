@@ -25,6 +25,8 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include FormHelpers, :type => :feature
+
   config.include Shoulda::Matchers::ActiveRecord
   config.include Shoulda::Matchers::ActiveModel
 
@@ -42,6 +44,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
   end
 
   config.before(:each) do
@@ -68,6 +71,16 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries.clear
   end
 
+  # Allows delayed jobs to be exeucted later
+  config.around(:each, :delayed_job) do |example|
+    old_value = Delayed::Worker.delay_jobs
+    Delayed::Worker.delay_jobs = true
+    Delayed::Job.destroy_all
+
+    example.run
+
+    Delayed::Worker.delay_jobs = old_value
+  end
 
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs

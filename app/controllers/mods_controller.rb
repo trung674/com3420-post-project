@@ -73,12 +73,14 @@ class ModsController < ApplicationController
         flash[:notice] = "There was an error, update unsuccessful"
       end
     else
+      #Moderator doesn't exist
       redirect_to "/modedit"
       flash[:notice] = "That moderator does not exist."
     end
   end
 
   private
+    #Paramter whitelist
     def mod_params
       params.require(:mod).permit(:email)
     end  

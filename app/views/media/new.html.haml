@@ -50,31 +50,31 @@
             = f.input :type, as: :hidden, value: @medium.type
 
             = f.simple_fields_for :records do |r|
-              = r.input :title, required: true
+              = r.input :title, label: 'Title', required: true
 
               - if @medium.type != 'Text'
-                = f.input :upload, as: :file, :label => 'File', required: true,
+                = f.input :upload, as: :file, label: 'File', required: true,
                   input_html: {accept: @medium.accepted_mimes, :'data-parsley-file-extension' => @medium.accepted_mimes}
                 = f.input :upload_cache, as: :hidden
               - else
                 = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10}
 
-              = r.input :location, input_html: {id: 'location-field'}
-              = r.input :latitude, as: :hidden, input_html: {id:'latitude-input'}
-              = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input'}
+              = r.input :location,  label: 'Location', input_html: {id: 'location-field'}
+              = r.input :latitude,  label: 'Latitude', as: :hidden, input_html: {id:'latitude-input'}
+              = r.input :longitude,  label: 'Longitude', as: :hidden, input_html: {id: 'longitude-input'}
 
               - if @medium.type != 'Text'
-                = r.input :description, as: :text, required: true, input_html: {rows: 5}
-              = r.input :ref_date, :label => 'Date', include_blank: true, start_year:1850, end_year: Date.today.year
+                = r.input :description,  label: 'Description', as: :text, required: true, input_html: {rows: 5}
+              = r.input :ref_date, label: 'Date', include_blank: true, start_year:1850, end_year: Date.today.year
 
             %hr
 
             %h3 Contact Information
 
             = f.simple_fields_for :contributor do |c|
-              = c.input :name, required: false
-              = c.input :email, as: :email
-              = c.input :phone, required: false, input_html: {pattern: '(\+?(\s?\d)+)*',
+              = c.input :name,  label: 'Name', required: false
+              = c.input :email,  label: 'Email', as: :email
+              = c.input :phone,  label: 'Phone Number', required: false, input_html: {pattern: '(\+?(\s?\d)+)*',
                 :'data-parsley-error-message' => 'Please enter a valid phone number' }
 
             %hr

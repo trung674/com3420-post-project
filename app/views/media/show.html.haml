@@ -7,15 +7,15 @@
     = yield :scripts
 
 .row
-  .col-md-6
+  .col-md-8
     = form_tag(medium_url,  :method=>'get') do
       Edit History
       - if mod_signed_in?
         = select_tag 'record_id', options_for_select(@medium.all_records.reverse.collect {|a| [a.to_s_mod , a.id]},  @current_record.id)
       - else
         = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.to_s , a.id]},  @current_record.id)
-      = submit_tag 'View', name: nil, class: 'btn btn-secondary'
-  .col-md-4
+      = submit_tag 'View', name: nil, class: 'btn btn-default'
+  .col-md-2
   - # Only the latest record can be edified to reduce conflicts
   - if @current_record == @medium.latest_approved_record
     .col-md-1
@@ -56,7 +56,9 @@
             %source{src: @medium.upload.url }
           :javascript
             $(function() {
-                $('audio').mediaelementplayer(/* Options */);
+                $('audio').mediaelementplayer({
+                  audioWidth: '100%',
+                  enableAutosize: true,});
             });
       - elsif @medium.class.name == 'Document'
         .col-md-12

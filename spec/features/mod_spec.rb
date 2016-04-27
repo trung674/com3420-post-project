@@ -17,21 +17,41 @@ describe 'Mod' do
 
   specify 'I can activate moderator account' do
     mod = FactoryGirl.create(:mod)
-    inactiveMod = FactoryGirl.create(:inactiveMod)
+    inactive = FactoryGirl.create(:inactiveMod)
     login_as(mod, :scope => :mod)
     visit '/modedit'
-    fill_in 'email', with: inactiveMod.email
+    fill_in 'mod_email', with: inactive.email
     click_button 'Update'
-    logout(:mod)
-    login_as(inactiveMod, :scope => :inactiveMod)
-    visit '/modpanel'
-    expect(page).to have_content 'Welcome #{current_mod.email}'
+    expect(page).to have_content 'Moderator successfully activated'
+    visit '/modlist'
+    find('tr', text: 'inactivemod@villagememories.com').should have_content('Yes')
   end
 
   specify 'I can deactivate moderator account' do
+    mod = FactoryGirl.create(:mod)
+    active = FactoryGirl.create(:activeMod)
+    login_as(mod, :scope => :mod)
+    visit '/modedit'
+    fill_in 'mod_email', with: active.email
+    click_button 'Update'
+    expect(page).to have_content 'Moderator successfully deactivated'
+    visit '/modlist'
+    find('tr', text: 'activemod@villagememories.com').should have_no_content('Yes')
   end
 
   specify 'I cannot deactivate an admin' do
+    mod = FactoryGirl.create(:mod)
+    active = FactoryGirl.create(:activeMod)
+    login_as(active, :scope => :mod)
+    visit '/modedit'
+    fill_in 'mod_email', with: mod.email
+    click_button 'Update'
+    expect(page).to have_content 'Site administrators cannot be deactivated.'
+    visit '/modlist'
+    find('tr', text: 'testuser@villagememories.com').should have_no_content('No')
+  end
+
+  specify 'I cannot enter a non-existent moderator' do
   end
 
   specify 'I can approve record' do
@@ -41,12 +61,6 @@ describe 'Mod' do
   end
 
   specify 'I can upload new wallpaper' do
-  end
-
-  specify 'I can log out' do
-  end
-
-  specify 'I can create an inactive account' do
   end
 
   specify 'I cannot login with an inactive account' do
