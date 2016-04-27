@@ -30,10 +30,10 @@ FactoryGirl.define do
     password 'villagemems'
     password_confirmation 'villagemems'
     isActive true
-    isAdmin false
+    isAdmin true
   end
 
-  factory :inactiveMod do
+  factory :inactiveMod, :class => "mod" do
     email 'inactivemod@villagememories.com'
     password 'villagemems'
     password_confirmation 'villagemems'
@@ -41,7 +41,7 @@ FactoryGirl.define do
     isAdmin false
   end
 
-  factory :activeMod do
+  factory :activeMod, :class => "mod" do
     email 'activemod@villagememories.com'
     password 'villagemems'
     password_confirmation 'villagemems'
