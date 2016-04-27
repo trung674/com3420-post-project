@@ -3,9 +3,9 @@
 
 .panel-container
   .row
-    .col-md-9
+    .col-md-9.col-sm-12
       %h2 Welcome #{current_mod.email}
-    .col-md-3.pull-right
+    .col-md-3.pull-right.col-sm-12
       %h4 Quick Links
       %table.table
         %tr
@@ -27,7 +27,7 @@
           %td
             %a{:href => contacts_edit_path} Edit Contact Details
 
-    .col-md-9
+    .col-md-9.col-sm-12
       %h3 Edits Waiting Approval
       %table.table.table-bordered
         %tr
