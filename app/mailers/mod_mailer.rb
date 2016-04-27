@@ -25,6 +25,6 @@ class ModMailer < ApplicationMailer
     @url = "media/#{report_params[:id]}"
     @title = report_params[:title]
 
-    mail to: "hhowarth1@sheffield.ac.uk"
+    mail to: "asacook1@sheffield.ac.uk"
   end
 end
