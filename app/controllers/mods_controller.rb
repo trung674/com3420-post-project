@@ -43,39 +43,39 @@ class ModsController < ApplicationController
     @alteredMod = Mod.new
   end
   
-  def update    
-    @alteredMod = Mod.find_by(email: mod_params[:email])    
-    @updateMsg = String.new
-
-    if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true)
-      #If mod inactive and not an admin
-      
-      #Set mod to active
-      @alteredMod.isActive = true
-      @updateMsg = "Moderator successfully activated"
+  def update
+    if Mod.exists?(:email => mod_params[:email])
+      @alteredMod = Mod.find_by(email: mod_params[:email])    
+      @updateMsg = String.new
+ 
+      if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true)
+        #If mod inactive and not an admin
+        #Set mod to active
+        @alteredMod.isActive = true
+        @updateMsg = "Moderator successfully activated"
     
-    elsif (@alteredMod.isActive == true) && (@alteredMod.isAdmin != true)
-      #If the mod is active and not an admin
+      elsif (@alteredMod.isActive == true) && (@alteredMod.isAdmin != true)
+        #If the mod is active and not an admin
+        @alteredMod.isActive = false
+        @updateMsg = "Moderator successfully deactivated"
 
-      @alteredMod.isActive = false
-      @updateMsg = "Moderator successfully deactivated"
+      else
+        #Admins cannot be deactivated
+        @updateMsg = "Site administrators cannot be deactivated." #Cancel update, display error.
+      end
 
-    else
-      #Admins cannot be deactivated
-
-      @updateMsg = "Site administrators cannot be deactivated." #Cancel update, display error.
-    end
-
-    #If successful, redirect to panel and display message.
-    if @alteredMod.save
-      redirect_to "/modpanel"
-      flash[:notice] = @updateMsg
+      #If successful, redirect to panel and display message.
+      if @alteredMod.save
+        redirect_to "/modpanel"
+        flash[:notice] = @updateMsg
+      else
+        redirect_to "/modedit"
+        flash[:notice] = "There was an error, update unsuccessful"
+      end
     else
       redirect_to "/modedit"
-      flash[:notice] = "There was an error, update unsuccessful"
+      flash[:notice] = "That moderator does not exist."
     end
-
-
   end
 
   private
