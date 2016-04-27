@@ -69,6 +69,11 @@ class MediaController < ApplicationController
   def show
     @medium = Medium.where(id: params[:id]).first
 
+    if params[:med_one] && params[:med_two]
+      #todo Check that it is a unique pair first
+      Link.create(:med_one => params[:med_one], :med_two => params[:med_two])
+      puts Link.all.ids
+    end
     # Change current record depending on selected
     if params.has_key?(:record_id)
       if mod_signed_in?
