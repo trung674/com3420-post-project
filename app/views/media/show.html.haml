@@ -94,47 +94,42 @@
     .modal-content
       .modal-header
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Add Relevant links!
+        %h4.modal-title Relevant Links
       .modal-body
-        -#todo make sure that this record doesnt appear!
-        -
-        .panel.panel-info
-        .panel-heading
-          %h4 Recent Uploads
-          -links = Link.all
-          -results = []
-          -links.each do |link|
-            -if link.med_one == @current_record.medium_id && Medium.where(:id => link.med_two).first.class.name != 'Image'
-              -result = Record.where(:medium_id => link.med_two,:approved => true).order(:created_at).last
-              -if result
-                -results.append(result)
-            -elsif link.med_two == @current_record.medium_id && Medium.where(:id => link.med_one).first.class.name != 'Image'
-              -result = Record.where(:medium_id => link.med_one,:approved => true).order(:created_at).last
-              -if result
-                -results.append(result)
-        .panel-body
-          %table.table.table-bordered
+        -links = Link.all
+        -results = []
+        -links.each do |link|
+          -if link.med_one == @current_record.medium_id && Medium.where(:id => link.med_two).first.class.name != 'Image'
+            -result = Record.where(:medium_id => link.med_two,:approved => true).order(:created_at).last
+            -if result
+              -results.append(result)
+          -elsif link.med_two == @current_record.medium_id && Medium.where(:id => link.med_one).first.class.name != 'Image'
+            -result = Record.where(:medium_id => link.med_one,:approved => true).order(:created_at).last
+            -if result
+              -results.append(result)
+        %table.table.table-bordered
+          %tr
+            %th Title
+            %th Type
+          -results.each do |item|
             %tr
-              %th Title
-              %th Type
-            -results.each do |item|
-              %tr
-                %td
-                  %a{:href => media_path+ "/#{raw(item[:medium_id])}"}
-                    =item.title
-                %td
-                  = Medium.where(:id => item.medium_id).first.class.name
+              %td
+                %a{:href => media_path+ "/#{raw(item[:medium_id])}"}
+                  =item.title
+              %td
+                = Medium.where(:id => item.medium_id).first.class.name
 
-                %td
-                  = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: 'get', id: 'delete_link') do
-                    .form-group.form-inline
-                      .input-group
-                        -returnLink_one = Link.where(:med_two => item.medium_id, :med_one => @current_record.medium_id).first.id
+              %td
+                = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: 'get', id: 'delete_link') do
+                  .form-group.form-inline
+                    .input-group
+                      -if results
+                        -returnLink_one = Link.where(:med_two => item.medium_id, :med_one => @current_record.medium_id).first
                         -if returnLink_one.nil?
                           -returnLink_two = Link.where(:med_one => item.medium_id, :med_two => @current_record.medium_id).first.id
                           = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_two}")
                         -else
-                          = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_one}")
+                          = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_one.id}")
                         %span.input-group-btn
                           = submit_tag('Remove', :class => 'btn btn-danger')
       .modal-footer
@@ -149,53 +144,49 @@
     .modal-content
       .modal-header
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Add Relevant links!
+        %h4.modal-title Relevant images
       .modal-body
-        -#todo make sure that this record doesnt appear!
-        -
-        .panel.panel-info
-        .panel-heading
-          %h4 Recent Uploads
-          -links = Link.all
-          -results = []
-          -links.each do |link|
-            -if link.med_one == @current_record.medium_id && Medium.where(:id => link.med_two).first.class.name == 'Image'
-              -result = Record.where(:medium_id => link.med_two,:approved => true).order(:created_at).last
-              -if result
-                -results.append(result)
-            -elsif link.med_two == @current_record.medium_id && Medium.where(:id => link.med_one).first.class.name == 'Image'
-              -result = Record.where(:medium_id => link.med_one,:approved => true).order(:created_at).last
-              -if result
-                -results.append(result)
-        .panel-body
-          %table.table.table-bordered
+        -links = Link.all
+        -results = []
+        -links.each do |link|
+          -if link.med_one == @current_record.medium_id && Medium.where(:id => link.med_two).first.class.name == 'Image'
+            -result = Record.where(:medium_id => link.med_two,:approved => true).order(:created_at).last
+            -if result
+              -results.append(result)
+          -elsif link.med_two == @current_record.medium_id && Medium.where(:id => link.med_one).first.class.name == 'Image'
+            -result = Record.where(:medium_id => link.med_one,:approved => true).order(:created_at).last
+            -if result
+              -results.append(result)
+        -#      only shows a table, tried to do a carousel- didnt work.
+        %table.table.table-bordered
+          %tr
+            %th Title
+            %th Type
+          -results.each do |item|
             %tr
-              %th Title
-              %th Type
-            -results.each do |item|
-              %tr
-                %td
-                  %a{:href => media_path+ "/#{raw(item[:medium_id])}"}
-                    =item.title
-                %td
-                  = Medium.where(:id => item.medium_id).first.class.name
+              %td
+                %a{:href => media_path+ "/#{raw(item[:medium_id])}"}
+                  =item.title
+              %td
+                = Medium.where(:id => item.medium_id).first.class.name
 
-                %td
-                  = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: 'get', id: 'delete_link') do
-                    .form-group.form-inline
-                      .input-group
-                        -returnLink_one = Link.where(:med_two => item.medium_id, :med_one => @current_record.medium_id).first.id
+              %td
+                = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: 'get', id: 'delete_link') do
+                  .form-group.form-inline
+                    .input-group
+                      -if results
+                        -returnLink_one = Link.where(:med_two => item.medium_id, :med_one => @current_record.medium_id).first
                         -if returnLink_one.nil?
                           -returnLink_two = Link.where(:med_one => item.medium_id, :med_two => @current_record.medium_id).first.id
                           = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_two}")
                         -else
-                          = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_one}")
+                          = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_one.id}")
                         %span.input-group-btn
                           = submit_tag('Remove', :class => 'btn btn-danger')
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
 -#This is the code for the add revelevant links modal
-%button.btn.btn-info.btn-lg{"data-target" => "#add-link", "data-toggle" => "modal", :type => "button"} Add Relevant Link
+%button.btn.btn-info.btn-lg{"data-target" => "#add-link", "data-toggle" => "modal", :type => "button"} Add Relevant Links
 / Modal
 #add-link.modal.fade{:role => "dialog"}
   .modal-dialog
@@ -205,13 +196,12 @@
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
         %h4.modal-title Add Relevant links!
       .modal-body
-        -#todo make sure that this record doesnt appear!
-        -
         %table.table.table-bordered
           %tr
             %th Title
             %th Type
             %th Add
+          -#  todo check here that they are not already linked.
           -Medium.all.each do |med|
             -if @current_record.medium_id != med.id && med.class.name != 'Image'
               %tr
@@ -241,8 +231,6 @@
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
         %h4.modal-title Add Relevant images!
       .modal-body
-        -#todo make sure that this record doesnt appear!
-        -
         %table.table.table-bordered
           %tr
             %th Title
@@ -265,14 +253,15 @@
                           = submit_tag('Add', :class => 'btn btn-primary' )
       .modal-footer
         %button.btn.btn-default{'data-dismiss' => 'modal', :type => 'button'} Close
-      :javascript
-        //This is the map declaration, with the center and zoom etc.
-        //It is unlikely that changes will need to be made here.
-        var latlng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
-        map = new GMaps({
-          el: '#map',
-          lat: parseFloat("#{@current_record.latitude}"),
-          lng: parseFloat("#{@current_record.longitude}"),
-          zoom: 13
-        });
-        map.addMarker({position:latlng});
+
+:javascript
+   //This is the map declaration, with the center and zoom etc.
+   //It is unlikely that changes will need to be made here.
+   var latlng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
+  map = new GMaps({
+    el: '#map',
+    lat: parseFloat("#{@current_record.latitude}"),
+    lng: parseFloat("#{@current_record.longitude}"),
+    zoom: 13
+  });
+  map.addMarker({position:latlng});
