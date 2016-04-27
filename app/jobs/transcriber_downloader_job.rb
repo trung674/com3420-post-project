@@ -34,7 +34,7 @@ class TranscriberDownloaderJob < Struct.new(:src, :ses, :model)
           ext_name = File.extname(content.to_s)
 
           # Have to save ascii and binary files differently
-          if ext_name == '.pdf' or ext_name == '.ttml'
+          if ext_name == '.pdf' || ext_name == '.ttml'
             File.open(File.join(upload_dir, 'transcript') + ext_name, 'wb') {|f| f.write(data) }
           elsif ext_name == '.xml'
             File.open(File.join(upload_dir, 'transcript.xml'), 'w') {|f| f.write(data) }

@@ -25,7 +25,7 @@
       %h1 Welcome To Village Memories Group Website
   .col-md-12
     %div.mercury-region#description_content{ data: { mercury: 'full' } }
-      =raw @homepage_description.content
+      =raw @homepage_description.content unless @homepage_description.nil?
 
     - if mod_signed_in?
       = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
@@ -51,7 +51,6 @@
       = label_tag(:age_child, "Image")
       = check_box_tag("items[]", "Text",  false)
       = label_tag(:age_adult, "Text")
-
 
 %br
 .row
