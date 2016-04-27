@@ -12,11 +12,11 @@
         .col-md-8#contact-form
           %h2 Send us a Message
           = simple_form_for @report do |f|
-            = f.input :name, :required => true
-            = f.input :email, :required => true
-            = f.input :message, :as => :text, :input_html => {:rows => 10}, :required => true
-            = f.input :id, :required => true, as: :hidden, input_html: {id:'reportid-input'}
-            = f.input :title, :required => true, as: :hidden, input_html: {id: 'title-input'}
+            = f.input :name
+            = f.input :email
+            = f.input :message, :as => :text, :input_html => {:rows => 10}
+            = f.input :id, as: :hidden, input_html: {id:'reportid-input'}
+            = f.input :title, as: :hidden, input_html: {id: 'title-input'}
             = recaptcha_tags
             %br
             = f.button :submit, 'Report', :class=> "btn btn-primary"
