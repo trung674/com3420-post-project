@@ -69,12 +69,17 @@ class MediaController < ApplicationController
   def show
     @medium = Medium.where(id: params[:id]).first
 
-    if params[:med_one] && params[:med_two] && params[:commit] == "Add"
+    if params[:med_one] && params[:med_two] && params[:commit] == 'Add'
       #todo Check that it is a unique pair first
       if Link.where(:med_one => params[:med_one], :med_two =>params[:med_two]).first.nil? || Link.where(:med_one => params[:med_two], :med_two =>params[:med_one]).first.nil?
         Link.create(:med_one => params[:med_one], :med_two => params[:med_two])
       end
       puts Link.all.ids
+    end
+    if params[:link_id] && params[:commit] == 'Remove'
+      if Link.where(:id=>params[:link_id]).first
+        Link.delete(params[:link_id])
+      end
     end
     # Change current record depending on selected
     if params.has_key?(:record_id)
