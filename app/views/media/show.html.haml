@@ -102,19 +102,20 @@
             %th Type
             %th Add
           -Medium.all.each do |med|
-            %tr
-              %td
-                = med.latest_approved_record.title
-              %td
-                = med.class.name
-              %td
-                = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: "get", id: "link-up") do
-                  .form-group.form-inline
-                    .input-group
-                      = hidden_field_tag(:med_one, params[:med_one], :value => "#{@current_record.medium_id}")
-                      = hidden_field_tag(:med_two, params[:med_two], :value => "#{med.id}")
-                      %span.input-group-btn
-                        = submit_tag("Add", :class => "btn btn-danger" )
+            -if @current_record.medium_id != med.id
+              %tr
+                %td
+                  = med.latest_approved_record.title
+                %td
+                  = med.class.name
+                %td
+                  = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: "get", id: "link-up") do
+                    .form-group.form-inline
+                      .input-group
+                        = hidden_field_tag(:med_one, params[:med_one], :value => "#{@current_record.medium_id}")
+                        = hidden_field_tag(:med_two, params[:med_two], :value => "#{med.id}")
+                        %span.input-group-btn
+                          = submit_tag("Add", :class => "btn btn-danger" )
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
       :javascript
