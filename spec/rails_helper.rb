@@ -25,6 +25,8 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include FormHelpers, :type => :feature
+
   config.include Shoulda::Matchers::ActiveRecord
   config.include Shoulda::Matchers::ActiveModel
 

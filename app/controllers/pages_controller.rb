@@ -173,40 +173,22 @@ class PagesController < ApplicationController
     if ids
       trans_search_hits = []
       # ids.each do |med_id|
-      #   # looks through each directory to find a file with an xml ending.
-      #   (Dir.entries('uploads/recording/'+''+med_id.to_s)).each do |name|
-      #     if name=~/.*\.xml$/
-      #       # read in the xml - label tags only! <label></label>
-      #       labels = Nokogiri::XML(File.open('uploads/recording/'+''+med_id.to_s+'/'+name)).xpath('//label')
-      #       file_string = ''
-      #       labels.each do |node|
-      #         text = node.text
-      #         if text != '!SENT_START'
-      #           file_string = file_string +' '+ text.downcase
-      #         end
-      #       end
-      #       # if the string contains the search string then it will add the record to the 'hits' array.
-      #       if file_string.include?(@search[0].downcase)
-      #         trans_search_hits.append(med_id)
-      #       end
-      #     end
-      #   end
-      # end
-      Dir.entries('public/uploads/recording/').each do |id|
-        if ids.include?( id.to_i )
-          if File.exist?('public/uploads/recording/'+''+id+'/'+'transcript.xml')
-            labels = Nokogiri::XML(File.open('public/uploads/recording/'+''+id+'/'+'transcript.xml')).xpath('//label')
-            file_string = ''
-            labels.each do |node|
-              text = node.text
-              if text != '!SENT_START'
-                file_string = file_string +' '+ text.downcase
-              end
+        # looks through each directory to find a file with an xml ending.
+      ids.each do |id|
+        xml_path = File.dirname((Medium.where(:id=>id.to_i).first.upload.path))+'/transcript.xml'
+        if File.exist?(xml_path)
+          puts
+          labels = Nokogiri::XML(File.open(xml_path)).xpath('//label')
+          file_string = ''
+          labels.each do |node|
+            text = node.text
+            if text != '!SENT_START'
+              file_string = file_string +' '+ text.downcase
             end
-            # if the string contains the search string then it will add the record to the 'hits' array.
-            if file_string.include?(@search[0].downcase)
-              trans_search_hits.append(id.to_i)
-            end
+          end
+          # if the string contains the search string then it will add the record to the 'hits' array.
+          if file_string.include?(@search[0].downcase)
+            trans_search_hits.append(id)
           end
         end
       end
