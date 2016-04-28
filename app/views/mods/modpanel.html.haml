@@ -40,7 +40,11 @@
               %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} #{edit.title}
             %td= edit.updated_at.to_formatted_s(:long)
             %td
-              %button.btn.btn-primary.btn-lg{"data-target" => "#contact", "data-toggle" => "modal", :type => "button"} Contact
+              -cont = Contributor.where(:id=>Medium.where(:id=>edit.medium_id).first.contributor_id).first
+              %input{:id => "name#{cont.id}", :type => "hidden", :value => "#{cont.name}"}
+              %input{:id => "email#{cont.id}", :type => "hidden", :value => "#{cont.email}"}
+              %input{:id => "phone#{cont.id}", :type => "hidden", :value => "#{cont.phone}"}
+              %button.btn.btn-primary.btn-lg.mod_thingy{'data-id'=>"#{cont.id}", "data-target" => "#contact", "data-toggle" => "modal", :type => "button"} Contact
 
 / Modal
 #contact.modal.fade{:role => "dialog"}
@@ -51,42 +55,42 @@
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
         %h4.modal-title Contact Contributor
       .modal-body
-        %p this is where the code will go
-        -#-links = Link.all
-        -#-results = []
-        -#-links.each do |link|
-        -#  -if link.med_one == @current_record.medium_id && Medium.where(:id => link.med_two).first.class.name != 'Image'
-        -#    -result = Record.where(:medium_id => link.med_two,:approved => true).order(:created_at).last
-        -#    -if result
-        -#      -results.append(result)
-        -#  -elsif link.med_two == @current_record.medium_id && Medium.where(:id => link.med_one).first.class.name != 'Image'
-        -#    -result = Record.where(:medium_id => link.med_one,:approved => true).order(:created_at).last
-        -#    -if result
-        -#      -results.append(result)
-        -#%table.table.table-bordered
-        -#  %tr
-        -#    %th Title
-        -#    %th Type
-        -#  -results.each do |item|
-        -#    %tr
-        -#      %td
-        -#        %a{:href => media_path+ "/#{raw(item[:medium_id])}"}
-        -#          =item.title
-        -#      %td
-        -#        = Medium.where(:id => item.medium_id).first.class.name
-        -#
-        -#      %td
-        -#        = form_tag(media_url+'/'+@current_record.medium_id.to_s, method: 'get', id: 'delete_link') do
-        -#          .form-group.form-inline
-        -#            .input-group
-        -#              -if results
-        -#                -returnLink_one = Link.where(:med_two => item.medium_id, :med_one => @current_record.medium_id).first
-        -#                -if returnLink_one.nil?
-        -#                  -returnLink_two = Link.where(:med_one => item.medium_id, :med_two => @current_record.medium_id).first.id
-        -#                  = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_two}")
-        -#                -else
-        -#                  = hidden_field_tag(:link_id, params[:link_id], :value => "#{returnLink_one.id}")
-        -#                %span.input-group-btn
-        -#                  = submit_tag('Remove', :class => 'btn btn-danger')
+        -
+        %p If fields are N/A it is because they didn't fill that field in the form in.
+        %table.table.table-bordered
+          %tc
+            %th Name
+            %th Email
+            %th Phone Number
+            %tr
+              %td#tname
+              %td#temail
+              %td#tnumber
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+
+:javascript
+  $(document).ready(function(){
+   $(".mod_thingy").click(function(){ // Click to only happen on announce links
+     var id = $(this).data('id');
+     var name_id = '#name'+id;
+     var email_id = '#email'+id;
+     var phone_id = '#phone'+id;
+
+     if ($(name_id).val()){
+      $('#tname').text($(name_id).val());
+     } else {
+      $('#tname').text('N/A');
+     }
+     //This field was required therefore there is no need to check for it.
+     $('#temail').text($(email_id).val());
+
+     if ($(phone_id).val()){
+      $('#tnumber').text($(phone_id).val());
+     } else {
+      $('#tnumber').text('N/A');
+     }
+
+   });
+  });
