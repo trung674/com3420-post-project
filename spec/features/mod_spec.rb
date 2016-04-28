@@ -77,9 +77,7 @@ describe 'Mod' do
     
     #The test itself
     login_as(mod, :scope => :mod)
-    save_and_open_page
     visit '/modpanel'
-    #TODO fix
     
 
   end
@@ -93,7 +91,7 @@ describe 'Mod' do
   specify 'I cannot login with an inactive account' do
    inactive = FactoryGirl.create(:inactiveMod) 
    login_as(inactive, :scope => :mod)
-   
+   #TODO finish
   end
 
 end
