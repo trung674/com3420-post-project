@@ -21,9 +21,9 @@
 
 FactoryGirl.define do
   factory :record do
-    title 'Title'
-    description 'A piece of history'
-    location 'Braithwell Church'
+    title Faker::Book.title
+    description Faker::Lorem.paragraph
+    location Faker::Address.city
     ref_date Date.today
     approved false
     latitude Faker::Address.latitude
@@ -34,6 +34,5 @@ FactoryGirl.define do
         record.medium = FactoryGirl.build(:medium, records: [record])
       end
     end
-
   end
 end

@@ -12,8 +12,9 @@
 
 FactoryGirl.define do
   factory :contributor do
-    name 'Joe'
-    email 'joebloggs@gmail.com'
-    phone '07777777777'
+    Faker::Config.locale = 'en-GB'
+    name Faker::Name.name
+    email Faker::Internet.email
+    phone Faker::PhoneNumber.phone_number
   end
 end

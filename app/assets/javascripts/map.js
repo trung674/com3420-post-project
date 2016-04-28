@@ -14,14 +14,14 @@ function placeMarker(latLng){
                 //This is to prevent house numbers appearing, as much as possible.
                 //Still occurs sometimes due to ranges of house numbers appearing
                 if (parseInt(results[0].address_components[0].long_name)) {
-                    var location = results[0].formatted_address.substring(2)
+                    var location = results[0].formatted_address.substring(2);
                     //if ($('#location-field').val().length <= 1){
-                    $('#location-field').val(location)
+                    $('#location-field').val(location);
                     //}
                 } else {
                     var location = results[0].formatted_address;
                     //if ($('#location-field').val().length <= 1){
-                    $('#location-field').val(location)
+                    $('#location-field').val(location);
                     //}
                 }
             }
@@ -29,6 +29,6 @@ function placeMarker(latLng){
     });
 
     // Fills two hidden fields in the form which is submitted to the controller
-    $("#latitude-input").val(latLng.lat())
-    $("#longitude-input").val(latLng.lng())
+    $("#latitude-input").val(latLng.lat());
+    $("#longitude-input").val(latLng.lng());
 }

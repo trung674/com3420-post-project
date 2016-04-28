@@ -67,14 +67,33 @@ describe 'Medium' do
     fill_in 'Description', with: record.description
     fill_in 'Email', with: recording.contributor.email
     fill_in 'Date', with: record.ref_date.strftime("%d/%m/%Y")
+    fill_in 'Location', with: record.location
+
+
+    # These are hidden fields on the page, not sure how we would click on the map to test this
+    first('input#latitude-input', visible: false).set(record.latitude)
+    first('input#longitude-input', visible: false).set(record.longitude)
+
     check 'medium_copyright'
     submit_form
 
     expect(page).to have_content 'Upload successful'
   end
 
-  specify 'A user can upload a contribution with contact information' do
+  specify 'A user can upload a medium with contact information' do
+    document = FactoryGirl.build(:document, :with_record)
+    record = document.records.first
+    visit new_document_path
+    fill_in 'Title', with: record.title
+    attach_file('File', File.absolute_path(document.upload.path))
+    fill_in 'Description', with: record.description
+    fill_in 'Name', with: document.contributor.name
+    fill_in 'Email', with: document.contributor.email
+    fill_in 'Phone Number', with: document.contributor.phone
+    check 'medium_copyright'
+    submit_form
 
+    expect(page).to have_content 'Upload successful'
   end
 
 
