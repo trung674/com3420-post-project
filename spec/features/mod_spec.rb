@@ -67,21 +67,21 @@ describe 'Mod' do
     mod = FactoryGirl.create(:mod)
     
     #Upload the record
-    record = text.records.first
-    visit new_text_path
-    fill_in 'Title', with: record.title
-    fill_in 'Text', with: File.read(File.absolute_path(text.upload.path))
-    fill_in 'Email', with: text.contributor.email
-    check 'medium_copyright'
-    submit_form
+    #record = text.records.first
+    #visit new_text_path
+    #fill_in 'Title', with: record.title
+    #fill_in 'Text', with: File.read(File.absolute_path(text.upload.path))
+    #fill_in 'Email', with: text.contributor.email
+    #check 'medium_copyright'
+    #submit_form
     
     #The test itself
     login_as(mod, :scope => :mod)
-    visit '/media/1?record_id=1'
+    save_and_open_page
+    visit '/modpanel'
+    #TODO fix
+    
 
-    #expect(page).to have_no_content 'Approved'
-    #click_button('approve')
-    #expect(page).to have_content 'A piece of history'
   end
 
   specify 'I can reject record' do
@@ -91,6 +91,9 @@ describe 'Mod' do
   end
 
   specify 'I cannot login with an inactive account' do
+   inactive = FactoryGirl.create(:inactiveMod) 
+   login_as(inactive, :scope => :mod)
+   
   end
 
 end
