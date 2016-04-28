@@ -135,7 +135,7 @@
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
 
--#This is the code for the view/remove relevant links modal
+-#This is the code for the view/remove relevant images modal
 %button.btn.btn-warning.btn-lg{"data-target" => "#remove-img", "data-toggle" => "modal", :type => "button"} View Relevant Images
 / Modal
 #remove-img.modal.fade{:role => "dialog"}
@@ -203,7 +203,7 @@
             %th Add
           -#  todo check here that they are not already linked.
           -Medium.all.each do |med|
-            -if @current_record.medium_id != med.id && med.class.name != 'Image'
+            -if @current_record.medium_id != med.id && med.class.name != 'Image' && Link.where(:med_one => med.id).first.nil? && Link.where(:med_two => med.id).first.nil?
               %tr
                 %td
                   = med.latest_approved_record.title
@@ -238,7 +238,7 @@
             %th Add
           -#  todo check here that they are not already linked.
           -Medium.all.each do |med|
-            -if @current_record.medium_id != med.id && med.class.name == 'Image'
+            -if @current_record.medium_id != med.id && med.class.name == 'Image' && Link.where(:med_one => med.id).first.nil? && Link.where(:med_two => med.id).first.nil?
               %tr
                 %td
                   = med.latest_approved_record.title
