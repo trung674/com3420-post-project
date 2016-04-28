@@ -33,8 +33,64 @@
         %tr
           %th Record Name
           %th Date Edited
+          %th Contact
         - @approveRec.each do |edit|
           %tr
             %td
               %a{:href => "/media/#{edit.medium_id}?record_id=#{edit.id}"} #{edit.title}
             %td= edit.updated_at.to_formatted_s(:long)
+            %td
+              -cont = Contributor.where(:id=>Medium.where(:id=>edit.medium_id).first.contributor_id).first
+              %input{:id => "name#{cont.id}", :type => "hidden", :value => "#{cont.name}"}
+              %input{:id => "email#{cont.id}", :type => "hidden", :value => "#{cont.email}"}
+              %input{:id => "phone#{cont.id}", :type => "hidden", :value => "#{cont.phone}"}
+              %button.btn.btn-primary.btn-lg.mod_thingy{'data-id'=>"#{cont.id}", "data-target" => "#contact", "data-toggle" => "modal", :type => "button"} Contact
+
+/ Modal
+#contact.modal.fade{:role => "dialog"}
+  .modal-dialog
+    / Modal content
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Contact Contributor
+      .modal-body
+        -
+        %p If fields are N/A it is because they didn't fill that field in the form in.
+        %table.table.table-bordered
+          %tc
+            %th Name
+            %th Email
+            %th Phone Number
+            %tr
+              %td#tname
+              %td#temail
+              %td#tnumber
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+
+:javascript
+  $(document).ready(function(){
+   $(".mod_thingy").click(function(){ // Click to only happen on announce links
+     var id = $(this).data('id');
+     var name_id = '#name'+id;
+     var email_id = '#email'+id;
+     var phone_id = '#phone'+id;
+
+     if ($(name_id).val()){
+      $('#tname').text($(name_id).val());
+     } else {
+      $('#tname').text('N/A');
+     }
+     //This field was required therefore there is no need to check for it.
+     $('#temail').text($(email_id).val());
+
+     if ($(phone_id).val()){
+      $('#tnumber').text($(phone_id).val());
+     } else {
+      $('#tnumber').text('N/A');
+     }
+
+   });
+  });
