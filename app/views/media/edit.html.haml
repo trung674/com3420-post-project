@@ -42,7 +42,7 @@
 
           - if @medium.class.name  != 'Text'
             = r.input :description, as: :text, required: true, :input_html => {:rows => 5}
-          = r.input :ref_date, :label => 'Date', :include_blank => true, :start_year => 1850, :end_year => Date.today.year
+          = r.input :ref_date, label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, input_html: {class: 'datepicker'}
 
         %hr
 
@@ -57,7 +57,8 @@
       //This is the map declaration, with the center and zoom etc.
       //It is unlikely that changes will need to be made here.
       var latC = parseFloat("#{@current_record.latitude}");
-      var lngC = parseFloat("#{@current_record.longitude}")
+      var lngC = parseFloat("#{@current_record.longitude}");
+
       if (latC && lngC){
         map = new GMaps({
           el: '#map',
@@ -69,7 +70,7 @@
             placeMarker(e.latLng);
           }
         });
-      }else {
+      } else {
         map = new GMaps({
           el: '#map',
           lat: 53.452,
@@ -78,44 +79,12 @@
           click: function(e) {
             placeMarker(e.latLng);
           }
-      });
+        });
       }
-
 
       function resetMap() {
-        var latLng = new google.maps.LatLng(parseFloat("#{@current_record.latitude}"),parseFloat("#{@current_record.longitude}"));
+        var latLng = new google.maps.LatLng(latC, lngC);
         placeMarker(latLng);
-      }
-
-      //This is the helper function for the click event on the map.
-      //Removes old marker and adds a new one.
-      function placeMarker(latLng){
-        map.removeMarkers();
-        map.addMarker({position:latLng});
-        GMaps.geocode({
-          latLng: latLng,
-          callback: function(results, status) {
-            if (status == 'OK') {
-              //This is to prevent house numbers appearing, as much as possible.
-              //Still occurs sometimes due to ranges of house numbers appearing
-              if (parseInt(results[0].address_components[0].long_name)) {
-                var location = results[0].formatted_address.substring(2)
-                //if ($('#location-field').val().length <= 1){
-                $('#location-field').val(location)
-                //}
-              } else {
-                var location = results[0].formatted_address;
-                //if ($('#location-field').val().length <= 1){
-                $('#location-field').val(location)
-                //}
-              }
-            }
-          }
-        });
-
-        // Fills two hidden fields in the form which is submitted to the controller
-        $("#latitude-input").val(latLng.lat())
-        $("#longitude-input").val(latLng.lng())
       }
 
       $('#clear-marker').click(function(e){
@@ -132,7 +101,14 @@
         return false;
       });
 
-      $(function() { resetMap(); });
-
       // Parsley form validation
       $('#edit-form').parsley();
+
+      $(function() {
+        resetMap();
+
+        $('input.datepicker').data({behaviour: "datepicker"}).datepicker({
+          format: "dd/mm/yyyy"
+        });
+      });
+

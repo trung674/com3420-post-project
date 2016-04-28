@@ -52,6 +52,7 @@ gem 'impressionist'
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'bootstrap-datepicker-rails'
 
 # Transcribing
 gem 'rest-client', require: false
