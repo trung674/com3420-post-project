@@ -206,7 +206,10 @@
             -if @current_record.medium_id != med.id && med.class.name != 'Image' && Link.where(:med_one => med.id).first.nil? && Link.where(:med_two => med.id).first.nil?
               %tr
                 %td
-                  = med.latest_approved_record.title
+                  -if record.where(:medium_id => med.id, :approved => true).first.nil?
+                    = med.latest_record.title
+                  -else
+                    = med.latest_approved_record.title
                 %td
                   = med.class.name
                 %td
@@ -241,7 +244,10 @@
             -if @current_record.medium_id != med.id && med.class.name == 'Image' && Link.where(:med_one => med.id).first.nil? && Link.where(:med_two => med.id).first.nil?
               %tr
                 %td
-                  = med.latest_approved_record.title
+                  -if record.where(:medium_id => med.id, :approved => true).first.nil?
+                    = med.latest_record.title
+                  -else
+                    = med.latest_approved_record.title
                 %td
                   = med.class.name
                 %td
