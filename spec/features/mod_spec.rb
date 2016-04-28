@@ -52,9 +52,36 @@ describe 'Mod' do
   end
 
   specify 'I cannot enter a non-existent moderator' do
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit '/modedit'
+    fill_in 'mod_email', with: 'nonexistentuser@gmail.com'
+    click_button 'Update'
+    expect(page).to have_content 'That moderator does not exist.'
   end
 
   specify 'I can approve record' do
+    
+    #Since approving records is not dependent on the media, I'm uploading a text file
+    text = FactoryGirl.build(:text, :with_record)
+    mod = FactoryGirl.create(:mod)
+    
+    #Upload the record
+    record = text.records.first
+    visit new_text_path
+    fill_in 'Title', with: record.title
+    fill_in 'Text', with: File.read(File.absolute_path(text.upload.path))
+    fill_in 'Email', with: text.contributor.email
+    check 'medium_copyright'
+    submit_form
+    
+    #The test itself
+    login_as(mod, :scope => :mod)
+    visit '/media/1?record_id=1'
+
+    #expect(page).to have_no_content 'Approved'
+    #click_button('approve')
+    #expect(page).to have_content 'A piece of history'
   end
 
   specify 'I can reject record' do
