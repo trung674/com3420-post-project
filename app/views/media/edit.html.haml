@@ -33,16 +33,13 @@
 
           = r.input :title, required: true
 
-          - if @medium.class.name == 'Text'
-            = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10, value: File.read(@medium.upload.path)}
-
           = r.input :location, input_html: {id: 'location-field'}
           = r.input :latitude, as: :hidden, input_html: {id: 'latitude-input'}
           = r.input :longitude, as: :hidden, input_html: {id: 'longitude-input'}
 
-          - if @medium.class.name  != 'Text'
-            = r.input :description, as: :text, required: true, :input_html => {:rows => 5}
-          = r.input :ref_date, label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, input_html: {class: 'datepicker'}
+          = r.input :description, as: :text, required: true, :input_html => {:rows => 5} unless @medium.class.name  == 'Text'
+          = r.input :ref_date, label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, input_html: {class: 'datepicker',
+           value: @current_record.ref_date.strftime("%d/%m/%Y")}
 
         %hr
 
