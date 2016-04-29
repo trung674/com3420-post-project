@@ -112,11 +112,12 @@ class MediaController < ApplicationController
 
     # Create a new (unapproved) record for the medium
     if params[:medium].present?
-      @record = Record.new(record_params(params['medium'])['record'])
+      short_params = record_params(params['medium'])
     elsif params[:type].present?
-      @record = Record.new(record_params(params[:type])['record'])
+      short_params = record_params(params[:type])
     end
 
+    @record = Record.new(short_params['record'])
     @record.medium = @medium
 
     if verify_recaptcha(model: @medium) && @record.save
@@ -162,4 +163,5 @@ class MediaController < ApplicationController
       # Permit parameters for editing records
       params.require(type.underscore.to_sym).permit(record: [:title, :location, :description, :latitude, :longitude, :ref_date])
     end
+
 end
