@@ -26,7 +26,7 @@ class Record < ActiveRecord::Base
 
   auto_strip_attributes :title, :description, :location, :squish => true
 
-  validates :latitude, :longitude, numericality: true, if: 'latitude.present?'
+  validates :latitude, :longitude, numericality: {allow_blank: true}
   validates :title, presence: true
   validates :description, presence: true, unless: :medium_is_text?
   # validates :medium, presence: true
