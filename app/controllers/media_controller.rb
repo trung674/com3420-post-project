@@ -65,8 +65,10 @@ class MediaController < ApplicationController
         submittedRec = Record.where(approved: false).last
         submittedRec.approved = true
         submittedRec.save
+        redirect_to root_url, notice: 'Upload successful.'
+      else
+        redirect_to root_url, notice: 'Upload successful, please wait for approval'
       end
-      redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
       render :new
     end
@@ -127,7 +129,13 @@ class MediaController < ApplicationController
     @record.medium = @medium
 
     if verify_recaptcha(model: @medium) && @record.save
-      redirect_to medium_url, notice: 'Edit successful, please wait for approval'
+      #Mod edits are auto-approved
+      if mod_signed_in?
+        @record.approved = true
+        redirect_to medium_url, notice: 'Edit successful.'
+      else
+        redirect_to medium_url, notice: 'Edit successful, please wait for approval'
+      end
     else
       @current_record = @record
       render :edit
