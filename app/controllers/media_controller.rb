@@ -132,6 +132,7 @@ class MediaController < ApplicationController
       #Mod edits are auto-approved
       if mod_signed_in?
         @record.approved = true
+        @record.save
         redirect_to medium_url, notice: 'Edit successful.'
       else
         redirect_to medium_url, notice: 'Edit successful, please wait for approval'
