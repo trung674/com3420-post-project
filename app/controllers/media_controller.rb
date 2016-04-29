@@ -56,10 +56,16 @@ class MediaController < ApplicationController
       f.close
       f.unlink
     end
-
+      
     @medium.records.first.medium = @medium
-
+    
     if verify_recaptcha(model: @medium) && @medium.save
+      #Mod submissions are auto-approved
+      if mod_signed_in?
+        submittedRec = Record.where(approved: false).last
+        submittedRec.approved = true
+        submittedRec.save
+      end
       redirect_to root_url, notice: 'Upload successful, please wait for approval'
     else
       render :new
