@@ -39,7 +39,7 @@
 
           = r.input :description, as: :text, required: true, :input_html => {:rows => 5} unless @medium.class.name  == 'Text'
           = r.input :ref_date, label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, input_html: {class: 'datepicker',
-           value: @current_record.ref_date.strftime("%d/%m/%Y")}
+           value: (@current_record.ref_date.strftime('%d/%m/%Y') unless  @current_record.ref_date.nil?) }
 
         %hr
 
