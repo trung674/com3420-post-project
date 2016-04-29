@@ -60,8 +60,8 @@
                 = f.input :text, as: :text, required: true, label: 'Text', input_html: {rows: 10}
 
               = r.input :location,  label: 'Location', input_html: {id: 'location-field'}
-              = r.input :latitude,  label: 'Latitude', as: :hidden, input_html: {id:'latitude-input'}
-              = r.input :longitude,  label: 'Longitude', as: :hidden, input_html: {id: 'longitude-input'}
+              = r.input :latitude,  label: 'Latitude', as: :hidden, input_html: {id:'latitude-input', placeholder: nil}
+              = r.input :longitude,  label: 'Longitude', as: :hidden, input_html: {id: 'longitude-input', placeholder: nil}
 
               - if @medium.type != 'Text'
                 = r.input :description,  label: 'Description', as: :text, required: true, input_html: {rows: 5}
