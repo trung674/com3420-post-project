@@ -60,38 +60,36 @@ describe 'Mod' do
     expect(page).to have_content 'That moderator does not exist.'
   end
 
-  specify 'I can approve record' do
-    
+  specify 'I can approve edits' do
     #Since approving records is not dependent on the media, I'm uploading a text file
-    text = FactoryGirl.build(:text, :with_record)
+    text = FactoryGirl.create(:text, :with_record)
     mod = FactoryGirl.create(:mod)
-    
-    #Upload the record
-    #record = text.records.first
-    #visit new_text_path
-    #fill_in 'Title', with: record.title
-    #fill_in 'Text', with: File.read(File.absolute_path(text.upload.path))
-    #fill_in 'Email', with: text.contributor.email
-    #check 'medium_copyright'
-    #submit_form
-    
-    #The test itself
     login_as(mod, :scope => :mod)
-    visit '/modpanel'
-    
-
+    visit medium_path(id: text.id)
+    expect(page).to have_content 'Unapproved'
+    click_button "Approve Edit"
+    expect(page).to have_no_content 'Unapproved'
   end
 
-  specify 'I can reject record' do
+  specify 'I can reject edits' do
+    text = FactoryGirl.create(:text, :with_record)
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit medium_path(id: text.id)
+    expect(page).to have_content 'Unapproved'
+    click_button "Remove Edit"
+    expect(page).to have_no_content 'Approved'
   end
 
   specify 'I can upload new wallpaper' do
-  end
-
-  specify 'I cannot login with an inactive account' do
-   inactive = FactoryGirl.create(:inactiveMod) 
-   login_as(inactive, :scope => :mod)
-   #TODO finish
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit '/wallpapers'
+    fill_in 'wallpaper_description', with: 'Test wallpaper'
+    attach_file('wallpaper_image', File.absolute_path('./spec/fixtures/uploads/Wallpaper.jpg'))
+    click_button 'Create Wallpaper'
+    expect(page).to have_content 'Wallpaper was successfully created'
+    expect(page).to have_content 'Test wallpaper'
   end
 
 end
