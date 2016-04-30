@@ -11,11 +11,11 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
     @contact.request = request
 
-    if verify_recaptcha(model: @contact)
+    if verify_recaptcha(model: @contact) && @contact.save
       #If captcha entered correctly
       if ModMailer.contact_form(contact_params).deliver
         #Mailer sent successfully
-        flash.now[:notice] = "Thank you for your message"
+        redirect_to root_path, notice: 'Message sent successfully'
       else
         #Mailer failed to deliver
         flash.now[:error] = "Cannot send message"
@@ -23,7 +23,7 @@ class ContactsController < ApplicationController
       end
     else
       #If missed verification
-      render :new
+      redirect_to '/contacts' #using render breaks mercury editor..?
       flash.now[:notice] = "Please verify yourself by clicking 'I'm not a robot'"
     end
 
