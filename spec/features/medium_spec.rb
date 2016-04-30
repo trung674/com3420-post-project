@@ -96,17 +96,67 @@ describe 'Medium' do
     expect(page).to have_content 'Upload successful'
   end
 
-
   specify 'A user can view an upload with an approved record' do
     document = FactoryGirl.create(:document, :with_approved_record)
     visit medium_path(id: document.id)
     expect(page).to have_content(document.records.first.title)
   end
 
-  specify "A user can't see an upload without an approved record" do
+  specify "A user can't see an upload with no approved records" do
     document = FactoryGirl.create(:document, :with_record)
     visit medium_path(id: document.id)
     expect(page).not_to have_content(document.records.first.title)
   end
+
+  specify 'A moderator can see an upload with no approved records' do
+    document = FactoryGirl.create(:document, :with_record)
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit medium_path(id: document.id)
+    expect(page).to have_content(document.records.first.title)
+  end
+
+  specify 'A user can see the edit history of approved records for a medium' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record2 = FactoryGirl.create(:record, medium: document, approved: true)
+    record3 = FactoryGirl.create(:record, medium: document)
+    visit medium_path(id: document.id)
+    expect(page).to have_select('record_id', :options => [document.records.first.to_s, record2.to_s])
+  end
+
+  specify 'A user can not see the edit history of unapproved records for a medium' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record2 = FactoryGirl.create(:record, medium: document, approved: true)
+    record3 = FactoryGirl.create(:record, medium: document)
+    visit medium_path(id: document.id)
+    expect(page).not_to have_select('record_id', :options => [document.records.first.to_s, record2.to_s ,record3.to_s])
+  end
+
+  specify 'A moderator can see the edit history of all records for a medium' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record2 = FactoryGirl.create(:record, medium: document, approved: true)
+    record3 = FactoryGirl.create(:record, medium: document)
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit medium_path(id: document.id)
+    expect(page).to have_select('record_id', :options => [document.records.first.to_s_mod, record2.to_s_mod ,record3.to_s_mod])
+  end
+
+  specify 'A user can view a different edit for a medium' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record1 = document.records.first
+    record2 = FactoryGirl.create(:record, title: 'Different', medium: document, approved: true)
+    visit medium_path(id: document.id)
+
+    expect(page).to have_content(record2.title)
+    expect(page).to have_select('record_id', :options => [record1.to_s, record2.to_s])
+    select(record1.to_s, from: 'record_id')
+    click_button 'View'
+
+    expect(page).to have_content(record1.title)
+    expect(page).not_to have_content(record2.title)
+  end
+
+
 
 end

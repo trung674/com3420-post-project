@@ -80,7 +80,7 @@
       %br
       .row.col-md-12
         #{@current_record.location}
-    - if @current_record.latitude?
+    - if @current_record.latitude? && @current_record.longitude?
       %br
       #map-container.row.col-md-12.col-sm-12
         #map{:style => 'height: 250px;'}
@@ -185,6 +185,7 @@
                           = submit_tag('Remove', :class => 'btn btn-danger')
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
 -#This is the code for the add revelevant links modal
 %button.btn.btn-info.btn-lg{"data-target" => "#add-link", "data-toggle" => "modal", :type => "button"} Add Relevant Links
 / Modal

@@ -9,10 +9,6 @@ class MediumUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{model.id}"
   end
 
-  # def url
-  #   "/uploads/#{model.class.name}/#{model.id}/#{File.basename(self.path)}"
-  # end
-
   # Remove tmp upload folders
   def delete_tmp_dir(new_file)
     # make sure we don't delete other things accidentally by checking the name pattern
