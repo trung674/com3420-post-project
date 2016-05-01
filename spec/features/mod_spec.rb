@@ -6,7 +6,11 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 describe 'Mod' do
-  
+
+  specify 'I can log in' do
+    #TODO
+  end
+
   specify 'I can view moderators' do
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
@@ -79,6 +83,10 @@ describe 'Mod' do
     expect(page).to have_content 'Unapproved'
     click_button "Remove Edit"
     expect(page).to have_no_content 'Approved'
+  end
+
+  specify 'I can view the contact information of a contributor for a medium' do
+    #TODO
   end
 
   specify 'I can upload new wallpaper' do
