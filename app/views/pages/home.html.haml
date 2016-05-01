@@ -1,6 +1,6 @@
 - content_for :title, "Home"
 
--# Image slider
+// Image slider
 - if @wallpapers.exists?
   .carousel.slide.carousel-fade{:id=>"wallpapers", :data => {:ride => "carousel"}}
     .carousel-inner
@@ -17,8 +17,8 @@
 -#    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
 -#    %span.sr-only Next
 
--# Main body
--# Welcome
+// Main body
+// Welcome
 .row
   .col-md-12
     .page-header
@@ -31,7 +31,7 @@
       = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
 %br
 
--# Search bar
+// Search bar
 .row
   .col-md-12
     .page-header
@@ -53,11 +53,13 @@
       = label_tag(:age_adult, "Text")
 
 %br
+// Recent Activities
 .row
   .col-md-12
     .page-header
       %h2 Recent Activities
 
+  // Recent uploads
   .col-md-6
     .panel.panel-info
       .panel-heading
@@ -81,5 +83,6 @@
                   =item.title
               %td
                 = Medium.where(:id => item.medium_id).first.class.name
+  // Recent Events
   .col-md-6
     = render 'events/list', :events => @events

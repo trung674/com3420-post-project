@@ -31,7 +31,7 @@
           %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
           %p Please enable JavaScript or use a different, up to date, web browser.
 
-    -# Navigation Bar
+    // Navigation Bar
     %nav.navbar.navbar-default.navbar-static-top
       .container
         .navbar-header
@@ -48,7 +48,6 @@
               Home
             = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
               = fa_icon 'upload'
-              -#see https://fortawesome.github.io/Font-Awesome/icons/ for these fa_icon
               Upload
             = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
               = fa_icon 'university'
@@ -63,12 +62,12 @@
               = fa_icon 'envelope'
               Contact
 
-    -# Main Body
+    // Main Body
     .container#main-container
       .custom-panel
         = yield
 
-      -# Footer
+      // Footer
       %hr
       %footer
         .row

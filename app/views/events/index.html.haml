@@ -27,8 +27,3 @@
               %h4= event.date
     - else
       %h3.text-center There are no upcoming events at the moment
-
-    %br
-    -# only mods can see this link
-    - if mod_signed_in?
-      = link_to 'New Event', new_event_path
