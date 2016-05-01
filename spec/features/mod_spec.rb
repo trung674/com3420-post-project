@@ -100,4 +100,16 @@ describe 'Mod' do
     expect(page).to have_content 'Test wallpaper'
   end
 
+
+  specify 'I can see how many unique views an event has' do
+   testevent = FactoryGirl.create(:event)
+   mod = FactoryGirl.create(:mod)
+   visit '/events'
+   click_link 'Test Event'
+   expect(page).to have_no_content 'unique views' #First view, hidden from user
+   login_as(mod, :scope => :mod)
+   visit '/events'
+   click_link 'Test Event'
+   expect(page).to have_content '2 unique views of this event' #Mod view
+  end
 end
