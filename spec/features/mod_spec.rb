@@ -86,8 +86,35 @@ describe 'Mod' do
   end
 
   specify 'I can view the contact information of a contributor for a medium' do
-    #TODO
+    text = FactoryGirl.create(:text, :with_record)
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
+    visit '/modpanel'
+    click_button 'Contact'
+    #TODO media factory has no contributor? Won't show up in modal
+    #within('#contact.modal.fade') do
+      
+    #end
   end
+
+  specify 'I can edit the contact details' do
+    mod = FactoryGirl.create(:mod)
+    visit '/contacts'
+    expect(page).to have_content '23 Edward Street, Sheffield, UK, S3 7SF'
+    expect(page).to have_content '(+44) 111111111111'
+    expect(page).to have_content 'Monday - Friday: 9:00 AM to 5:00 PM'
+    login_as(mod, :scope => :mod)
+    visit '/contacts/edit'
+    fill_in 'editable_content_contact_address', with: '742 Evergreen Terrace, Springfield, USA'
+    fill_in 'editable_content_contact_phone', with: '555-6832'
+    fill_in 'editable_content_working_hour', with: 'Monday to Friday 18:00 - 18:30'
+    click_button 'Submit'
+    visit '/contacts'
+    expect(page).to have_content '742 Evergreen Terrace, Springfield, USA'
+    expect(page).to have_content '555-6832'
+    expect(page).to have_content 'Monday to Friday 18:00 - 18:30'
+  end
+
 
   specify 'I can upload new wallpaper' do
     mod = FactoryGirl.create(:mod)
