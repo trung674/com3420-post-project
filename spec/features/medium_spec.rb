@@ -111,8 +111,10 @@ describe 'Medium' do
   specify 'A moderator can see an upload with no approved records' do
     document = FactoryGirl.create(:document, :with_record)
     mod = FactoryGirl.create(:mod)
+
     login_as(mod, :scope => :mod)
     visit medium_path(id: document.id)
+
     expect(page).to have_content(document.records.first.title)
   end
 
@@ -120,6 +122,7 @@ describe 'Medium' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record2 = FactoryGirl.create(:record, medium: document, approved: true)
     record3 = FactoryGirl.create(:record, medium: document)
+
     visit medium_path(id: document.id)
     expect(page).to have_select('record_id', :options => [document.records.first.to_s, record2.to_s])
   end
@@ -129,6 +132,7 @@ describe 'Medium' do
     record2 = FactoryGirl.create(:record, medium: document, approved: true)
     record3 = FactoryGirl.create(:record, medium: document)
     visit medium_path(id: document.id)
+
     expect(page).not_to have_select('record_id', :options => [document.records.first.to_s, record2.to_s ,record3.to_s])
   end
 
@@ -137,8 +141,10 @@ describe 'Medium' do
     record2 = FactoryGirl.create(:record, medium: document, approved: true)
     record3 = FactoryGirl.create(:record, medium: document)
     mod = FactoryGirl.create(:mod)
+
     login_as(mod, :scope => :mod)
     visit medium_path(id: document.id)
+
     expect(page).to have_select('record_id', :options => [document.records.first.to_s_mod, record2.to_s_mod ,record3.to_s_mod])
   end
 
@@ -149,14 +155,15 @@ describe 'Medium' do
     visit medium_path(id: document.id)
 
     expect(page).to have_content(record2.title)
-    expect(page).to have_select('record_id', :options => [record1.to_s, record2.to_s])
-    select(record1.to_s, from: 'record_id')
-    click_button 'View'
+    expect(page).to have_select('record_id', options: [record1.to_s, record2.to_s])
+
+    within '#record_id' do
+      find("option[value='#{record1.id}']").select_option
+    end
+    click_button 'view_edit'
 
     expect(page).to have_content(record1.title)
     expect(page).not_to have_content(record2.title)
   end
-
-
 
 end

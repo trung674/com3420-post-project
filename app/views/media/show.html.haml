@@ -14,7 +14,7 @@
         = select_tag 'record_id', options_for_select(@medium.all_records.reverse.collect {|a| [a.to_s_mod , a.id]},  @current_record.id)
       - else
         = select_tag 'record_id', options_for_select(@medium.approved_records.reverse.collect {|a| [a.to_s , a.id]},  @current_record.id)
-      = submit_tag 'View', name: nil, class: 'btn btn-default'
+      = submit_tag 'View', name: nil, class: 'btn btn-default', id: 'view_edit'
   .col-md-2
   - # Only the latest record can be edified to reduce conflicts
   - if @current_record == @medium.latest_approved_record
@@ -22,7 +22,6 @@
       = link_to 'Edit', edit_medium_path, {class: 'btn btn-warning pull-right'}
   .col-md-1.pull-right
     = form_tag(report_path, method: "post", id: "report_record") do
-      -#put some hidden fields here
       = hidden_field_tag :medium_id, @current_record.medium_id
       = hidden_field_tag :record_title, @current_record.title
       = submit_tag('Report', class: 'btn btn-danger pull-right' )
