@@ -85,13 +85,6 @@ RSpec.configure do |config|
     Delayed::Worker.delay_jobs = old_value
   end
 
-  # Stubs for webASR testing
-  config.before(:each) do
-    stub_request(:any, 'http://www.webasr.org/newupload').to_return(status: 200, body: "ses=\"1\" src=\"1\"")
-    stub_request(:any, 'http://www.webasr.org/getstatus').to_return(status: 200, body: 'is: completed')
-    stub_request(:any, 'http://www.webasr.org/getfile').to_return(body: IO.binread(File.join(Rails.root, '/spec/fixtures/transcription.zip')), status: 200)
-  end
-
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
