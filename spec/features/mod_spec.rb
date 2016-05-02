@@ -91,10 +91,11 @@ describe 'Mod' do
     login_as(mod, :scope => :mod)
     visit '/modpanel'
     click_button 'Contact'
-    #TODO media factory has no contributor? Won't show up in modal
-    #within('#contact.modal.fade') do
-      
-    #end
+
+    # TODO: this test is javascript based so no clue how were gonna test this
+    within('#contact') do
+      expect(page).to have_content(text.contributor.email)
+    end
   end
 
   specify 'I can edit the contact details' do
@@ -115,7 +116,6 @@ describe 'Mod' do
     expect(page).to have_content 'Monday to Friday 18:00 - 18:30'
   end
 
-
   specify 'I can upload new wallpaper' do
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
@@ -126,7 +126,6 @@ describe 'Mod' do
     expect(page).to have_content 'Wallpaper was successfully created'
     expect(page).to have_content 'Test wallpaper'
   end
-
 
   specify 'I can see how many unique views an event has' do
    testevent = FactoryGirl.create(:event)

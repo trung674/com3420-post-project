@@ -24,6 +24,9 @@ if ActiveRecord::Migrator.needs_migration?
 end
 ActiveRecord::Migration.maintain_test_schema!
 
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   config.include FormHelpers, :type => :feature
 
@@ -80,6 +83,13 @@ RSpec.configure do |config|
     example.run
 
     Delayed::Worker.delay_jobs = old_value
+  end
+
+  # Stubs for webASR testing
+  config.before(:each) do
+    stub_request(:any, 'http://www.webasr.org/newupload').to_return(status: 200, body: "ses=\"1\" src=\"1\"")
+    stub_request(:any, 'http://www.webasr.org/getstatus').to_return(status: 200, body: 'is: completed')
+    stub_request(:any, 'http://www.webasr.org/getfile').to_return(body: IO.binread(File.join(Rails.root, '/spec/fixtures/transcription.zip')), status: 200)
   end
 
   # The different available types are documented in the features, such as in

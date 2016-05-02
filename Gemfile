@@ -104,6 +104,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'rspec-instafail', require: false
+
   platforms :mswin, :mingw, :x64_mingw do
     # patched release to fix issues with project path names on Win32
     gem 'cliver', github: 'yaauie/cliver', ref: '5617ce'
@@ -113,4 +114,5 @@ group :test do
   gem 'launchy'
   gem 'simplecov'
   gem 'faker'
+  gem 'webmock'
 end
