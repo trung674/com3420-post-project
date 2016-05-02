@@ -16,6 +16,9 @@
         .col-md-5.col-md-offset-1
           = f.input :image, as: :file
           %p.text-danger Recommend image with resolution of 1920 * 1080
+
+          %label.control-label Preview Image
+          %img.img-responsive.img-thumbnail.hidden{:id => "preview_image"}
       .form-actions
         = f.button :submit, :class => "btn btn-primary"
 
@@ -36,3 +39,19 @@
     - else
       / Show this if there is 0 wallpaper in database
       %h4.text-center There is 0 wallpaper in database, please use form above to upload new wallpaper
+
+// Javascript for preview image
+:javascript
+  document.getElementById("wallpaper_image").onchange = function () {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          // get loaded data and render thumbnail.
+          document.getElementById("preview_image").src = e.target.result;
+      };
+
+      // read the image file as a data URL.
+      reader.readAsDataURL(this.files[0]);
+      document.getElementById("preview_image").classList.remove("hidden");
+      document.getElementById("preview_image").classList.add("show");
+};

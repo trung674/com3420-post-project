@@ -1,3 +1,4 @@
+// Form for create/edit event
 = simple_form_for(@event, html: {multipart: true})   do |f|
   = f.error_notification
   .row
@@ -19,5 +20,26 @@
       - if f.object.image?
         = f.label :current_image
         = image_tag(f.object.image.url, class: "img-responsive img-thumbnail")
+
+      %br
+      %br
+      %label.control-label Preview Image
+      %img.img-responsive.img-thumbnail.hidden{:id => "preview_image"}
   .form-actions
     = f.button :submit
+
+// Javascript for preview image
+:javascript
+  document.getElementById("event_image").onchange = function () {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          // get loaded data and render thumbnail.
+          document.getElementById("preview_image").src = e.target.result;
+      };
+
+      // read the image file as a data URL.
+      reader.readAsDataURL(this.files[0]);
+      document.getElementById("preview_image").classList.remove("hidden");
+      document.getElementById("preview_image").classList.add("show");
+};
