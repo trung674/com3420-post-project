@@ -16,31 +16,6 @@
 
         #map{:style => 'width: 100%; height: 510px; padding: 10px;'}
 
-        -#  the table only appears if you have clicked on an item displayed on the map
-        -#-if @result
-        -#  %table.table.table-bordered{:style => 'width: %;'}
-        -#    %tr
-        -#      %th Title:
-        -#      %td#title
-        -#        %a{:href => "media/#{raw @result.medium_id}"}
-        -#          =@result.title
-        -#    %tr
-        -#      %th Date:
-        -#      %td#date
-        -#        =@result.ref_date
-        -#    %tr
-        -#      %th Location:
-        -#      %td#location
-        -#        =@result.location
-
-        -#commented out due to changing the way we do map details
-        -#-#this div is for the javascript to submit a form to the controller
-        -#%div.hidden
-        -#  = form_tag(map_path, method: "get", :id =>'form_id') do
-        -#    = text_field_tag(:lat, params[:lat], :class => "form-control", :id => 'lat_tag')
-        -#    = text_field_tag(:lng, params[:lat], :class => "form-control", :id => 'lng_tag')
-        -#    = submit_tag('Search', :class => "btn btn-default", :id => 'Search')
-
         -marker_json = @lat_lng.to_json
 
   // How to use map
