@@ -11,4 +11,5 @@
 
 class Wallpaper < ActiveRecord::Base
   mount_uploader :image, WallpaperUploader
+  validates_presence_of :image
 end
