@@ -201,4 +201,16 @@ describe 'Medium' do
     expect(page).to have_content 'Edit successful, please wait for approval'
   end
 
+  specify 'A user sees a recaptcha on the upload page', recaptcha: true do
+    visit new_medium_path
+    # Can't test fully since this requires javascript
+    expect(page).to have_css('.g-recaptcha')
+  end
+
+  specify 'A user sees a recaptcha on the edit page', recaptcha: true do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    visit edit_medium_path(id: document.id)
+    expect(page).to have_css('.g-recaptcha')
+  end
+
 end

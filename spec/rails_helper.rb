@@ -85,6 +85,12 @@ RSpec.configure do |config|
     Delayed::Worker.delay_jobs = old_value
   end
 
+  # Test recaptcha
+  config.around(:each, :recaptcha) do |example|
+    Recaptcha.configuration.skip_verify_env.delete('test')
+    example.run
+  end
+
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
