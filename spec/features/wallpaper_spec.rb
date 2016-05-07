@@ -43,14 +43,14 @@ describe 'Wallpaper' do
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     click_on 'Delete'
-    expect(page).to have_content 'Wallpaper was successfully destroyed.'
+    expect(page).to have_content 'Wallpaper was successfully removed.'
   end
 
   specify 'If there is 0 wallpaper in database, show warning to mod' do
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
-    expect(page).to have_content 'There is 0 wallpaper in database, please use form above to upload new wallpaper'
+    expect(page).to have_content 'There are no wallpapers, please use form above to upload a new wallpaper'
   end
 
   specify 'Submit form without an attached wallpaper file will return error' do

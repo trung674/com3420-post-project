@@ -54,7 +54,7 @@ class WallpapersController < ApplicationController
   # DELETE /wallpapers/1
   def destroy
     @wallpaper.destroy
-    redirect_to wallpapers_url, notice: 'Wallpaper was successfully destroyed.'
+    redirect_to wallpapers_url, notice: 'Wallpaper was successfully removed.'
   end
 
   private
