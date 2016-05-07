@@ -86,9 +86,8 @@ RSpec.configure do |config|
   end
 
   # Test recaptcha
-  config.around(:each, :recaptcha) do |example|
+  config.before(:each, recaptcha: false) do
     Recaptcha.configuration.skip_verify_env.delete('test')
-    example.run
   end
 
   # The different available types are documented in the features, such as in

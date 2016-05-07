@@ -71,6 +71,14 @@ class Medium < ActiveRecord::Base
     media.select{|medium| not medium.latest_approved_record.nil?}
   end
 
+  def get_addable_links
+    Medium.where.not(id: [self.id, self.get_relevant_images].flatten, type: 'Image').select{|item| not item.latest_approved_record.nil?}
+  end
+
+  def get_addable_images
+    Medium.where.not(id: [self.id, self.get_relevant_images].flatten).where(type: 'Image').select{|item| not item.latest_approved_record.nil?}
+  end
+
   def accepted_mimes
     case self.type
       when'Recording'

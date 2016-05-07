@@ -12,7 +12,7 @@
             %th Title
             %th Type
             %th Add
-          - Medium.where.not(id: [@medium.id, @medium.get_relevant_media], type: 'Image').select{|item| not item.latest_approved_record.nil?}.each do |med|
+          - @medium.get_addable_links.each do |med|
             %tr
               %td
                 %a{href: medium_url(id: med.id)}
