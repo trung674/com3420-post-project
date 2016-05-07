@@ -24,6 +24,7 @@
 class Medium < ActiveRecord::Base
   belongs_to :contributor, autosave: true
   has_many :records, dependent: :destroy, autosave: true
+  has_many :links, class_name: 'Link', foreign_key: 'med_one'
 
   attr_accessor :type, :text
   accepts_nested_attributes_for :records
@@ -58,6 +59,16 @@ class Medium < ActiveRecord::Base
 
   def latest_approved_record
     self.records.where(approved: true).order('created_at').last
+  end
+
+  def get_relevant_media
+    media = Medium.where(id: self.links.collect{|item| item.med_two}).where.not(type: 'Image')
+    media.select{|medium| not medium.latest_approved_record.nil?}
+  end
+
+  def get_relevant_images
+    media = Medium.where(id: self.links.collect{|item| item.med_two}, type: 'Image')
+    media.select{|medium| not medium.latest_approved_record.nil?}
   end
 
   def accepted_mimes

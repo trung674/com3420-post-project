@@ -1,0 +1,34 @@
+/ Modal
+#remove-link.modal.fade{:role => "dialog"}
+  .modal-dialog
+    / Modal content
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Relevant Links
+      .modal-body
+        - links = @medium.get_relevant_media
+        %table.table.table-bordered
+          %tr
+            %th Title
+            %th Type
+            %th Remove
+          - links.each do |item|
+            - record = item.latest_record
+            %tr
+              %td
+                %a{href: medium_url(id: item.id)}
+                  = record.title
+              %td
+                = item.class.name
+
+              %td
+                = form_tag(medium_url(id: @medium.id), method: 'get', id: 'delete_link') do
+                  .form-group.form-inline
+                    .input-group
+                      - link = Link.where(med_one: @medium.id, :med_two => item.id).first
+                      = hidden_field_tag(:link_id, params[:link_id], value: link.id)
+                      %span.input-group-btn
+                        = submit_tag('Remove', class: 'btn btn-danger')
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

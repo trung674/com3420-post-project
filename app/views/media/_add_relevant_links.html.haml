@@ -1,0 +1,31 @@
+/ Modal
+#add-link.modal.fade{:role => "dialog"}
+  .modal-dialog
+    / Modal content
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Add Relevant Links!
+      .modal-body
+        %table.table.table-bordered
+          %tr
+            %th Title
+            %th Type
+            %th Add
+          - Medium.where.not(id: [@medium.id, @medium.get_relevant_media], type: 'Image').select{|item| not item.latest_approved_record.nil?}.each do |med|
+            %tr
+              %td
+                %a{href: medium_url(id: med.id)}
+                  = med.latest_approved_record.title
+              %td
+                = med.class.name
+              %td
+                = form_tag(medium_url(id: @current_record.medium_id), method: 'get', id: 'link-up') do
+                  .form-group.form-inline
+                    .input-group
+                      = hidden_field_tag(:med_one, params[:med_one], value: @medium.id)
+                      = hidden_field_tag(:med_two, params[:med_two], value: med.id)
+                      %span.input-group-btn
+                        = submit_tag('Add', class: 'btn btn-primary')
+      .modal-footer
+        %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close
