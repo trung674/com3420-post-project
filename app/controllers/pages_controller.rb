@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @current_nav_identifier = :home
-    @events = Event.order(created_at: :desc).last(3)
+    @events = Event.order(created_at: :desc).last(5)
     @wallpapers = Wallpaper.all
     @homepage_description = EditableContent.find_by name: 'homepage_description'
   end

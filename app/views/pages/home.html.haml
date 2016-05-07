@@ -59,30 +59,30 @@
     .page-header
       %h2 Recent Activities
 
-  // Recent uploads
+  // Newest uploads
   .col-md-6
     .panel.panel-info
       .panel-heading
-        %h4 Recent Uploads
-        -ids = Medium.ids.last(5)
+        %h4 Newest Uploads
+        -# With reverse, newest upload will be at the top of the table
+        -ids = Medium.ids.last(5).reverse
         -results = []
         -ids.each do |id|
           -result = Record.where(:medium_id => id,:approved => true).order(:created_at).last
           -if result
             -results.append(result)
         -
-      .panel-body
-        %table.table.table-bordered
+      %table.table.table-bordered
+        %tr
+          %th Title
+          %th Type
+        -results.each do |item|
           %tr
-            %th Title
-            %th Type
-          -results.each do |item|
-            %tr
-              %td
-                %a{:href => "media/#{raw(item[:medium_id])}"}
-                  =item.title
-              %td
-                = Medium.where(:id => item.medium_id).first.class.name
+            %td
+              %a{:href => "media/#{raw(item[:medium_id])}"}
+                =item.title
+            %td
+              = Medium.where(:id => item.medium_id).first.class.name
   // Recent Events
   .col-md-6
     = render 'events/list', :events => @events

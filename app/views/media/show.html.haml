@@ -39,10 +39,13 @@
 %div.panel.panel-default
   %div.panel-body.record
     .row
-      .col-md-4.col-sm-6
-        %h2 #{@current_record.title}
-      .col-md-3.col-sm-6.date.pull-right
-        #{@current_record.ref_date.to_formatted_s(:long) if @current_record.ref_date?}
+      .col-md-12
+        .page-header
+          .row
+            .col-md-8.col-sm-6
+              %h2 #{@current_record.title}
+            .col-md-3.col-sm-6.date.pull-right
+              #{@current_record.ref_date.to_formatted_s(:long) if @current_record.ref_date?}
     - unless @current_record.description.nil?
       .row.description
         .col-md-6.col-sm-12
@@ -64,7 +67,7 @@
           %object{data: @medium.upload.url}
       - elsif @medium.class.name == 'Text'
         .col-md-12
-          #{File.read(@medium.upload.path)}
+          %p= simple_format(File.read(@medium.upload.path))
       - elsif @medium.class.name == 'Image'
         .col-md-12
           %img{:src => @medium.upload.url,:width=>'100%'}
@@ -77,12 +80,16 @@
 
     - if @current_record.location?
       %br
-      .row.col-md-12
-        #{@current_record.location}
+      .row
+        .col-md-12
+          .page-header
+            %h2 Map
+        .col-md-12
+          #{@current_record.location}
     - if @current_record.latitude? && @current_record.longitude?
-      %br
-      #map-container.row.col-md-12.col-sm-12
-        #map{:style => 'height: 250px;'}
+      #map-container.row
+        .col-md-12.col-sm-12
+          #map{:style => 'height: 250px;'}
 
 -#This is the code for the view/remove relevant links modal
 %button.btn.btn-info.btn-lg{"data-target" => "#remove-link", "data-toggle" => "modal", :type => "button"} View Relevant Links
