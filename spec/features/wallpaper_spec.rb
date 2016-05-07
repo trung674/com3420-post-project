@@ -46,7 +46,7 @@ describe 'Wallpaper' do
     expect(page).to have_content 'Wallpaper was successfully removed.'
   end
 
-  specify 'If there is 0 wallpaper in database, show warning to mod' do
+  specify 'If there are no wallpapers, show warning to mod' do
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
