@@ -8,10 +8,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :wallpaper do
-    image "MyString"
-    description "MyString"
+    image { fixture_file_upload(Rails.root.join('spec', 'support', 'test-wallpaper.png'), 'image/png') }
+    description 'Test Wallpaper'
   end
 end

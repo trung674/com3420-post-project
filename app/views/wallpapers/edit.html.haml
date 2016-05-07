@@ -1,5 +1,17 @@
-%h1 Editing wallpaper
+- content_for :title, "Edit Wallpapers"
 
-= render 'form'
-%br
-= link_to 'Back', wallpapers_path, :class => "btn btn-default"
+/ Edit Wallpaper form
+.row
+  .col-md-12
+    .page-header
+      %h2 Edit Wallpaper
+
+  .col-md-12
+    .row
+      .col-md-5
+        = render 'form'
+        %br
+        = link_to 'Back', wallpapers_path, :class => "btn btn-default"
+
+      .col-md-7
+        = image_tag(@wallpaper.image.url, class: "img-responsive img-thumbnail", alt: "#{@wallpaper.image.file.identifier}")

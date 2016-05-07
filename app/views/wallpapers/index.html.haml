@@ -9,11 +9,11 @@
     = simple_form_for(Wallpaper.new, html: {multipart: true}) do |f|
       = f.error_notification
       .row
-        .col-md-6
+        .col-md-5
           .form-inputs
             = f.input :description
 
-        .col-md-5.col-md-offset-1
+        .col-md-6.col-md-offset-1
           = f.input :image, as: :file
           %p.text-danger Recommend image with resolution of 1920 * 1080
 
