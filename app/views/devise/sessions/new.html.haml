@@ -7,8 +7,9 @@
         %h2.panel-title Log In
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         .panel-body
-          = f.input :email, autofocus: true
-          = f.input :password
+          = f.error_notification
+          = f.input :email, autofocus: true, required: true
+          = f.input :password, required: true
         .panel-footer
           = submit_button 'Log in'
           .margin-top-10= render "devise/shared/links"

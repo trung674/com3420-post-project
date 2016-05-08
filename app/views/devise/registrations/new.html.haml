@@ -1,0 +1,16 @@
+- content_for :title, 'Sign up'
+
+.row
+  .col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
+    .panel.panel-default.margin-top-20
+      .panel-heading
+        %h2.panel-title Sign up
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        .panel-body
+          = f.error_notification
+          = f.input :email, required: true, autofocus: true
+          = f.input :password, required: true
+          = f.input :password_confirmation, autocomplete: "off", required: true
+        .panel-footer
+          = submit_button 'Sign up'
+          .margin-top-10= render "devise/shared/links"
