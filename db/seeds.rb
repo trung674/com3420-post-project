@@ -22,7 +22,7 @@ EditableContent.where(name: 'about').first_or_create(content:
 
 EditableContent.where(name: 'contact_address').first_or_create(content:"23 Edward Street, Sheffield, UK, S3 7SF")
 EditableContent.where(name: 'contact_phone').first_or_create(content:"(+44) 111111111111")
-EditableContent.where(name: 'working_hour').first_or_create(content:"Monday - Friday: 9:00 AM to 5:00 PM")
+EditableContent.where(name: 'contact_hours').first_or_create(content:"Monday - Friday: 9:00 AM to 5:00 PM")
 EditableContent.where(name: 'homepage_description').first_or_create(content:"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Sample data ! Change me please"

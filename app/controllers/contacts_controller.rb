@@ -39,7 +39,7 @@ class ContactsController < ApplicationController
     @editable_contents = EditableContent.find(2,3,4)
     @editable_contents[0].content = params[:editable_content][:contact_address]
     @editable_contents[1].content = params[:editable_content][:contact_phone]
-    @editable_contents[2].content = params[:editable_content][:working_hour]
+    @editable_contents[2].content = params[:editable_content][:contact_hours]
     if @editable_contents[0].save! && @editable_contents[1].save! && @editable_contents[2].save!
       redirect_to modpanel_path, notice: 'Contact info was successfully updated.'
     else

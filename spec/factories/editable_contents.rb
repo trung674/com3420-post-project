@@ -11,7 +11,7 @@
 
 FactoryGirl.define do
   factory :editable_content do
-    name "MyString"
-    content "MyText"
+    name "contact_address"
+    content "23 Edward Street, Sheffield, UK, S3 7SF "
   end
 end

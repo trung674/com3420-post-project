@@ -8,16 +8,6 @@ describe 'Wallpaper' do
     expect(page).to have_content 'Log in'
   end
 
-  specify 'Mod can create a new wallpaper' do
-    mod = FactoryGirl.create(:mod)
-    login_as(mod, :scope => :mod)
-    visit '/wallpapers'
-    fill_in 'Description', with: 'Wallpaper 1'
-    attach_file('Image', File.join(Rails.root, '/spec/support/test-wallpaper.png'))
-    submit_form
-    expect(page).to have_content 'Wallpaper was successfully created.'
-  end
-
   specify 'Mod can see list of all existing wallpapers' do
     wallpaper = FactoryGirl.create(:wallpaper)
     mod = FactoryGirl.create(:mod)

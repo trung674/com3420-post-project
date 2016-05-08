@@ -24,6 +24,7 @@
     .page-header
       %h1 Welcome To Village Memories Group Website
   .col-md-12
+    -# Editable content
     %div.mercury-region#description_content{ data: { mercury: 'full' } }
       =raw @homepage_description.content unless @homepage_description.nil?
 
