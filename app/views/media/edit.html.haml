@@ -3,6 +3,7 @@
 - content_for :scripts do
   = javascript_include_tag 'map'
   = javascript_include_tag 'parsley.min'
+  = javascript_include_tag 'media'
   %script{:src => '//maps.google.com/maps/api/js', :type => 'text/javascript'}
   = yield :scripts
 

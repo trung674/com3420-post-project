@@ -104,6 +104,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'rspec-instafail', require: false
+  gem 'rack-test'
 
   platforms :mswin, :mingw, :x64_mingw do
     # patched release to fix issues with project path names on Win32

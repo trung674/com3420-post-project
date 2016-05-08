@@ -474,6 +474,7 @@ DEPENDENCIES
   poltergeist
   puma
   quiet_assets
+  rack-test
   rails (= 4.2.5.1)
   ransack
   recaptcha

@@ -88,7 +88,7 @@ describe 'Mod' do
   specify 'I can view the contact information of a contributor for a medium' do
     text = FactoryGirl.create(:text, :with_record)
     mod = FactoryGirl.create(:mod)
-    login_as(mod, :scope => :mod)
+    login_as(mod, scope: :mod)
     visit '/modpanel'
     click_button 'Contact'
 
