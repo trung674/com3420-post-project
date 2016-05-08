@@ -23,7 +23,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all.order(:date)
+    @events = Event.where('date >= ?', Time.zone.now.beginning_of_day).order(:date)
   end
 
   # GET /events/1
