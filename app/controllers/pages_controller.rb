@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @current_nav_identifier = :home
-    @events = Event.where('date >= ?', Time.zone.now.beginning_of_day).order(:date).last(5)
+    @events = Event.where('date >= ?', Time.zone.now.beginning_of_day).order(:date).first(5)
     @wallpapers = Wallpaper.all
     @homepage_description = EditableContent.find_by name: 'homepage_description'
   end
