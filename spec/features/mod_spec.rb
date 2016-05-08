@@ -108,7 +108,7 @@ describe 'Mod' do
     visit '/contacts/edit'
     fill_in 'editable_content_contact_address', with: '742 Evergreen Terrace, Springfield, USA'
     fill_in 'editable_content_contact_phone', with: '555-6832'
-    fill_in 'editable_content_working_hour', with: 'Monday to Friday 18:00 - 18:30'
+    fill_in 'editable_content_contact_hours', with: 'Monday to Friday 18:00 - 18:30'
     click_button 'Submit'
     visit '/contacts'
     expect(page).to have_content '742 Evergreen Terrace, Springfield, USA'
