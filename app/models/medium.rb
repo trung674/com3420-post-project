@@ -72,7 +72,7 @@ class Medium < ActiveRecord::Base
   end
 
   def get_addable_links
-    Medium.where.not(id: [self.id, self.get_relevant_links].flatten, type: 'Image').select{|item| not item.latest_approved_record.nil?}
+    Medium.where.not(id: [self.id, self.get_relevant_media].flatten, type: 'Image').select{|item| not item.latest_approved_record.nil?}
   end
 
   def get_addable_images
