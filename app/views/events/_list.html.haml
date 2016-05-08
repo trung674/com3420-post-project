@@ -4,9 +4,16 @@
     %h4 Upcoming Events
 
   - if !events.empty?
-    %ul.list-group
-    - events.each do |event|
-      %li.list-group-item= link_to event.title, :controller => "events", :action => "show", :id => event.id
+    %table.table.table-bordered
+      %tr
+        %th Name
+        %th Date
+      - events.each do |event|
+        %tr
+          %td
+            = link_to event.title, :controller => "events", :action => "show", :id => event.id
+          %td
+            = event.date.to_s(:long)
   - else
     .panel-body
       %p There are no upcoming events at the moment
