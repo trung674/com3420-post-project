@@ -30,7 +30,7 @@ class MediumUploader < CarrierWave::Uploader::Base
       when 'Document'
         %w(pdf)
       when 'Image'
-        %w{jpeg jpg gif tff bmp png}
+        %w{jpeg jpg gif bmp png}
       when 'Text'
         %w{txt}
       when 'Recording'
