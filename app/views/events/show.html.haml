@@ -24,7 +24,7 @@
         %p
           %span.fa.fa-calendar{"aria-hidden" => "true"}
           %strong Date:
-          = @event.date
+          = @event.date.to_formatted_s(:long)
 
         // Time
         %p

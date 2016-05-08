@@ -19,12 +19,13 @@ class ContactsController < ApplicationController
       else
         #Mailer failed to deliver
         flash.now[:error] = "Cannot send message"
+        @editable_contents = EditableContent.find(2,3,4)
         render :new
       end
     else
       #If missed verification
-      redirect_to '/contacts' #using render breaks mercury editor..?
-      flash.now[:notice] = "Please verify yourself by clicking 'I'm not a robot'"
+      @editable_contents = EditableContent.find(2,3,4)
+      render :new
     end
 
   end
