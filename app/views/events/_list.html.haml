@@ -1,13 +1,18 @@
 // list of event
 .panel.panel-info
   .panel-heading
-    %h4 Upcoming Events
+    .row
+      .col-md-6
+        %h4 Upcoming Events
+      .col-md-6
+        %h5
+          = link_to "See full list of events", events_path, class: "pull-right"
 
   - if !events.empty?
     %table.table.table-bordered
       %tr
-        %th Name
-        %th Date
+        %th{:width => "69%"} Name
+        %th{:width => "31%"} Date
       - events.each do |event|
         %tr
           %td
@@ -17,5 +22,3 @@
   - else
     .panel-body
       %p There are no upcoming events at the moment
-%span.fa.fa-arrow-right.pull-right{"aria-hidden" => "true"}
-  = link_to "See full list of events", events_path
