@@ -1,3 +1,9 @@
-%h1 Editing event
+.row
+  .col-md-12
+    %h1.page-header
+      Editing Event
+      %small
+        #{@event.title}
 
-= render 'form'
+  .col-md-12
+    = render 'form'

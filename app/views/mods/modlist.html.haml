@@ -1,10 +1,9 @@
 - content_for :title, 'View Moderators'
 
-%h2 List of all current Moderators
-
-%br
-
 .row
+  .col-md-12
+    %h2.page-header List of all current Moderators
+
   .col-md-6#contact-form
     %table.table.table-bordered
       %tr
@@ -27,6 +26,4 @@
           - else
             %td No
 
-.row
-  .col-md-6
-    %a.btn.btn-primary{:href => "/modpanel", :role => "button"} Back
+= link_to "Back", modpanel_path, class: "btn btn-default"
