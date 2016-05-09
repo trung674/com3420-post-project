@@ -10,6 +10,7 @@ class ReportsController < ApplicationController
   end
 
   def create
+    # This sends the email. Uses the form found in the reports view mod mailer
     @report = Report.new(report_params)
     @report.request = request
 

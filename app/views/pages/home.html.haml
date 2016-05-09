@@ -10,13 +10,6 @@
           .carousel-caption
             %h3= wallpaper.description
 
--#  %a.left.carousel-control{"data-slide" => "prev", :href => "#walpapers", :role => "button"}
--#    %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
--#    %span.sr-only Previous
--#  %a.right.carousel-control{"data-slide" => "next", :href => "#wallpapers", :role => "button"}
--#    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
--#    %span.sr-only Next
-
 // Main body
 // Welcome
 .row
@@ -60,16 +53,19 @@
     .page-header
       %h2 Recent Activities
 
-  // Newest uploads
+  // Newest 5 uploads, may be null if there are 5 recent unapproved uploads
   .col-md-6
     .panel.panel-info
       .panel-heading
         %h4 Newest Uploads
-        -# With reverse, newest upload will be at the top of the table
+        -# With reverse, newest upload will be at the top of the
+        -#pointless^
         -ids = Medium.ids.last(5).reverse
         -results = []
         -ids.each do |id|
-          -result = Record.where(:medium_id => id,:approved => true).order(:created_at).last
+          -#no need to check if first is null because a medium is never deleted, only
+          -#its associated record.
+          -result = Medium.where(:id=>id).first.latest_approved_record
           -if result
             -results.append(result)
         -

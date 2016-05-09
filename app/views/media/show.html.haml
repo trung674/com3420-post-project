@@ -91,6 +91,8 @@
         .col-md-12.col-sm-12
           #map{:style => 'height: 250px;'}
 
+-#Modal code was removed from this page for readablilty, and it will easily allow someone to edit the
+-#modal that they desire. This is likely for the view relevant images modal.
 -#This is the code for the view/remove relevant links modal
 %button.btn.btn-info.btn-lg{"data-target" => "#remove-link", "data-toggle" => "modal", :type => "button"} View Relevant Links
 = render 'view_relevant_links', locals: {current_record: @current_record, medium: @medium}

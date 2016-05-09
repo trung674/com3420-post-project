@@ -55,6 +55,8 @@ class PagesController < ApplicationController
       #this check for the 'people' who didnt manage to click on the map when uploading
       if thing.latitude
         @lat_lng.append({lat: thing.latitude, lng: thing.longitude, infoWindow: {
+            # this ugly html is for the infoWindow, you can put anything in there.
+            # for exaample relevant images.
             content: "<table>
              <tbody>
             <tr>
@@ -115,9 +117,10 @@ class PagesController < ApplicationController
     end
 
     records =[]
+    # get those records that are similar to the search string.
     ids.each do |id|
       record = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
-                              "%#{@search[0]}%", "%#{@search[0]}%", "%#{@search[0]}%"))
+                              "%#{(@search[0]).downcase}%", "%#{(@search[0]).downcase}%", "%#{(@search[0]).downcase}%"))
                     .where(:approved=>true, :medium_id=>id).order(:created_at)
       if record[-1]
         records.append(record[-1])
@@ -144,7 +147,7 @@ class PagesController < ApplicationController
         end
       end
 
-      # search the transcripts of the recordings that haven't already been returned
+      # search the transcripts of the recordings that haven't already been returned <---IMPORTANT
       if trans_param
         extra_records = transcript_search(trans_param)
         extra_records.each do |rec|
@@ -195,9 +198,10 @@ class PagesController < ApplicationController
 
       records = []
       trans_search_hits.each do |id|
-        record_matches = Record.where(:medium_id => id).order(:created_at)
-        if record_matches[-1]
-          records.append(record_matches[-1])
+        # this gets the last approved record of the each
+        record_match = Medium.where(:id => id).first.latest_approved_record
+        if record_match
+          records.append(record_match)
         end
       end
       # returns the records
