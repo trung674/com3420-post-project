@@ -3,12 +3,8 @@
 
 .panel-container
   .row
-    .col-md-12
-      %h2.page-header
-        Moderator Panel
-        %small
-          (currently logged in as #{current_mod.email})
-
+    .col-md-9.col-sm-12
+      %h2 Welcome #{current_mod.email}
     .col-md-3.pull-right.col-sm-12
       %h4 Quick Links
       %table.table
@@ -45,41 +41,58 @@
             %td= edit.updated_at.to_formatted_s(:long)
             %td
               -cont = Contributor.where(:id=>Medium.where(:id=>edit.medium_id).first.contributor_id).first
-              -# Why there are 3 hidden fields :?
               %input{:id => "name#{cont.id}", :type => "hidden", :value => "#{cont.name}"}
               %input{:id => "email#{cont.id}", :type => "hidden", :value => "#{cont.email}"}
               %input{:id => "phone#{cont.id}", :type => "hidden", :value => "#{cont.phone}"}
               -if Medium.where(:id=>edit.medium_id).first.latest_approved_record.nil?
-                %button.btn.btn-primary.mod_thingy{'data-id'=>"#{cont.id}", "data-target" => "#contact_#{cont.id}", "data-toggle" => "modal", :type => "button"} Contact
-                / Modal
-                %div.modal.fade{:id => "contact_#{cont.id}", :role => "dialog"}
-                  .modal-dialog
-                    / Modal content
-                    .modal-content
-                      .modal-header
-                        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-                        %h4.modal-title Contact Contributor
-                      .modal-body
-                        %p If fields are N/A it is because they didn't fill that field in the form in.
-                        %table.table.table-bordered
-                          %tr
-                            %th Name
-                            %th Email
-                            %th Phone Number
-                          %tr
-                            %td
-                              - if cont.name.nil?
-                                N/A
-                              - else
-                                = cont.name
-                            %td
-                              = cont.email
-                            %td
-                              - if cont.phone.nil?
-                                N/A
-                              - else
-                                = cont.phone
-                      .modal-footer
-                        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+                %button.btn.btn-primary.mod_thingy{'data-id'=>"#{cont.id}", "data-target" => "#contact", "data-toggle" => "modal", :type => "button"} Contact
               -else
                 This is just an Edit
+/ Modal
+#contact.modal.fade{:role => "dialog"}
+  .modal-dialog
+    / Modal content
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Contact Contributor
+      .modal-body
+        -
+        %p If fields are N/A it is because they didn't fill that field in the form in.
+        %table.table.table-bordered
+          %tc
+            %th Name
+            %th Email
+            %th Phone Number
+            %tr
+              %td#tname
+              %td#temail
+              %td#tnumber
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+
+:javascript
+  $(document).ready(function(){
+   $(".mod_thingy").click(function(){ // Click to only happen on announce links
+     var id = $(this).data('id');
+     var name_id = '#name'+id;
+     var email_id = '#email'+id;
+     var phone_id = '#phone'+id;
+
+     if ($(name_id).val()){
+      $('#tname').text($(name_id).val());
+     } else {
+      $('#tname').text('N/A');
+     }
+     //This field was required therefore there is no need to check for it.
+     $('#temail').text($(email_id).val());
+
+     if ($(phone_id).val()){
+      $('#tnumber').text($(phone_id).val());
+     } else {
+      $('#tnumber').text('N/A');
+     }
+
+   });
+  });
