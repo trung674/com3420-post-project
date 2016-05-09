@@ -128,14 +128,16 @@ describe 'Mod' do
   end
 
   specify 'I can see how many unique views an event has' do
-   testevent = FactoryGirl.create(:event)
    mod = FactoryGirl.create(:mod)
-   visit '/events'
-   click_link 'Test Event'
-   expect(page).to have_no_content 'unique views' #First view, hidden from user
    login_as(mod, :scope => :mod)
+   visit '/modpanel'
+   click_link 'Create Event'
+   fill_in 'event_title', with: 'Test Event'
+   click_button 'Create Event'
+   expect(page).to have_content '1 unique views of this event' #Mod already does one view
+   logout(:mod)
    visit '/events'
    click_link 'Test Event'
-   expect(page).to have_content '2 unique views of this event' #Mod view
+   expect(page).to have_no_content 'unique views' #hidden from user
   end
 end

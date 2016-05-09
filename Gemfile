@@ -31,6 +31,7 @@ gem 'ransack'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+#Authorisation and Authentication
 gem 'devise', '>= 3.5.2'
 gem 'devise_ldap_authenticatable', '>= 0.8.5'
 gem 'devise_cas_authenticatable', '>= 1.5.0'

@@ -52,6 +52,7 @@ gem 'impressionist'
 # Uploading
 gem 'carrierwave'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'bootstrap-datepicker-rails'
 
 # Transcribing
 gem 'rest-client', require: false
@@ -101,9 +102,10 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'rspec-instafail', require: false
+  gem 'rack-test'
+
   platforms :mswin, :mingw, :x64_mingw do
     # patched release to fix issues with project path names on Win32
     gem 'cliver', github: 'yaauie/cliver', ref: '5617ce'
@@ -113,4 +115,5 @@ group :test do
   gem 'launchy'
   gem 'simplecov'
   gem 'faker'
+  gem 'webmock'
 end
