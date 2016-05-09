@@ -160,7 +160,7 @@ class MediaController < ApplicationController
       end
     end
 
-    redirect_to medium_url
+    redirect_to '/modpanel'
   end
 
   private
