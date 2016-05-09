@@ -22,13 +22,21 @@
 #
 
 class Medium < ActiveRecord::Base
+  # Mediums have a contributor and one or more records
   belongs_to :contributor, autosave: true
   has_many :records, dependent: :destroy, autosave: true
+
+  # Links between media
   has_many :links, class_name: 'Link', foreign_key: 'med_one'
 
   attr_accessor :type, :text
+
+  # Accepted nesting means we can just have a single form for uploads
+  # instead of three seperate
   accepts_nested_attributes_for :records
   accepts_nested_attributes_for :contributor
+
+  # Carrierwave uploader
   mount_uploader :upload, MediumUploader
 
   validates :upload, presence: true
@@ -62,23 +70,31 @@ class Medium < ActiveRecord::Base
   end
 
   def get_relevant_media
+    # Get the ids of the linked media, filter out images
     media = Medium.where(id: self.links.collect{|item| item.med_two}).where.not(type: 'Image')
+
+    # Currently filter out media with no approved records, but this might better somewhere else
     media.select{|medium| not medium.latest_approved_record.nil?}
   end
 
   def get_relevant_images
+    # Get the ids of the linked media, filter out non-images
     media = Medium.where(id: self.links.collect{|item| item.med_two}, type: 'Image')
     media.select{|medium| not medium.latest_approved_record.nil?}
   end
 
   def get_addable_links
+    # Addable links are media that aren't images, not already linked and also have an approved record
     Medium.where.not(id: [self.id, self.get_relevant_media].flatten, type: 'Image').select{|item| not item.latest_approved_record.nil?}
   end
 
   def get_addable_images
+    # Addable image are those not already linked and also have an approved record
     Medium.where.not(id: [self.id, self.get_relevant_images].flatten).where(type: 'Image').select{|item| not item.latest_approved_record.nil?}
   end
 
+  # These are the accepted mime types for each of the subclasses
+  # This is just for the form, as we validate in the uploader
   def accepted_mimes
     case self.type
       when'Recording'
@@ -86,7 +102,7 @@ class Medium < ActiveRecord::Base
       when 'Document'
         '.pdf'
       when 'Image'
-        '.jpeg,.jpg,.gif,.tff,.bmp,.png'
+        '.jpeg,.jpg,.gif,.bmp,.png'
       else
         ''
     end

@@ -21,7 +21,10 @@
 #  index_media_on_contributor_id  (contributor_id)
 #
 
+# Subclass of medium for recordings
 class Recording < Medium
+  # For a recording, we need to use a different uploader as it has to be transcribed
+  # The returned transcript gets uploaded as well using the normal uploader
   mount_uploader :upload, RecordingUploader
   mount_uploader :transcript, MediumUploader
 end

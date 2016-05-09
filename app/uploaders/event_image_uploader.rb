@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class EventImageUploader < CarrierWave::Uploader::Base
+  after :store, :delete_tmp_dir
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -23,6 +24,14 @@ class EventImageUploader < CarrierWave::Uploader::Base
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
     ActionController::Base.helpers.asset_path("image_not_available.jpg")
+  end
+
+  # Remove tmp upload folders
+  def delete_tmp_dir(new_file)
+    # make sure we don't delete other things accidentally by checking the name pattern
+    if @cache_id_was.present? && @cache_id_was =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
+      FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
+    end
   end
   # Process files as they are uploaded:
   # process :scale => [200, 300]

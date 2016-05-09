@@ -21,5 +21,6 @@
 #  index_media_on_contributor_id  (contributor_id)
 #
 
+# Subclass of medium for documents
 class Document < Medium
 end

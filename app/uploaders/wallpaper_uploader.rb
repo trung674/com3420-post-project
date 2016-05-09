@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class WallpaperUploader < CarrierWave::Uploader::Base
+  after :store, :delete_tmp_dir
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -15,6 +16,14 @@ class WallpaperUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}"
+  end
+
+  # Remove tmp upload folders
+  def delete_tmp_dir(new_file)
+    # make sure we don't delete other things accidentally by checking the name pattern
+    if @cache_id_was.present? && @cache_id_was =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
+      FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
