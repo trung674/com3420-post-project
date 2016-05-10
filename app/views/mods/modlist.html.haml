@@ -16,7 +16,7 @@
         %tr
           %td= mod.email
           %td= mod.created_at.to_s(:long)
-          %td= mod.last_sign_in_at.to_s(:long)
+          %td= mod.last_sign_in_at.to_s(:long) unless mod.last_sign_in_at.nil?
           - if mod.isActive
             %td Yes
           - else

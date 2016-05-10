@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :authenticate_mod!, only: [:edit]
+  before_action :authenticate_mod!, only: [:edit, :update]
 
   def new
     @contact = Contact.new
@@ -35,7 +35,7 @@ class ContactsController < ApplicationController
   end
 
   def update
-    # bad noob codes but at least it works :(
+    # Update the contact page information
     @editable_contents = EditableContent.find(2,3,4)
     @editable_contents[0].content = params[:editable_content][:contact_address]
     @editable_contents[1].content = params[:editable_content][:contact_phone]
