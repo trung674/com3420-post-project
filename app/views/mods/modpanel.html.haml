@@ -3,9 +3,12 @@
 
 .panel-container
   .row
-    .col-md-9.col-sm-12
-      %h2 Welcome #{current_mod.email}
-    .col-md-3.pull-right.col-sm-12
+    .col-md-12.col-sm-12
+      %h2.page-header
+        Moderator Panel
+        %small
+          (currently logged in as #{current_mod.email})
+    .col-md-3.pull-right.col-sm-12.quick-links
       %h4 Quick Links
       %table.table
         - if current_mod.isAdmin
@@ -30,10 +33,10 @@
             %a{:href => contacts_edit_path} Edit Contact Details
 
     .col-md-9.col-sm-12
-      %h3 Edits Waiting Approval
+      %h3 Edits Awaiting Approval
       %table.table.table-bordered
         %tr
-          %th Record Name
+          %th Title
           %th Date Edited
           %th Contact
         - @approveRec.each do |edit|
@@ -49,7 +52,7 @@
               -if Medium.where(:id=>edit.medium_id).first.latest_approved_record.nil?
                 %button.btn.btn-primary.mod_thingy{'data-id'=>"#{cont.id}", "data-target" => "#contact", "data-toggle" => "modal", :type => "button"} Contact
               -else
-                This is just an Edit
+                N/A (This is just an edit)
 / Modal
 #contact.modal.fade{:role => "dialog"}
   .modal-dialog

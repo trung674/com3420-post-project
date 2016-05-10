@@ -2,26 +2,26 @@
 
 .row
   .col-md-12
-    %h2.page-header List of all current Moderators
+    %h2.page-header Moderators List
 
-  .col-md-6#contact-form
+  .col-md-12#contact-form
     %table.table.table-bordered
       %tr
         %th Email
         %th Account Created
         %th Last Logged in
-        %th Is Active
-        %th Is an Admin
+        %th Active
+        %th Admin
       - @mods.each do |mod|
         %tr
           %td= mod.email
-          %td= mod.created_at.to_s[0, mod.created_at.to_s.index('+')]
-          %td= mod.last_sign_in_at.to_s[0, mod.created_at.to_s.index('+')]
-          - if (mod.isActive)==true
+          %td= mod.created_at.to_s(:long)
+          %td= mod.last_sign_in_at.to_s(:long)
+          - if mod.isActive
             %td Yes
           - else
             %td No
-          - if (mod.isAdmin)==true
+          - if mod.isAdmin
             %td Yes
           - else
             %td No
