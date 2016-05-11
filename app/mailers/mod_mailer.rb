@@ -7,12 +7,12 @@ class ModMailer < ApplicationMailer
   #
   def contact_form(contact_params)
     @greeting = "This message is to inform you that someone has written to you via Village Memories"
-       
+
     @name = contact_params[:name]
     @email = contact_params[:email]
     @message = contact_params[:message]
 
-    mail to: "asacook1@sheffield.ac.uk"
+    mail to: "villagememoriesbcm2015@gmail.com"
 
   end
 
@@ -25,6 +25,6 @@ class ModMailer < ApplicationMailer
     @url = "media/#{report_params[:id]}"
     @title = report_params[:title]
 
-    mail to: "hhowarth1@sheffield.ac.uk"
+    mail to: "villagememoriesbcm2015@gmail.com"
   end
 end

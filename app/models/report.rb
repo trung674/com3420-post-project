@@ -10,7 +10,7 @@ class Report < MailForm::Base
   def headers
     {
         :subject => "Reported Content",
-        :to => "hhowarth1@sheffield.ac.uk",
+        :to => "villagememoriesbcm2015@gmail.com",
         :from => %("#{name}" <#{email}>)
     }
   end

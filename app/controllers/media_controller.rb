@@ -56,9 +56,9 @@ class MediaController < ApplicationController
       f.close
       f.unlink
     end
-      
+
     @medium.records.first.medium = @medium
-    
+
     if verify_recaptcha(model: @medium) && @medium.save
       #Mod submissions are auto-approved
       if mod_signed_in?

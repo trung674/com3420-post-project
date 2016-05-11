@@ -29,5 +29,5 @@ Sample data ! Change me please"
 )
 # Data for mod
 Mod.where(email:
- 'asacook1@sheffield.ac.uk').first_or_create(password:
+ 'panktr@panktr.plus.com').first_or_create(password:
  'password123', password_confirmation: 'password123', isActive: true, isAdmin: true)
