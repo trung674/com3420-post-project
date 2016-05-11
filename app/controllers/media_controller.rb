@@ -26,6 +26,8 @@ require 'mediaelement_rails'
 
 class MediaController < ApplicationController
 
+  before_action :authenticate_mod!, only: [:approve]
+
   def new
     @medium = Medium.new
     @medium.records.build
@@ -143,21 +145,19 @@ class MediaController < ApplicationController
   end
 
   def approve
-    if mod_signed_in?
-      record = Record.where(:id => params[:record_id]).first
+    record = Record.where(:id => params[:record_id]).first
 
-      if params[:approve] && record
-        record.approved = true
+    if params[:approve] && record
+      record.approved = true
 
-        if record.save
-          redirect_to medium_url, record_id: record.id
-          return
-        end
+      if record.save
+        redirect_to medium_url, record_id: record.id
+        return
       end
+    end
 
-      if params[:remove]
-        record.destroy
-      end
+    if params[:remove]
+      record.destroy
     end
 
     redirect_to '/modpanel'

@@ -22,9 +22,9 @@
               = image_tag(event.image.url, size: "75x75", class: "img-thumbnail", alt: "#{event.image.file.identifier unless event.image.file.nil?}")
             %td{:width => "35%"}
               %h4= link_to event.title, :controller => "events", :action => "show", :id => event.id
-            %td{:width => "35%"}
+            %td{:width => "30%"}
               %h4= event.location
-            %td{:width => "15%"}
+            %td{:width => "20%"}
               %h4= event.date.to_formatted_s(:long)
     - else
       %h3.text-center There are no upcoming events at the moment
