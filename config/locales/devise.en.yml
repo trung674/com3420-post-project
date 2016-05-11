@@ -16,6 +16,7 @@ en:
       timeout: "Your session expired. Please sign in again to continue."
       unauthenticated: "Please sign in."
       unconfirmed: "You have to confirm your email address before continuing."
+      not_approved: "Your account is not yet approved. Please contact the administrator."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
