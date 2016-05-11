@@ -81,7 +81,7 @@
               %td
                 = Medium.where(:id => item.medium_id).first.class.name
       - else
-            .panel-body
-              %p There are currently no uploads
+        .panel-body
+          %p There are currently no uploads
   .col-md-6
     = render 'events/list', :events => @events
