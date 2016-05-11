@@ -68,18 +68,20 @@
           -result = Medium.where(:id=>id).first.latest_approved_record
           -if result
             -results.append(result)
-        -
-      %table.table.table-bordered
-        %tr
-          %th Title
-          %th Type
-        -results.each do |item|
+      - if results.length > 0
+        %table.table.table-bordered
           %tr
-            %td
-              %a{:href => "media/#{raw(item[:medium_id])}"}
-                =item.title
-            %td
-              = Medium.where(:id => item.medium_id).first.class.name
+            %th Title
+            %th Type
+          -results.each do |item|
+            %tr
+              %td
+                %a{:href => "media/#{raw(item[:medium_id])}"}
+                  =item.title
+              %td
+                = Medium.where(:id => item.medium_id).first.class.name
+      - else
+        There are no upload
   // Recent Events
   .col-md-6
     = render 'events/list', :events => @events
