@@ -6,18 +6,12 @@ describe 'Search' do
     expect(page).to have_css('.table-bordered')
   end
 
-  specify 'can see all results if you have no params' do
-    document = FactoryGirl.build(:document, :with_approved_record)
+  specify 'can see a result' do
+    document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    visit new_document_path
-    fill_in 'Title', with: record.title
-    attach_file('File', File.absolute_path(document.upload.path))
-    fill_in 'Description', with: record.description
-    fill_in 'Email', with: document.contributor.email
-    check 'medium_copyright'
-    submit_form
-    # record = document.records.first
     visit search_path
+    puts search_path
+    puts record.title
     expect(page).to have_text(record.title)
   end
 
