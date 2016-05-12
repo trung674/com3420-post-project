@@ -25,12 +25,12 @@
 #
 
 class ModsController < ApplicationController
-  
+
   before_action :authenticate_mod!, only: [:modpanel, :modlist, :update, :modedit]
-  
+
   #Instantiate authorisation with CanCanCan
   load_and_authorize_resource
-  
+
   def modpanel
     @approveRec = Record.where(approved: false)
   end
@@ -38,22 +38,22 @@ class ModsController < ApplicationController
   def modlist
     @mods = Mod.all
   end
-  
+
   def modedit
     @alteredMod = Mod.new
   end
-  
+
   def update
     if Mod.exists?(:email => mod_params[:email])
-      @alteredMod = Mod.find_by(email: mod_params[:email])    
+      @alteredMod = Mod.find_by(email: mod_params[:email])
       @updateMsg = String.new
- 
+
       if (@alteredMod.isActive != true) && (@alteredMod.isAdmin != true)
         #If mod inactive and not an admin
         #Set mod to active
         @alteredMod.isActive = true
         @updateMsg = "Moderator successfully activated"
-    
+
       elsif (@alteredMod.isActive == true) && (@alteredMod.isAdmin != true)
         #If the mod is active and not an admin
         @alteredMod.isActive = false
@@ -83,5 +83,5 @@ class ModsController < ApplicationController
     #Paramter whitelist
     def mod_params
       params.require(:mod).permit(:email)
-    end  
+    end
 end

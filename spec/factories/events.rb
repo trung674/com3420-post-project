@@ -15,8 +15,8 @@
 
 FactoryGirl.define do
   factory :event do
-    title "Test Event"
-    description "Description"
-    date "2016-04-03"
+    title Faker::Book.title
+    description Faker::Lorem.paragraph
+    date Date.today
   end
 end

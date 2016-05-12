@@ -8,11 +8,11 @@ Warden.test_mode!
 describe 'Event' do
   include CarrierWave::Test::Matchers
 
-  specify 'User can see list of all evenr in database' do
-    event1 = FactoryGirl.create(:event, title: 'Event 1')
-    event2 = FactoryGirl.create(:event, title: 'Event 2')
+  specify 'User can see list of all events in database' do
+    event1 = FactoryGirl.create(:event)
+    event2 = FactoryGirl.create(:event)
     visit events_path
-    expect(page).to have_selector('tr', count: 3)
+    expect(page).to satisfy {|page| page.has_content?(event1.title) and page.has_content?(event2.title)}
   end
 
   specify 'If there is no event in database, show user a warning' do
@@ -21,9 +21,9 @@ describe 'Event' do
   end
 
   specify 'User can see detail information of an event' do
-    event1 = FactoryGirl.create(:event, title: 'Event 1', description: 'test event')
+    event = FactoryGirl.create(:event)
     visit '/events/1'
-    expect(page).to satisfy {|page| page.has_content?('Event 1') and page.has_content?('test event')}
+    expect(page).to satisfy {|page| page.has_content?(event.title) and page.has_content?(event.description)}
   end
 
   specify 'Mod can create a new event' do
@@ -43,17 +43,17 @@ describe 'Event' do
   end
 
   specify 'Mod can edit information of an event' do
-    event1 = FactoryGirl.create(:event, title: 'Event 1')
+    event = FactoryGirl.create(:event)
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
     visit '/events/1/edit'
-    fill_in 'Title', with: 'Event 2'
+    fill_in 'Title', with: 'Event 1'
     submit_form
-    expect(page).to have_content 'Event 2'
+    expect(page).to have_content 'Event 1'
   end
 
   specify 'Mod can delete an event' do
-    event1 = FactoryGirl.create(:event, title: 'Event 1')
+    event = FactoryGirl.create(:event)
     mod = FactoryGirl.create(:mod)
     login_as(mod, :scope => :mod)
     visit '/events/1'
@@ -67,7 +67,7 @@ describe 'Event' do
   end
 
   specify 'Non-mod user can not edit an event' do
-    event1 = FactoryGirl.create(:event, title: 'Event 1')
+    event1 = FactoryGirl.create(:event)
     visit '/events/1/edit'
     expect(page).to have_content 'Log in'
   end
