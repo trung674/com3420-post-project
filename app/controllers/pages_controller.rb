@@ -120,7 +120,7 @@ class PagesController < ApplicationController
     # get those records that are similar to the search string.
     ids.each do |id|
       record = (Record.where('(location LIKE ? OR description LIKE ? OR title LIKE ?)',
-                              "%#{(@search[0]).downcase}%", "%#{(@search[0]).downcase}%", "%#{(@search[0]).downcase}%"))
+                              "%#{(@search[0])}%", "%#{(@search[0])}%", "%#{(@search[0])}%"))
                     .where(:approved=>true, :medium_id=>id).order(:created_at)
       if record[-1]
         records.append(record[-1])
