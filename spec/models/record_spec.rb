@@ -58,4 +58,23 @@ RSpec.describe Record, type: :model do
     expect(record).to be_valid
   end
 
+  it 'is valid without a date' do
+    record = FactoryGirl.create(:record, :with_medium, ref_date: nil)
+    expect(record).to be_valid
+  end
+
+  it 'is valid without a location' do
+    record = FactoryGirl.create(:record, :with_medium, location: nil)
+    expect(record).to be_valid
+  end
+
+  it 'is valid without a longitude' do
+    record = FactoryGirl.create(:record, :with_medium, location: nil)
+    expect(record).to be_valid
+  end
+
+  it 'is valid without a latitude' do
+    record = FactoryGirl.create(:record, :with_medium, location: nil)
+    expect(record).to be_valid
+  end
 end

@@ -108,7 +108,7 @@ describe 'Medium' do
     expect(page).not_to have_content(document.records.first.title)
   end
 
-  specify 'A moderator can see an upload with no approved records' do
+  specify 'A moderator can see an upload without an approved record' do
     document = FactoryGirl.create(:document, :with_record)
     mod = FactoryGirl.create(:mod)
 
@@ -163,26 +163,6 @@ describe 'Medium' do
 
     expect(page).to have_content(record1.title)
     expect(page).not_to have_content(record2.title)
-  end
-
-  specify 'A moderator can view an unapproved record for a medium' do
-    document = FactoryGirl.create(:document, :with_approved_record)
-    record1 = document.records.first
-    record2 = FactoryGirl.create(:record, title: 'Different', medium: document)
-    mod = FactoryGirl.create(:mod)
-
-    login_as(mod, :scope => :mod)
-    visit medium_path(id: document.id)
-
-    expect(page).to have_content(record1.title)
-
-    within '#record_id' do
-      find("option[value='#{record2.id}']").select_option
-    end
-    click_button 'view_edit'
-
-    expect(page).to have_content(record2.title)
-    expect(page).not_to have_content(record1.title)
   end
 
   specify 'A user can edit a record for a medium' do

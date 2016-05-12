@@ -64,14 +64,14 @@ RSpec.describe Medium, type: :model do
     expect(text).to be_valid
   end
 
-  it 'Image upload is invalid with incorrect file type' do
+  it 'Upload is invalid with incorrect file type' do
     image = FactoryGirl.build(:image, :with_record, upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/uploads/sample.wav'))))
     image.valid?
     expect(image.errors[:upload]).to include("can't be blank")
   end
 
   it 'returns no approved records when there are none' do
-    document = FactoryGirl.create(:document, :with_record)
+    document = FactoryGirlNe.create(:document, :with_record)
     expect(document.approved_records.length).to eq(0)
   end
 
