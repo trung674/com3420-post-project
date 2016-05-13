@@ -80,19 +80,6 @@ describe 'Mod' do
     expect(page).to have_no_content 'Approved'
   end
 
-  specify 'I can view the contact information of a contributor for a medium' do
-    text = FactoryGirl.create(:text, :with_record)
-    mod = FactoryGirl.create(:activeMod)
-    login_as(mod, scope: :mod)
-    visit '/modpanel'
-    click_button 'Contact'
-
-    # TODO: this test is javascript based so no clue how were gonna test this
-    within('#contact') do
-      expect(page).to have_content(text.contributor.email)
-    end
-  end
-
   specify 'I can edit the contact details' do
     mod = FactoryGirl.create(:activeMod)
     visit '/contacts'
