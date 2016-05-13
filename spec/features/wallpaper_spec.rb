@@ -10,7 +10,7 @@ describe 'Wallpaper' do
 
   specify 'Mod can see list of all existing wallpapers' do
     wallpaper = FactoryGirl.create(:wallpaper)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     expect(page).to have_css('div.thumbnail', :minimum => 1)
@@ -18,7 +18,7 @@ describe 'Wallpaper' do
 
   specify 'Mod can edit desicription of a wallpaper' do
     wallpaper = FactoryGirl.create(:wallpaper)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     click_on 'Edit'
@@ -29,7 +29,7 @@ describe 'Wallpaper' do
 
   specify 'Mod can delete a wallpaper' do
     wallpaper = FactoryGirl.create(:wallpaper)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     click_on 'Delete'
@@ -37,14 +37,14 @@ describe 'Wallpaper' do
   end
 
   specify 'If there are no wallpapers, show warning to mod' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     expect(page).to have_content 'There are no wallpapers, please use form above to upload a new wallpaper'
   end
 
   specify 'Submit form without an attached wallpaper file will return error' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     fill_in 'Description', with: 'Wallpaper 1'
@@ -53,11 +53,10 @@ describe 'Wallpaper' do
   end
 
   specify 'Non-mod user can not access wallpaper management page' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     expect(page).to have_content 'Upload New Wallpaper'
   end
-
 
 end

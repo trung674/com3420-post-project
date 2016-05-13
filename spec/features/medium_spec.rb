@@ -110,7 +110,7 @@ describe 'Medium' do
 
   specify 'A moderator can see an upload without an approved record' do
     document = FactoryGirl.create(:document, :with_record)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
 
     login_as(mod, :scope => :mod)
     visit medium_path(id: document.id)
@@ -140,7 +140,7 @@ describe 'Medium' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record2 = FactoryGirl.create(:record, medium: document, approved: true)
     record3 = FactoryGirl.create(:record, medium: document)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
 
     login_as(mod, :scope => :mod)
     visit medium_path(id: document.id)
