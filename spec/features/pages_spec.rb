@@ -137,6 +137,13 @@ describe 'Report' do
     expect(page).to have_text('Report a problem for')
   end
 
+  specify 'report page has recaptcha' do
+    img = FactoryGirl.create(:image, :with_approved_record)
+    visit URI.parse(URI.encode("media/#{img.id}"))
+    find('input[value="Report"]').click
+    expect(page).to have_css('.g-recaptcha')
+  end
+
   specify 'cant report an unapproved upload' do
     img = FactoryGirl.create(:image, :with_record)
     visit URI.parse(URI.encode("media/#{img.id}"))
