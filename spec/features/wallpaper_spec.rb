@@ -4,8 +4,10 @@ require 'spec_helper'
 describe 'Wallpaper' do
 
   specify 'Mod can access wallpaper management page' do
+    mod = FactoryGirl.create(:mod)
+    login_as(mod, :scope => :mod)
     visit '/wallpapers'
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Upload New Wallpaper'
   end
 
   specify 'Mod can see list of all existing wallpapers' do
@@ -53,10 +55,8 @@ describe 'Wallpaper' do
   end
 
   specify 'Non-mod user can not access wallpaper management page' do
-    mod = FactoryGirl.create(:mod)
-    login_as(mod, :scope => :mod)
     visit '/wallpapers'
-    expect(page).to have_content 'Upload New Wallpaper'
+    expect(page).to have_content 'Log in'
   end
 
 
