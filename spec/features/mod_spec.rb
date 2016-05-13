@@ -111,17 +111,6 @@ describe 'Mod' do
     expect(page).to have_content 'Monday to Friday 18:00 - 18:30'
   end
 
-  specify 'I can upload new wallpaper' do
-    mod = FactoryGirl.create(:activeMod)
-    login_as(mod, :scope => :mod)
-    visit '/wallpapers'
-    fill_in 'wallpaper_description', with: 'Test wallpaper'
-    attach_file('wallpaper_image', File.absolute_path('./spec/fixtures/uploads/Wallpaper.jpg'))
-    click_button 'Create Wallpaper'
-    expect(page).to have_content 'Wallpaper was successfully created'
-    expect(page).to have_content 'Test wallpaper'
-  end
-
   specify 'I can see how many unique views an event has' do
    mod = FactoryGirl.create(:activeMod)
    login_as(mod, :scope => :mod)
