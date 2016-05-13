@@ -25,8 +25,8 @@
 #
 
 FactoryGirl.define do
-  factory :mod do
-    email 'testuser@villagememories.com'
+  factory :admin, :class => "mod" do
+    email { Faker::Internet.email }
     password 'villagemems'
     password_confirmation 'villagemems'
     isActive true
@@ -34,7 +34,7 @@ FactoryGirl.define do
   end
 
   factory :inactiveMod, :class => "mod" do
-    email 'inactivemod@villagememories.com'
+    email { Faker::Internet.email }
     password 'villagemems'
     password_confirmation 'villagemems'
     isActive false
@@ -42,12 +42,11 @@ FactoryGirl.define do
   end
 
   factory :activeMod, :class => "mod" do
-    email 'activemod@villagememories.com'
+    email { Faker::Internet.email }
     password 'villagemems'
     password_confirmation 'villagemems'
     isActive true
     isAdmin false
-
   end
 
 end

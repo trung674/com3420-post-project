@@ -13,6 +13,6 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
   factory :wallpaper do
     image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'uploads', 'Wallpaper.jpg'), 'image/jpg') }
-    description 'Test Wallpaper'
+    description Faker::Lorem.sentence
   end
 end
