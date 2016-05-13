@@ -95,10 +95,36 @@ describe 'Contact' do
 end
 
 describe 'Home' do
+
   specify 'homepage has a picture displayed' do
     FactoryGirl.create(:wallpaper)
     visit root_path
     expect(page).to have_css('.carousel-inner')
   end
 
+  specify 'homepage has welcome message displayed' do
+    visit root_path
+    expect(page).to have_text('Welcome To Village Memories Group Website')
+  end
+
+  specify 'homepage displays recently approved uploads' do
+    upload = FactoryGirl.create(:image, :with_approved_record)
+    visit root_path
+    expect(page).to have_text(upload.records.first.title)
+  end
+
+  specify 'homepage displays upcoming events' do
+    event = FactoryGirl.create(:event)
+    visit root_path
+    expect(page).to have_text(event.title)
+  end
+
+end
+
+describe 'About' do
+  specify 'about message is present' do
+    visit about_path
+    expect(page).to have_css('.mercury-region#about_content')
+    expect(page).to have_text('About Us')
+  end
 end
