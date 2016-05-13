@@ -7,20 +7,15 @@ Warden.test_mode!
 
 describe 'Mod' do
 
-  specify 'I can log in' do
-    #TODO
-  end
-
   specify 'I can view moderators' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:admin)
     login_as(mod, :scope => :mod)
     visit '/modlist'
-    expect(page).to have_content 'List of all current Moderators'
-    within(:css, 'table.table.table-bordered') { expect(page).to have_content 'testuser@villagememories.com' }
+    within(:css, 'table.table.table-bordered') { expect(page).to have_content mod.email }
   end
 
   specify 'I can activate moderator account' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:admin)
     inactive = FactoryGirl.create(:inactiveMod)
     login_as(mod, :scope => :mod)
     visit '/modedit'
@@ -28,11 +23,11 @@ describe 'Mod' do
     click_button 'Update'
     expect(page).to have_content 'Moderator successfully activated'
     visit '/modlist'
-    find('tr', text: 'inactivemod@villagememories.com').should have_content('Yes')
+    find('tr', text: inactive.email).should have_content('Yes')
   end
 
   specify 'I can deactivate moderator account' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:admin)
     active = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/modedit'
@@ -40,23 +35,23 @@ describe 'Mod' do
     click_button 'Update'
     expect(page).to have_content 'Moderator successfully deactivated'
     visit '/modlist'
-    find('tr', text: 'activemod@villagememories.com').should have_no_content('Yes')
+    find('tr', text: active.email).should have_no_content('Yes')
   end
 
   specify 'I cannot deactivate an admin' do
-    mod = FactoryGirl.create(:mod)
-    active = FactoryGirl.create(:activeMod)
+    mod = FactoryGirl.create(:admin)
+    active = FactoryGirl.create(:admin)
     login_as(active, :scope => :mod)
     visit '/modedit'
     fill_in 'mod_email', with: mod.email
     click_button 'Update'
     expect(page).to have_content 'Site administrators cannot be deactivated.'
     visit '/modlist'
-    find('tr', text: 'testuser@villagememories.com').should have_no_content('No')
+    find('tr', text: mod.email).should have_no_content('No')
   end
 
   specify 'I cannot enter a non-existent moderator' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:admin)
     login_as(mod, :scope => :mod)
     visit '/modedit'
     fill_in 'mod_email', with: 'nonexistentuser@gmail.com'
@@ -67,7 +62,7 @@ describe 'Mod' do
   specify 'I can approve edits' do
     #Since approving records is not dependent on the media, I'm uploading a text file
     text = FactoryGirl.create(:text, :with_record)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit medium_path(id: text.id)
     expect(page).to have_content 'Unapproved'
@@ -77,7 +72,7 @@ describe 'Mod' do
 
   specify 'I can reject edits' do
     text = FactoryGirl.create(:text, :with_record)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit medium_path(id: text.id)
     expect(page).to have_content 'Unapproved'
@@ -87,7 +82,7 @@ describe 'Mod' do
 
   specify 'I can view the contact information of a contributor for a medium' do
     text = FactoryGirl.create(:text, :with_record)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, scope: :mod)
     visit '/modpanel'
     click_button 'Contact'
@@ -99,7 +94,7 @@ describe 'Mod' do
   end
 
   specify 'I can edit the contact details' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     visit '/contacts'
     expect(page).to have_content '23 Edward Street, Sheffield, UK, S3 7SF'
     expect(page).to have_content '(+44) 111111111111'
@@ -117,7 +112,7 @@ describe 'Mod' do
   end
 
   specify 'I can upload new wallpaper' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/wallpapers'
     fill_in 'wallpaper_description', with: 'Test wallpaper'
@@ -128,7 +123,7 @@ describe 'Mod' do
   end
 
   specify 'I can see how many unique views an event has' do
-   mod = FactoryGirl.create(:mod)
+   mod = FactoryGirl.create(:activeMod)
    login_as(mod, :scope => :mod)
    visit '/modpanel'
    click_link 'Create Event'

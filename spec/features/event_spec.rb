@@ -27,7 +27,7 @@ describe 'Event' do
   end
 
   specify 'Mod can create a new event' do
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/events/new'
     fill_in 'Title', with: 'Event 1'
@@ -44,7 +44,7 @@ describe 'Event' do
 
   specify 'Mod can edit information of an event' do
     event = FactoryGirl.create(:event)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/events/1/edit'
     fill_in 'Title', with: 'Event 1'
@@ -54,7 +54,7 @@ describe 'Event' do
 
   specify 'Mod can delete an event' do
     event = FactoryGirl.create(:event)
-    mod = FactoryGirl.create(:mod)
+    mod = FactoryGirl.create(:activeMod)
     login_as(mod, :scope => :mod)
     visit '/events/1'
     click_on 'Delete'

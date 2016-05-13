@@ -71,7 +71,7 @@ RSpec.describe Medium, type: :model do
   end
 
   it 'returns no approved records when there are none' do
-    document = FactoryGirlNe.create(:document, :with_record)
+    document = FactoryGirl.create(:document, :with_record)
     expect(document.approved_records.length).to eq(0)
   end
 

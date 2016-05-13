@@ -1,5 +1,6 @@
 class RecordingUploader < MediumUploader
   after :store, :process_audio
+  before :store, :remember_cache_id
   after :store, :delete_tmp_dir
 
   def process_audio(new_file)
