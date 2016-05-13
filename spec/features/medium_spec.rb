@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Medium' do
 
   specify 'A user can upload a document' do
-    document = FactoryGirl.build(:document, :with_approved_record)
+    document = FactoryGirl.build(:document, :with_record)
     record = document.records.first
     visit new_document_path
     fill_in 'Title', with: record.title
