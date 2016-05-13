@@ -18,6 +18,17 @@ describe 'Wallpaper' do
     expect(page).to have_css('div.thumbnail', :minimum => 1)
   end
 
+  specify 'Mod can upload new wallpaper' do
+    mod = FactoryGirl.create(:activeMod)
+    login_as(mod, :scope => :mod)
+    visit '/wallpapers'
+    fill_in 'wallpaper_description', with: 'Test wallpaper'
+    attach_file('wallpaper_image', File.absolute_path('./spec/fixtures/uploads/Wallpaper.jpg'))
+    click_button 'Create Wallpaper'
+    expect(page).to have_content 'Wallpaper was successfully created'
+    expect(page).to have_content 'Test wallpaper'
+  end
+
   specify 'Mod can edit desicription of a wallpaper' do
     wallpaper = FactoryGirl.create(:wallpaper)
     mod = FactoryGirl.create(:activeMod)

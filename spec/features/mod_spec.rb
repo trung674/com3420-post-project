@@ -80,19 +80,6 @@ describe 'Mod' do
     expect(page).to have_no_content 'Approved'
   end
 
-  specify 'I can view the contact information of a contributor for a medium' do
-    text = FactoryGirl.create(:text, :with_record)
-    mod = FactoryGirl.create(:activeMod)
-    login_as(mod, scope: :mod)
-    visit '/modpanel'
-    click_button 'Contact'
-
-    # TODO: this test is javascript based so no clue how were gonna test this
-    within('#contact') do
-      expect(page).to have_content(text.contributor.email)
-    end
-  end
-
   specify 'I can edit the contact details' do
     mod = FactoryGirl.create(:activeMod)
     visit '/contacts'
@@ -109,17 +96,6 @@ describe 'Mod' do
     expect(page).to have_content '742 Evergreen Terrace, Springfield, USA'
     expect(page).to have_content '555-6832'
     expect(page).to have_content 'Monday to Friday 18:00 - 18:30'
-  end
-
-  specify 'I can upload new wallpaper' do
-    mod = FactoryGirl.create(:activeMod)
-    login_as(mod, :scope => :mod)
-    visit '/wallpapers'
-    fill_in 'wallpaper_description', with: 'Test wallpaper'
-    attach_file('wallpaper_image', File.absolute_path('./spec/fixtures/uploads/Wallpaper.jpg'))
-    click_button 'Create Wallpaper'
-    expect(page).to have_content 'Wallpaper was successfully created'
-    expect(page).to have_content 'Test wallpaper'
   end
 
   specify 'I can see how many unique views an event has' do
