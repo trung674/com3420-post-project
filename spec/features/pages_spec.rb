@@ -122,7 +122,7 @@ describe 'Home' do
 end
 
 describe 'About' do
-  specify 'about message is present' do
+  specify 'about page has mercury css and about us message' do
     visit about_path
     expect(page).to have_css('.mercury-region#about_content')
     expect(page).to have_text('About Us')
