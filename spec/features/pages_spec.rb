@@ -128,3 +128,19 @@ describe 'About' do
     expect(page).to have_text('About Us')
   end
 end
+
+describe 'Report' do
+  specify 'can report an upload' do
+    img = FactoryGirl.create(:image, :with_approved_record)
+    visit URI.parse(URI.encode("media/#{img.id}"))
+    find('input[value="Report"]').click
+    expect(page).to have_text('Report a problem for')
+  end
+
+  specify 'cant report an unapproved upload' do
+    img = FactoryGirl.create(:image, :with_record)
+    visit URI.parse(URI.encode("media/#{img.id}"))
+    expect(page).to_not have_css('input[value="Report"]')
+  #   not logged in so can't get to the page that has the report button
+  end
+end
