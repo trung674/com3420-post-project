@@ -6,7 +6,7 @@ describe 'Search' do
     expect(page).to have_css('.table-bordered')
   end
 
-  specify 'can see a result' do
+  specify 'can see all results' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
     visit search_path
@@ -18,15 +18,14 @@ describe 'Search' do
     expect(page).to have_text('Showing Documents, Recordings, Images, Texts for: "".')
   end
 
-  specify 'with params shows search string' do
-    visit URI.parse(URI.encode('search?utf8=✓&search=string&commit=Search'))
-    expect(page).to have_text('Showing Documents, Recordings, Images, Texts for: "string".')
-  end
-
-  specify 'string match and type match gives a result' do
+  specify 'partial title match returns a result' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    visit URI.parse(URI.encode("search?utf8=✓&search=#{record.title}&commit=Search&items%5B%5D=Document"))
+    # this is because the get redirects to the home page,
+    # home page wouldnt work
+    visit '/report'
+    find('.form-control').set((record.title)[2,3])
+    click_button 'Search'
     expect(page).to have_text(record.title)
   end
 
@@ -34,9 +33,43 @@ describe 'Search' do
     document = FactoryGirl.create(:document, :with_record)
     record = document.records.first
     visit search_path
-    expect(page).to have_no_content(record.title)
+    expect(page).to_not have_text(record.title)
   end
 
+  specify 'searching for a document returns a document' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record = document.records.first
+    visit '/report'
+    find("#items_[value='Document']").set(true)
+    click_button 'Search'
+    expect(page).to have_text(record.title)
+  end
+
+  specify 'search for image doesnt return document' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record = document.records.first
+    visit '/report'
+    find("#items_[value='Image']").set(true)
+    click_button 'Search'
+    expect(page).to_not have_text(record.title)
+  end
+
+  specify 'pages says what you searched' do
+    visit '/report'
+    find("#items_[value='Image']").set(true)
+    find('.form-control').set('test string')
+    click_button 'Search'
+    expect(page).to have_text('Showing Images for: "test string".')
+  end
+
+  specify 'record isnt returned if the search string doesnt match' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    record = document.records.first
+    visit '/report'
+    find("#items_[value='Image']").set(true)
+    click_button 'Search'
+    expect(page).to_not have_text(record.title)
+  end
 end
 
 
