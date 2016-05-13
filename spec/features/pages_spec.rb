@@ -21,9 +21,7 @@ describe 'Search' do
   specify 'partial title match returns a result' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    # this is because the get redirects to the home page,
-    # home page wouldnt work
-    visit '/report'
+    visit root_path
     find('.form-control').set((record.title)[2,3])
     click_button 'Search'
     expect(page).to have_text(record.title)
@@ -39,23 +37,24 @@ describe 'Search' do
   specify 'searching for a document returns a document' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    visit '/report'
+    visit root_path
     find("#items_[value='Document']").set(true)
     click_button 'Search'
     expect(page).to have_text(record.title)
   end
 
+  # this obviously applies for each type etc
   specify 'search for image doesnt return document' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    visit '/report'
+    visit root_path
     find("#items_[value='Image']").set(true)
     click_button 'Search'
     expect(page).to_not have_text(record.title)
   end
 
   specify 'pages says what you searched' do
-    visit '/report'
+    visit root_path
     find("#items_[value='Image']").set(true)
     find('.form-control').set('test string')
     click_button 'Search'
@@ -65,10 +64,18 @@ describe 'Search' do
   specify 'record isnt returned if the search string doesnt match' do
     document = FactoryGirl.create(:document, :with_approved_record)
     record = document.records.first
-    visit '/report'
-    find("#items_[value='Image']").set(true)
+    visit root_path
+    find('.form-control').set('aehafkrl;hda;ehjkajfshd;kjha;fjhaouwhao')
     click_button 'Search'
     expect(page).to_not have_text(record.title)
+  end
+
+  specify 'search only returns the most recently approved record' do
+    document = FactoryGirl.create(:document, :with_approved_record)
+    FactoryGirl.create(:record, medium: document, title: 'new title', approved: true)
+    visit search_path
+    expect(page).to have_text('new title')
+    expect(page).to_not have_text(document.records.first.title)
   end
 end
 
@@ -85,4 +92,13 @@ describe 'Contact' do
     visit contacts_path
     expect(page).to have_css('.g-recaptcha')
   end
+end
+
+describe 'Home' do
+  specify 'homepage has a picture displayed' do
+    FactoryGirl.create(:wallpaper)
+    visit root_path
+    expect(page).to have_css('.carousel-inner')
+  end
+
 end
