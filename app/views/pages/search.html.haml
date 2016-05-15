@@ -39,7 +39,7 @@
             %a{:href => "media/#{raw(item[:id])}"}
               =item[:title]
           %td
-            =item[:date]
+            =item[:date].to_s(:long) unless item[:date].nil?
           %td
             =item[:location]
           %td

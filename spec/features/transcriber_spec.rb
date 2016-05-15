@@ -9,6 +9,7 @@ describe 'Transcriber' do
   end
 
   specify 'Transcription job downloads the transcription file and attaches it to the model' do
+    # Stub requests, based on current WebASR API, if the API changes, these stubs need to change
     stub_request(:any, 'http://www.webasr.org/newupload').to_return(status: 200, body: "ses=\"1\" src=\"1\"")
     stub_request(:any, 'http://www.webasr.org/getstatus').to_return(status: 200, body: 'is: completed')
     stub_request(:any, 'http://www.webasr.org/getfile').to_return(body: IO.binread(File.join(Rails.root, '/spec/fixtures/transcription.zip')), status: 200)
