@@ -76,12 +76,15 @@
 
           - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
             .col-md-3.pull-right#moderator-login
+              = link_to 'User Manual', user_manual_path
               = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
                 %i.fa.fa-sign-out
                 Moderator Logout
           - elsif mod_signed_in?
             .col-md-3.pull-right#moderator-login
+              = link_to 'User Manual', user_manual_path
               %a.pull-right{:href => "/modpanel"} Moderator Controls
           - else
             .col-md-3.pull-right#moderator-login
+              = link_to 'User Manual', user_manual_path
               %a.pull-right{:href => "/modpanel"} Moderator Login

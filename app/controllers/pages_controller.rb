@@ -70,7 +70,7 @@ class PagesController < ApplicationController
           <tr>
             <th>Date: </th>
               <td>
-                #{thing.ref_date}
+                #{thing.ref_date.to_s(:long) unless thing.ref_date.nil?}
               </td>
           </tr>
           <tr>
@@ -168,6 +168,13 @@ class PagesController < ApplicationController
                               :date => records[x].ref_date, :location => records[x].location,
                               :type => (Medium.where(:id => records[x].medium_id)).first.class.name})
     end
+  end
+
+  def user_manual
+    send_file(
+        "#{Rails.root}/public/UserManual.pdf",
+        type: 'application/pdf'
+    )
   end
 
   private
