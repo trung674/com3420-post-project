@@ -12,6 +12,7 @@ The system has the following:
 
 
 ### Deployment
+WE RECOMMEND USING HEROKU OR A UNIX BASED WEB SERVER
 * Unzip the zip file in the server's public folder (usually it is “public_html”), or if using a remote service, unzip the file on your computer and upload the individual files and folders to the public folder
 * In config/, copy either database_sample_sqlite.yml (if you’re using a sqlite database) or database_sample_pg.yml (if you’re using a postgres database) and rename it to database.yml
     * SQLite will be automatically set up for you, but if you wish to use postgres for a more powerful database (important if you think you will have a lot of traffic) you can download it here: http://www.postgresql.org/ and follow their setup guide
