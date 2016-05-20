@@ -7,7 +7,8 @@ Website for the archiving and management of oral history & files for the South Y
 ### Significant Features/Technology
 The system has the following:
 
-* Another one...
+* Back end that links up with The University of Sheffield's WebASR which transcribes audio recordings.
+* Slick UI that was built with a focus on user accessibility.
 
 
 ### Deployment
