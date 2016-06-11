@@ -12,6 +12,14 @@
       %h3
         %small
           Click on a marker to see a memory
+    %input{:onclick => "selectBox(\"rec\")", :type => "checkbox", :id => "rec_cb", :checked => true}
+    %label{:for => "rec_cb"} Recordings
+    %input{:onclick => "selectBox(\"doc\")", :type => "checkbox", :id => "doc_cb", :checked => true}
+    %label{:for => "doc_cb"} Document
+    %input{:onclick => "selectBox(\"img\")", :type => "checkbox", :id => "img_cb", :checked => true}
+    %label{:for => "img_cb"} Images
+    %input{:onclick => "selectBox(\"txt\")", :type => "checkbox", :id => "txt_cb", :checked => true}
+    %label{:for => "text_cb"} Text
 
   // Map
   .col-md-12
@@ -24,6 +32,44 @@
 
 :javascript
     //This js is required, every other map was dreadful.
+    var markers= #{marker_json};
+    var map;
+    //This is so that the map can be filtered.
+
+    function selectBox(a) {
+      var returnMarkers = [];
+      if (document.getElementById("rec_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+          if (markers[i].type == "Recording"){
+            returnMarkers.push(markers[i]);
+          }
+        }
+      }
+      if (document.getElementById("doc_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+          if (markers[i].type == "Document"){
+           returnMarkers.push(markers[i]);
+          }
+        }
+      }
+      if (document.getElementById("img_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+          if (markers[i].type == "Image"){
+            returnMarkers.push(markers[i]);
+          }
+        }
+      }
+      if (document.getElementById("txt_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+          if (markers[i].type == "Text"){
+            returnMarkers.push(markers[i]);
+          }
+        }
+      }
+      map.removeMarkers();
+      map.addMarkers(returnMarkers);
+    }
+
     $(document).ready( function() {
       map = new GMaps({
           el: '#map',
@@ -32,5 +78,9 @@
           zoom: 13,
       });
       //This adds listeners to each marker
-      var markers = map.addMarkers(#{marker_json});
+      var x = map.addMarkers(#{marker_json});
     });
+
+
+
+
