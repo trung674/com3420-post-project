@@ -21,6 +21,15 @@
     %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'txt_cb', :checked => true}
     %label{:for => "text_cb"} Text
 
+    %br
+    %label{:for => 'date_t'} Date:
+    %input.datepicker{label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, :id => 'date_t'}
+    %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'before', :checked => true}
+    %label{:for => 'before'} Before
+    %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'after', :checked => true}
+    %label{:for => 'after'} After
+
+
   // Map
   .col-md-12
     %div.panel.panel-default
@@ -32,7 +41,13 @@
 
 :javascript
     //This js is required, every other map was dreadful.
-    var markers= #{marker_json};
+
+    $(function() {
+      $('input.datepicker').data({behaviour: "datepicker"}).datepicker({
+        format: "dd/mm/yyyy"
+      });
+    });
+
     var map;
     //This is so that the map can be filtered.
 
@@ -80,6 +95,10 @@
       //This adds listeners to each marker
       var x = map.addMarkers(#{marker_json});
     });
+
+    var markers= #{marker_json};
+
+
 
 
 

@@ -1,6 +1,6 @@
 //= require underscore
 //= require gmaps
-
+//= require bootstrap-datepicker
 
 //This is the helper function for the click event on the map.
 //Removes old marker and adds a new one.
