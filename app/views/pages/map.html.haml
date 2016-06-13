@@ -23,12 +23,11 @@
 
     %br
     %label{:for => 'date_t'} Date:
-    %input.datepicker{label: 'Date', placeholder: 'dd/mm/yyyy', as: :string, :id => 'date_t'}
+    %input.datepicker{:onclick=>'dateFilter()',label: 'Date', placeholder: 'dd-mm-yyyy', as: :string, :id => 'date_t'}
     %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'before', :checked => true}
     %label{:for => 'before'} Before
     %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'after', :checked => true}
     %label{:for => 'after'} After
-
 
   // Map
   .col-md-12
@@ -39,18 +38,59 @@
 
         -marker_json = @lat_lng.to_json
 
+
+  -#  todo add button that triggers dateFilter and selectBox
+
 :javascript
     //This js is required, every other map was dreadful.
 
-    $(function() {
-      $('input.datepicker').data({behaviour: "datepicker"}).datepicker({
-        format: "dd/mm/yyyy"
-      });
-    });
+
 
     var map;
-    //This is so that the map can be filtered.
 
+
+    //This filters the map by date
+    function dateFilter() {
+      var returnMarkers = []
+      if (document.getElementById("before").checked && !document.getElementById("after").checked){
+        for (i = 0; i < markers.length; i++) {
+          if (new Date(markers[i].date) < new Date(document.getElementById("date_t").value)){
+            returnMarkers.push(markers[i]);
+          }
+         }
+      } else if (document.getElementById("after").checked && !document.getElementById("before").checked){
+        for (i = 0; i < markers.length; i++) {
+            if (new Date(markers[i].date) > new Date(document.getElementById("date_t").value)){
+              returnMarkers.push(markers[i]);
+            }
+         }
+      } else if (!document.getElementById("before").checked && !document.getElementById("after").checked) {
+        for (i = 0; i < markers.length; i++) {
+            if (new Date(markers[i].date) == new Date(document.getElementById("date_t").value)){
+              returnMarkers.push(markers[i]);
+            }
+         }
+      } else {
+        returnMarkers = markers
+      }
+      map.removeMarkers();
+      map.addMarkers(returnMarkers);
+    }
+
+    $(function() {
+      $('input.datepicker').data({behaviour: "datepicker"}).datepicker({
+        format: "yyyy-mm-dd",
+        onSelect: function(date) {
+          dateFilter();
+        },
+        onClose: function(date) {
+          dateFilter();
+        }
+      });
+
+    });
+
+    //This filters by type
     function selectBox() {
       var returnMarkers = [];
       if (document.getElementById("rec_cb").checked) {

@@ -54,7 +54,7 @@ class PagesController < ApplicationController
     records.each do |thing|
       #this check for the 'people' who didnt manage to click on the map when uploading
       if thing.latitude
-        @lat_lng.append({type: thing.medium.class.name, lat: thing.latitude, lng: thing.longitude, infoWindow: {
+        @lat_lng.append({date: thing.ref_date, type: thing.medium.class.name, lat: thing.latitude, lng: thing.longitude, infoWindow: {
             # this ugly html is for the infoWindow, you can put anything in there.
             # for exaample relevant images.
             content: "<table>
