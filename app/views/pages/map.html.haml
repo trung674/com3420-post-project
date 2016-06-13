@@ -12,13 +12,13 @@
       %h3
         %small
           Click on a marker to see a memory
-    %input{:onclick => "selectBox(\"rec\")", :type => "checkbox", :id => "rec_cb", :checked => true}
+    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'rec_cb', :checked => true}
     %label{:for => "rec_cb"} Recordings
-    %input{:onclick => "selectBox(\"doc\")", :type => "checkbox", :id => "doc_cb", :checked => true}
+    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'doc_cb', :checked => true}
     %label{:for => "doc_cb"} Document
-    %input{:onclick => "selectBox(\"img\")", :type => "checkbox", :id => "img_cb", :checked => true}
+    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'img_cb', :checked => true}
     %label{:for => "img_cb"} Images
-    %input{:onclick => "selectBox(\"txt\")", :type => "checkbox", :id => "txt_cb", :checked => true}
+    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'txt_cb', :checked => true}
     %label{:for => "text_cb"} Text
 
   // Map
@@ -36,7 +36,7 @@
     var map;
     //This is so that the map can be filtered.
 
-    function selectBox(a) {
+    function selectBox() {
       var returnMarkers = [];
       if (document.getElementById("rec_cb").checked) {
         for (i = 0; i < markers.length; i++) {
