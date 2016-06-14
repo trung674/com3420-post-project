@@ -12,22 +12,25 @@
       %h3
         %small
           Click on a marker to see a memory
-    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'rec_cb', :checked => true}
-    %label{:for => "rec_cb"} Recordings
-    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'doc_cb', :checked => true}
-    %label{:for => "doc_cb"} Document
-    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'img_cb', :checked => true}
-    %label{:for => "img_cb"} Images
-    %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'txt_cb', :checked => true}
-    %label{:for => "text_cb"} Text
+      %h3
+        %small
+          Filter the map using the settings below
+      %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'rec_cb', :checked => true}
+      %label{:for => "rec_cb"} Recordings
+      %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'doc_cb', :checked => true}
+      %label{:for => "doc_cb"} Document
+      %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'img_cb', :checked => true}
+      %label{:for => "img_cb"} Images
+      %input{:onclick => 'selectBox()', :type => 'checkbox', :id => 'txt_cb', :checked => true}
+      %label{:for => "text_cb"} Text
 
-    %br
-    %label{:for => 'date_t'} Date:
-    %input.datepicker{:onclick=>'dateFilter()',label: 'Date', placeholder: 'dd-mm-yyyy', as: :string, :id => 'date_t'}
-    %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'before', :checked => true}
-    %label{:for => 'before'} Before
-    %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'after', :checked => true}
-    %label{:for => 'after'} After
+      %br
+      %label{:for => 'date_t'} Date:
+      %input.datepicker{:onclick=>'dateFilter()',label: 'Date', placeholder: 'dd-mm-yyyy', as: :string, :id => 'date_t'}
+      %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'before', :checked => false}
+      %label{:for => 'before'} Before
+      %input{:onclick => 'dateFilter()', :type => 'checkbox', :id => 'after', :checked => false}
+      %label{:for => 'after'} After
 
   // Map
   .col-md-12
@@ -39,42 +42,42 @@
         -marker_json = @lat_lng.to_json
 
 
-  -#  todo add button that triggers dateFilter and selectBox
-
 :javascript
-    //This js is required, every other map was dreadful.
-
 
 
     var map;
 
-
     //This filters the map by date
     function dateFilter() {
       var returnMarkers = []
-      if (document.getElementById("before").checked && !document.getElementById("after").checked){
-        for (i = 0; i < markers.length; i++) {
-          if (new Date(markers[i].date) < new Date(document.getElementById("date_t").value)){
-            returnMarkers.push(markers[i]);
-          }
-         }
-      } else if (document.getElementById("after").checked && !document.getElementById("before").checked){
-        for (i = 0; i < markers.length; i++) {
-            if (new Date(markers[i].date) > new Date(document.getElementById("date_t").value)){
+      if (document.getElementById("date_t").value != "") {
+        if (document.getElementById("before").checked && !document.getElementById("after").checked){
+          for (i = 0; i < markers.length; i++) {
+            if (markers[i].date != "" && new Date(markers[i].date) < new Date(document.getElementById("date_t").value)){
               returnMarkers.push(markers[i]);
+              console.log("bants");
             }
-         }
-      } else if (!document.getElementById("before").checked && !document.getElementById("after").checked) {
-        for (i = 0; i < markers.length; i++) {
-            if (new Date(markers[i].date) == new Date(document.getElementById("date_t").value)){
-              returnMarkers.push(markers[i]);
-            }
-         }
-      } else {
-        returnMarkers = markers
+           }
+        } else if (document.getElementById("after").checked && !document.getElementById("before").checked){
+          for (i = 0; i < markers.length; i++) {
+              if (markers[i].date != "" && new Date(markers[i].date) > new Date(document.getElementById("date_t").value)){
+                returnMarkers.push(markers[i]);
+                console.log("shit");
+              }
+           }
+        } else if (!document.getElementById("before").checked && !document.getElementById("after").checked) {
+          for (i = 0; i < markers.length; i++) {
+              if (markers[i].date != "" && new Date(markers[i].date) == new Date(document.getElementById("date_t").value)){
+                returnMarkers.push(markers[i]);
+                console.log("willy");
+              }
+           }
+        } else {
+          returnMarkers = markers
+        }
+        map.removeMarkers();
+        map.addMarkers(returnMarkers);
       }
-      map.removeMarkers();
-      map.addMarkers(returnMarkers);
     }
 
     $(function() {
@@ -84,6 +87,13 @@
           dateFilter();
         },
         onClose: function(date) {
+          dateFilter();
+        },
+        onClick: function(date) {
+        $('before').prop('checked', false);
+        $('after').prop('checked', false);
+        },
+        onChange: function(date) {
           dateFilter();
         }
       });
@@ -125,6 +135,7 @@
       map.addMarkers(returnMarkers);
     }
 
+    //This js is required, every other map was dreadful.
     $(document).ready( function() {
       map = new GMaps({
           el: '#map',
