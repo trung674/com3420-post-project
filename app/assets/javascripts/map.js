@@ -32,3 +32,88 @@ function placeMarker(latLng){
     $("#latitude-input").val(latLng.lat());
     $("#longitude-input").val(latLng.lng());
 }
+
+//This filters the map by date
+function dateFilter() {
+    var returnMarkers = []
+    if (document.getElementById("date_t").value != "") {
+        if (document.getElementById("before").checked && !document.getElementById("after").checked){
+            for (i = 0; i < markers.length; i++) {
+                if (markers[i].date != "" && new Date(markers[i].date) < new Date(document.getElementById("date_t").value)){
+                    returnMarkers.push(markers[i]);
+                }
+            }
+        } else if (document.getElementById("after").checked && !document.getElementById("before").checked){
+            for (i = 0; i < markers.length; i++) {
+                if (markers[i].date != "" && new Date(markers[i].date) > new Date(document.getElementById("date_t").value)){
+                    returnMarkers.push(markers[i]);
+                }
+            }
+        } else if (!document.getElementById("before").checked && !document.getElementById("after").checked) {
+            for (i = 0; i < markers.length; i++) {
+                if (markers[i].date != "" && new Date(markers[i].date) == new Date(document.getElementById("date_t").value)){
+                    returnMarkers.push(markers[i]);
+                }
+            }
+        } else {
+            returnMarkers = markers
+        }
+        map.removeMarkers();
+        map.addMarkers(returnMarkers);
+    }
+}
+
+$(function() {
+    $('input.datepicker').data({behaviour: "datepicker"}).datepicker({
+        format: "yyyy-mm-dd",
+        onSelect: function(date) {
+            dateFilter();
+        },
+        onClose: function(date) {
+            dateFilter();
+        },
+        onClick: function(date) {
+            $('before').prop('checked', false);
+            $('after').prop('checked', false);
+        },
+        onChange: function(date) {
+            dateFilter();
+        }
+    });
+
+});
+
+//This filters by type
+function selectBox() {
+    var returnMarkers = [];
+    if (document.getElementById("rec_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+            if (markers[i].type == "Recording"){
+                returnMarkers.push(markers[i]);
+            }
+        }
+    }
+    if (document.getElementById("doc_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+            if (markers[i].type == "Document"){
+                returnMarkers.push(markers[i]);
+            }
+        }
+    }
+    if (document.getElementById("img_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+            if (markers[i].type == "Image"){
+                returnMarkers.push(markers[i]);
+            }
+        }
+    }
+    if (document.getElementById("txt_cb").checked) {
+        for (i = 0; i < markers.length; i++) {
+            if (markers[i].type == "Text"){
+                returnMarkers.push(markers[i]);
+            }
+        }
+    }
+    map.removeMarkers();
+    map.addMarkers(returnMarkers);
+}
