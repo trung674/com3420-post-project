@@ -12,14 +12,16 @@
 @import "custom_flash.sass"
 @import "wallpapers.sass"
 
-body
+//body
   background-image: image-url("background.png")
 
 a
   text-decoration: none !important
 
 // Change color of navbar
-.navbar-default
+
+
+//.navbar-default
   background-color: $bgDefault
   border-color: $bgHighlight
   .navbar-brand
@@ -72,7 +74,7 @@ a
     &:hover
       color: $colHighlight
 
-@media (max-width: 767px)
+//@media (max-width: 767px)
   .navbar-default .navbar-nav .open .dropdown-menu
     > li > a
       color: $colDefault
@@ -83,15 +85,27 @@ a
         color: $colHighlight
         background-color: $bgHighlight
 
-@media (min-width: 1200px)
+//@media (min-width: 1200px)
   .navbar, .navbar-header, .navbar-collapse
     min-height: 30px !important
     height: 52px
     margin-bottom: 0
 
-#main-container
+//#main-container
   padding: 0
   width: 55%
+
+// Change container default size (970px)
+//@media (min-width: 1200px)
+  .container
+    max-width: 900px
+
+//Main-panel
+.main-panel
+  @extend .panel-info
+  margin-top: 10px
+  border-radius: 0 !important
+
 
 .carousel, .carousel-inner, .item
   height: 550px
@@ -132,10 +146,6 @@ a
       opacity: 1
       -webkit-transform: translate3d(0, 0, 0)
       transform: translate3d(0, 0, 0)
-
-.custom-panel
-  padding: 10px 25px
-  background-color: white
 
 .input-group
   width: 100%

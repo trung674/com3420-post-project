@@ -1,87 +1,92 @@
 - content_for :title, "Home"
 
-// Image slider
-- if @wallpapers.exists?
-  .carousel.slide.carousel-fade{:id=>"wallpapers", :data => {:ride => "carousel"}}
-    .carousel-inner
-      - @wallpapers.each_with_index do |wallpaper, index|
-        .item{ class: "#{ "active" if index == 0 }"}
-          = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
-          .carousel-caption
-            %h3= wallpaper.description
-
-// Main body
-// Welcome
 .row
-  .col-md-12
-    .page-header
-      %h1 Welcome To Village Memories Group Website
-  .col-md-12
-    -# Editable content
-    %div.mercury-region#description_content{ data: { mercury: 'full' } }
-      =raw @homepage_description.content unless @homepage_description.nil?
+  .col-md-8
+    .row
+      // Image slider
+      .col-md-12
+        - if @wallpapers.exists?
+          .carousel.slide.carousel-fade{:id=>"wallpapers", :data => {:ride => "carousel"}}
+            .carousel-inner
+              - @wallpapers.each_with_index do |wallpaper, index|
+                .item{ class: "#{ "active" if index == 0 }"}
+                  = image_tag(wallpaper.image.url, alt: "#{wallpaper.image.file.identifier}")
+                  .carousel-caption
+                    - unless wallpaper.description.nil?
+                      %h3= wallpaper.description
 
-    - if mod_signed_in?
-      = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
-%br
+            // Left and right controls
+            %a.left.carousel-control{"data-slide" => "prev", :href => "#wallpapers", :role => "button"}
+              %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+              %span.sr-only Previous
+            %a.right.carousel-control{"data-slide" => "next", :href => "#wallpapers", :role => "button"}
+              %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+              %span.sr-only Next
 
-// Search bar
-.row
-  .col-md-12
-    .page-header
-      %h2 Find What You Need Here
-  .col-md-12.col-md-offset-1
-    = form_tag(search_path, method: "get", id: "search-bar") do
-      .form-group.form-inline
-        .input-group
-          = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
-          %span.input-group-btn
-            = submit_tag("Search", :class => "btn btn-primary" )
-      = check_box_tag("items[]", "Recording", false)
-      = label_tag(:age_adult, "Recording")
-      = check_box_tag("items[]", "Document",  false)
-      = label_tag(:age_child, "Document")
-      = check_box_tag("items[]", "Image",  false)
-      = label_tag(:age_child, "Image")
-      = check_box_tag("items[]", "Text",  false)
-      = label_tag(:age_adult, "Text")
+      .col-md-12
+        .panel.main-panel
+          .panel-heading
+            %h4 Welcome To Village Memories Group Website
+          .panel-body
+            // Editable content
+            %div.mercury-region#description_content{ data: { mercury: 'full' } }
+              =raw @homepage_description.content unless @homepage_description.nil?
 
-%br
-// Recent Activities
-.row
-  .col-md-12
-    .page-header
-      %h2 Recent Activities
+            - if mod_signed_in?
+              = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
 
-  // Newest 5 uploads, may be null if there are 5 recent unapproved uploads
-  .col-md-6
-    .panel.panel-info
-      .panel-heading
-        %h4 Newest Uploads
-        -# With reverse, newest upload will be at the top of the
-        -#pointless^
-        -ids = Medium.ids.last(5).reverse
-        -results = []
-        -ids.each do |id|
-          -#no need to check if first is null because a medium is never deleted, only
-          -#its associated record.
-          -result = Medium.where(:id=>id).first.latest_approved_record
-          -if result
-            -results.append(result)
-      - if results.length > 0
-        %table.table.table-bordered
-          %tr
-            %th Title
-            %th Type
-          -results.each do |item|
-            %tr
-              %td
-                %a{:href => "media/#{raw(item[:medium_id])}"}
-                  =item.title
-              %td
-                = Medium.where(:id => item.medium_id).first.class.name
-      - else
-        .panel-body
-          %p There are currently no uploads
-  .col-md-6
-    = render 'events/list', :events => @events
+
+  .col-md-4
+    .row
+      .col-md-12
+        .panel.main-panel
+          .panel-heading
+            %h4 Search our archive
+          .panel-body
+            = form_tag(search_path, method: "get", id: "search-bar", class: "form-group") do
+              .input-group
+                = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
+                %span.input-group-btn
+                  = submit_tag("Search", :class => "btn btn-primary" )
+              %br
+              = check_box_tag("items[]", "Recording", false)
+              = label_tag(:age_adult, "Recording")
+              = check_box_tag("items[]", "Document",  false)
+              = label_tag(:age_child, "Document")
+              = check_box_tag("items[]", "Image",  false)
+              = label_tag(:age_child, "Image")
+              = check_box_tag("items[]", "Text",  false)
+              = label_tag(:age_adult, "Text")
+
+      .col-md-12
+        .panel.panel-info
+          .panel-heading
+            %h4 Newest Uploads
+            -# With reverse, newest upload will be at the top of the
+            -#pointless^
+            -ids = Medium.ids.last(5).reverse
+            -results = []
+            -ids.each do |id|
+              -#no need to check if first is null because a medium is never deleted, only
+              -#its associated record.
+              -result = Medium.where(:id=>id).first.latest_approved_record
+              -if result
+                -results.append(result)
+          - if results.length > 0
+            %table.table.table-bordered
+              %tr
+                %th Title
+                %th Type
+              -results.each do |item|
+                %tr
+                  %td
+                    %a{:href => "media/#{raw(item[:medium_id])}"}
+                      =item.title
+                  %td
+                    = Medium.where(:id => item.medium_id).first.class.name
+          - else
+            .panel-body
+              %p There are currently no uploads
+
+      .col-md-12
+        = render 'events/list', :events => @events

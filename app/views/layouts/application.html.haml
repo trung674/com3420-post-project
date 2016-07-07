@@ -44,28 +44,21 @@
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
             = navbar_link_to root_path, title: "Go to the home page", identifier: :X do
-              = fa_icon 'home'
               Home
             = navbar_link_to upload_path, title: "Go to the upload page", identifier: :X do
-              = fa_icon 'upload'
               Upload
             = navbar_link_to about_path, title: "Go to the about page", identifier: :X do
-              = fa_icon 'university'
               About
-            = navbar_link_to '/events', title: "Go to the event page", identifier: :X do
-              = fa_icon 'child'
+            = navbar_link_to events_path, title: "Go to the event page", identifier: :X do
               Events
             = navbar_link_to map_path, title: "Go to the map page", identifier: :X do
-              = fa_icon 'map-marker'
               Map
             = navbar_link_to contacts_path, title: "Go to the contact page", identifier: :X do
-              = fa_icon 'envelope'
               Contact
 
     // Main Body
     .container#main-container
-      .custom-panel
-        = yield
+      = yield
 
       // Footer
       %hr
@@ -76,15 +69,12 @@
 
           - if mod_signed_in? && (request.path == "/modpanel" || request.path == "/modlist")
             .col-md-3.pull-right#moderator-login
-              = link_to 'User Manual', user_manual_path
               = link_to destroy_mod_session_path, method: :delete, class: "pull-right", title: "Log out" do
                 %i.fa.fa-sign-out
                 Moderator Logout
           - elsif mod_signed_in?
             .col-md-3.pull-right#moderator-login
-              = link_to 'User Manual', user_manual_path
               %a.pull-right{:href => "/modpanel"} Moderator Controls
           - else
             .col-md-3.pull-right#moderator-login
-              = link_to 'User Manual', user_manual_path
               %a.pull-right{:href => "/modpanel"} Moderator Login
