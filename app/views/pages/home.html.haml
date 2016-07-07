@@ -24,10 +24,12 @@
               %span.sr-only Next
 
       .col-md-12
-        .panel.main-panel
-          .panel-heading
-            %h4 Welcome To Village Memories Group Website
-          .panel-body
+        .row
+          .col-md-12
+            .page-header
+              %h3 Welcome To Village Memories Group Website
+
+          .col-md-12
             // Editable content
             %div.mercury-region#description_content{ data: { mercury: 'full' } }
               =raw @homepage_description.content unless @homepage_description.nil?
@@ -35,14 +37,13 @@
             - if mod_signed_in?
               = link_to "Edit Page", "/editor" + request.path, class: "pull-right", id: "edit_link", data: {save_url: mercury_update_homepage_page_path(@homepage_description)}
 
-
   .col-md-4
     .row
       .col-md-12
-        .panel.main-panel
-          .panel-heading
-            %h4 Search our archive
-          .panel-body
+        .row
+          .col-md-12
+            .page-header
+              %h4 Search our archive
             = form_tag(search_path, method: "get", id: "search-bar", class: "form-group") do
               .input-group
                 = text_field_tag(:search, params[:search], :class => "form-control", :placeholder => "Search here!")
@@ -50,11 +51,11 @@
                   = submit_tag("Search", :class => "btn btn-primary" )
               %br
               = check_box_tag("items[]", "Recording", false)
-              = label_tag(:age_adult, "Recording")
+              = label_tag(:age_adult, "Recording", class: "search-input")
               = check_box_tag("items[]", "Document",  false)
-              = label_tag(:age_child, "Document")
+              = label_tag(:age_child, "Document", class: "search-input")
               = check_box_tag("items[]", "Image",  false)
-              = label_tag(:age_child, "Image")
+              = label_tag(:age_child, "Image", class: "search-input")
               = check_box_tag("items[]", "Text",  false)
               = label_tag(:age_adult, "Text")
 
