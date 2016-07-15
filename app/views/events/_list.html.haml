@@ -1,24 +1,24 @@
 // list of event
-.panel.panel-info
-  .panel-heading
-    .row
-      .col-md-6
-        %h4 Upcoming Events
-      .col-md-6
-        %h5
-          = link_to "See full list of events", events_path, class: "pull-right"
+.row
+  .col-md-12
+    .page-header
+      %h3 Upcoming Events
 
-  - if !events.empty?
-    %table.table.table-bordered
-      %tr
-        %th{:width => "69%"} Name
-        %th{:width => "31%"} Date
-      - events.each do |event|
+    - if !events.empty?
+      %table.table
+        %tr
+          %th{:width => "69%"} Name
+          %th{:width => "31%"} Date
+        - events.each do |event|
+          %tr
+            %td
+              = link_to event.title, :controller => "events", :action => "show", :id => event.id
+            %td
+              = event.date.strftime("%d/%m/%Y")
         %tr
           %td
-            = link_to event.title, :controller => "events", :action => "show", :id => event.id
           %td
-            = event.date.to_s(:long)
-  - else
-    .panel-body
+            %h5
+              = link_to "More events", events_path
+    - else
       %p There are no upcoming events at the moment
